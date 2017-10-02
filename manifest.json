@@ -2,6 +2,9 @@
   "manifest_version": 2,
   "name": "Notes for YouTube",
   "version": "0.1",
+  "page_action": {
+
+  },
   "content_scripts": [
     {
       "matches": [
