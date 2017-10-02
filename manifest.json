@@ -2,16 +2,12 @@
   "manifest_version": 2,
   "name": "Notes for YouTube",
   "version": "0.1",
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
   "page_action": {
     "default_icon": "test.png",
-    // the default_title shows up on every page, not just URLs with "youtube" -- fix
     "default_title": "This is a Youtube video!"
   },
-  "permissions" : [
+  "permissions": [
+    "activeTab",
     "declarativeContent"
   ],
   "content_scripts": [
@@ -24,5 +20,10 @@
         "content.js"
       ]
     }
-  ]
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
 }
