@@ -4,11 +4,12 @@
   "version": "0.1",
   "page_action": {
     "default_icon": "test.png",
-    "default_title": "This is a Youtube video!"
+    "default_popup": "./popup/popup.html",
+    "default_title": "Notes for YouTube!"
   },
   "permissions": [
     "activeTab",
-    "declarativeContent"
+    "declarativeContent"   
   ],
   "content_scripts": [
     {
@@ -25,5 +26,5 @@
     "scripts": [
       "background.js"
     ]
-  },
+  }
 }
