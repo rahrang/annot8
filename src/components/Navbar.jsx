@@ -6,15 +6,24 @@ import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
+import Input from './Input.jsx';
+
 export default class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    let { history } = this.props;
     return (
       <div id="navbar-container" className={css(styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
           <Link to="/" className={css(styles.headerLink)}>
             <h1 className={css(styles.header)}>Notes For YouTube</h1>
           </Link>
-          <div className={css(styles.inputContainer)} />
+          <div className={css(styles.container)}>
+            <Input mainInput={false} history={history} />
+          </div>
         </div>
       </div>
     );
@@ -51,12 +60,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
 
-  inputContainer: {
-    color: '#F5F5F5',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    fontFamily: 'Muli, sans-serif',
+  container: {
     padding: '0 20px 0 0'
   },
 

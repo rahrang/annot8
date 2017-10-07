@@ -10,6 +10,9 @@ import * as _ from 'lodash';
 export default class Input extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: false
+    };
   }
 
   handleKeyPress = e => {
@@ -23,17 +26,20 @@ export default class Input extends React.Component {
       let splitArr = inputVal.split('watch?v=');
       return splitArr[1];
     } else {
-      return inputVal;
+      this.setState({ error: true });
     }
   };
 
   handleClick = () => {
     let videoId = this.sanitizeLink(this.refs.input.value);
+    if (_.isNull(videoId)) {
+      return;
+    }
     this.props.history.push(`/video/${videoId}`);
   };
 
   render() {
-    let { mainInput } = this.props;
+    let { mainInput, placeholder } = this.props;
 
     return (
       <div
@@ -45,7 +51,11 @@ export default class Input extends React.Component {
       >
         <input
           className={css(styles.input)}
-          placeholder="Enter a YouTube link to begin!"
+          placeholder={
+            placeholder
+              ? placeholder
+              : 'Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+          }
           type="text"
           ref="input"
         />
@@ -68,24 +78,26 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: '5px 0'
   },
 
   mainInput: {
+    fontSize: '1.125em',
     height: '40px',
     width: '500px'
   },
 
   cornerInput: {
-    height: '30px',
-    width: '100px'
+    fontSize: '0.9em',
+    height: '25px',
+    width: '400px'
   },
 
   input: {
     color: '#666',
     border: 'none',
     fontFamily: 'Open Sans, sans-serif',
-    fontSize: '1em',
     outline: 'none',
     padding: '5px 10px',
     height: '100%',
@@ -97,15 +109,15 @@ const styles = StyleSheet.create({
     color: '#F5F5F5',
     height: '50px',
     width: '150px',
-    fontSize: '1em',
-    textTransform: 'uppercase'
+    fontSize: '1em'
   },
 
   cornerButton: {
     backgroundColor: '#F5F5F5',
     color: '#3F7BA9',
-    height: '40px',
-    fontSize: '0.85em'
+    height: '35px',
+    width: '100px',
+    fontSize: '0.9em'
   },
 
   button: {
@@ -113,8 +125,9 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
     fontFamily: 'Open Sans, sans-serif',
     outline: 'none',
+    textTransform: 'uppercase',
     ':hover': {
-      opacity: 0.5
+      opacity: 0.75
     }
   }
 });

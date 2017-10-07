@@ -29,7 +29,11 @@ class Home extends React.Component {
           {' '}
           Please enter a YouTube link to begin!
         </p>
-        <Input mainInput={true} history={history} />
+        <Input
+          mainInput={true}
+          history={history}
+          placeholder="Enter a YouTube link!"
+        />
       </div>
     );
   }
