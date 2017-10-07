@@ -15,6 +15,7 @@ export default class YouTubePlayer extends React.Component {
       height: '500',
       width: '800',
       playerVars: {
+        autoplay: 1,
         cc_load_policy: 0,
         // color: 'white',
         modestbranding: 1, // removes the YouTube icon in the controls bar
