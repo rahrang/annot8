@@ -5,6 +5,7 @@
   "homepage": "https://rahrang.github.io/notes-for-youtube",
   "dependencies": {
     "aphrodite": "^1.2.4",
+    "express": "^4.16.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
