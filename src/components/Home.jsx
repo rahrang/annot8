@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
 // NPM Modules
-import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
@@ -26,7 +25,6 @@ class Home extends React.Component {
       <div className={css(styles.homeContainer, styles.fadeIn)}>
         <h2 className={css(styles.header)}> Welcome!</h2>
         <p className={css(styles.text)}>
-          {' '}
           Please enter a YouTube link to begin!
         </p>
         <Input
@@ -69,5 +67,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans, sans-serif',
     fontSize: '1.5em',
     fontWeight: 'bold'
+  },
+
+  fadeIn: {
+    animationName: fadeIn,
+    animationDuration: '1s'
   }
 });

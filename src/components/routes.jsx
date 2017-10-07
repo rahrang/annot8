@@ -10,7 +10,6 @@ import { withRouter } from 'react-router';
 
 // NPM Modules
 import { StyleSheet, css } from 'aphrodite';
-import * as _ from 'lodash';
 
 // Actions
 import { MainActions } from '../actions/main-actions';

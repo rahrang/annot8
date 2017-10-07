@@ -11,7 +11,8 @@ export default class Input extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: false
+      error: false,
+      value: ''
     };
   }
 
@@ -26,11 +27,16 @@ export default class Input extends React.Component {
       let splitArr = inputVal.split('watch?v=');
       return splitArr[1];
     } else {
-      this.setState({ error: true });
+      this.setState({
+        error: true,
+        value: ''
+      });
+      return null;
     }
   };
 
   handleClick = () => {
+    this.setState({ error: false });
     let videoId = this.sanitizeLink(this.refs.input.value);
     if (_.isNull(videoId)) {
       return;
@@ -40,6 +46,7 @@ export default class Input extends React.Component {
 
   render() {
     let { mainInput, placeholder } = this.props;
+    let { error, value } = this.state;
 
     return (
       <div
@@ -51,6 +58,7 @@ export default class Input extends React.Component {
       >
         <input
           className={css(styles.input)}
+          onChange={e => this.setState({ value: e.target.value })}
           placeholder={
             placeholder
               ? placeholder
@@ -58,6 +66,8 @@ export default class Input extends React.Component {
           }
           type="text"
           ref="input"
+          value={value}
+          onKeyPress={e => this.handleKeyPress(e)}
         />
         <button
           className={css(
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
     color: '#F5F5F5',
     height: '50px',
     width: '150px',
-    fontSize: '1em'
+    fontSize: '1.125em'
   },
 
   cornerButton: {
@@ -117,13 +127,16 @@ const styles = StyleSheet.create({
     color: '#3F7BA9',
     height: '35px',
     width: '100px',
-    fontSize: '0.9em'
+    fontSize: '1em'
   },
 
   button: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     border: 'none',
     cursor: 'pointer',
-    fontFamily: 'Open Sans, sans-serif',
+    fontFamily: 'Fjalla One, sans-serif',
     outline: 'none',
     textTransform: 'uppercase',
     ':hover': {

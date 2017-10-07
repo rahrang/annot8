@@ -9,10 +9,6 @@ import { fadeIn } from 'react-animations';
 import Input from './Input.jsx';
 
 export default class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let { history } = this.props;
     return (
