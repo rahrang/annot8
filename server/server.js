@@ -24,7 +24,9 @@ app.use(bodyParser.json());
 
 // Create a Post
 app.post('/posts', (req, res) => {
+    
     console.log(req.body);
+    
     let post = new Post({
         videoId: req.body.videoId,
         userId: req.body.userId,
@@ -35,8 +37,10 @@ app.post('/posts', (req, res) => {
         res.send(doc);
     }, (err) => {
         res.status(400).send(err);
-    })
+    });
 });
+
+app.get('/posts', (req, res) => {});
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', (req, res) => {
@@ -49,3 +53,6 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+
+module.exports = { app };

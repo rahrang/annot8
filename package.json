@@ -20,6 +20,12 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
+    "test": "mocha server/**/*.test.js"
+  },
+  "devDependencies": {
+    "expect": "^21.2.1",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   }
 }
