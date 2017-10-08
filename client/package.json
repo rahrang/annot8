@@ -16,14 +16,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
   "scripts": {
-    "precommit": "lint-staged",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",

@@ -1,23 +1,51 @@
+// NPM Modules
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
+
+// Local imports
+var { mongoose } = require('./db/mongoose.js');
+var { Post } = require('./models/post.js');
+var { User } = require('./models/user.js');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+/*** Middleware ***/
+
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-// Answer API requests.
-app.get('/api', function (req, res) {
-  res.set('Content-Type', 'application/json');
-  res.send('{"message":"Hello from the custom server!"}');
+// Parse the body of any request into JSON
+app.use(bodyParser.json());
+
+
+/*** Endpoints ***/
+
+// Create a Post
+app.post('/posts', (req, res) => {
+    console.log(req.body);
+    let post = new Post({
+        videoId: req.body.videoId,
+        userId: req.body.userId,
+        text: req.body.text
+    });
+
+    post.save().then((doc) => {
+        res.send(doc);
+    }, (err) => {
+        res.status(400).send(err);
+    })
 });
 
 // All remaining requests return the React app, so it can handle routing.
-app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, function () {
+
+/*** Start the server ***/
+
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
