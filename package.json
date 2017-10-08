@@ -1,40 +1,19 @@
 {
-  "name": "app",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://rahrang.github.io/notes-for-youtube",
-  "dependencies": {
-    "aphrodite": "^1.2.4",
-    "express": "^4.16.1",
-    "gh-pages": "^1.0.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.2.3",
-    "lodash": "^4.17.4",
-    "prettier": "^1.7.4",
-    "react": "^16.0.0",
-    "react-animations": "^0.1.0",
-    "react-dom": "^16.0.0",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
-    "react-youtube": "^7.5.0",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
+  "name": "notes-for-youtube",
+  "version": "1.0.0",
+  "description": "CS 194 Social Good Project -- A Google Chrome extension for Berkeley students to ask questions and take notes on webcasted lecture YouTube videos.",
+  "main": "index.js",
   "scripts": {
-    "precommit": "lint-staged",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahrang/notes-for-youtube.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahrang/notes-for-youtube/issues"
+  },
+  "homepage": "https://github.com/rahrang/notes-for-youtube#readme"
 }
