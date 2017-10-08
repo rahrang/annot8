@@ -4,11 +4,7 @@
   "private": true,
   "dependencies": {
     "aphrodite": "^1.2.4",
-    "express": "^4.16.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.2.3",
     "lodash": "^4.17.4",
-    "prettier": "^1.7.4",
     "react": "^16.0.0",
     "react-animations": "^0.1.0",
     "react-dom": "^16.0.0",
