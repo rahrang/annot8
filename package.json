@@ -1,19 +1,22 @@
 {
   "name": "notes-for-youtube",
   "version": "1.0.0",
-  "description": "CS 194 Social Good Project -- A Google Chrome extension for Berkeley students to ask questions and take notes on webcasted lecture YouTube videos.",
-  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.3",
+    "lodash": "^4.17.4",
+    "prettier": "^1.7.4"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rahrang/notes-for-youtube.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rahrang/notes-for-youtube/issues"
-  },
-  "homepage": "https://github.com/rahrang/notes-for-youtube#readme"
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build"
+  }
 }
