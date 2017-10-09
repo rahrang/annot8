@@ -16,3 +16,7 @@ chrome.runtime.onInstalled.addListener(function() {
     ]);
   });
 });
+
+chrome.pageAction.onClicked.addListener(function(tab){
+     chrome.tabs.create({url: "localhost:3000", "active":true});
+ });
