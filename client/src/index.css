@@ -3,3 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/* Highlight color */
+
+::selection {
+  background: #3F7BA9;
+  color: #fff;
+  padding: 5px;
+}
+
+::-moz-selection {
+  background: #3F7BA9;
+  color: #fff;
+  padding: 5px;
+}

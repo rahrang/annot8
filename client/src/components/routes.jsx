@@ -17,6 +17,7 @@ import { MainActions } from '../actions/main-actions';
 // Containers
 import Navbar from './Navbar.jsx';
 import Home from './Home.jsx';
+import About from './About.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 
 // Data Files
@@ -33,6 +34,7 @@ class Routes extends React.Component {
           <Navbar history={history} />
           <Switch>
             <Route exact path={'/'} component={Home} />
+            <Route exact path={'/about'} component={About} />
             <Route path={`/video/:videoId`} component={YouTubePlayer} />
           </Switch>
         </div>

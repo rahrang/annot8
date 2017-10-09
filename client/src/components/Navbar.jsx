@@ -15,7 +15,7 @@ export default class Navbar extends React.Component {
       <div id="navbar-container" className={css(styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
           <Link to="/" className={css(styles.headerLink)}>
-            <h1 className={css(styles.header)}>Notes For YouTube</h1>
+            <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
           <div className={css(styles.container)}>
             <Input mainInput={false} history={history} />
