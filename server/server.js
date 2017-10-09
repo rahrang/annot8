@@ -23,8 +23,6 @@ app.use(bodyParser.json());
 
 // Create a Post
 app.post('/posts', (req, res) => {
-  console.log(req.body);
-
   let post = new Post({
     videoId: req.body.videoId,
     userId: req.body.userId,
@@ -41,7 +39,13 @@ app.post('/posts', (req, res) => {
   );
 });
 
-app.get('/posts', (req, res) => {});
+app.get('/posts', (req, res) => {
+    Post.find().then((posts) => {
+        res.send({posts});
+    }, (err) => {
+        res.status(400).send(err);
+    });
+});
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', (req, res) => {
