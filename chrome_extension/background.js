@@ -18,5 +18,8 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.pageAction.onClicked.addListener(function(tab){
-     chrome.tabs.create({url: "http://annot8-cs194.herokuapp.com/", "active":true});
- });
+  if (tab.url.includes('youtube.com/watch?v=')) {
+    let videoId = tab.url.split('watch?v=')[1]
+    chrome.tabs.create({url: `https://annot8-cs194.herokuapp.com/video/${videoId}`, "active":true});
+  }
+});

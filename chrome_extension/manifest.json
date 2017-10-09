@@ -1,26 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "Notes for YouTube",
+  "name": "Annot8",
   "version": "0.1",
   "page_action": {
     "default_icon": "test.png",
-    // "default_popup": "./popup/popup.html",
-    "default_title": "Notes for YouTube!"
+    "default_title": "Annot8"
   },
   "permissions": [
     "activeTab",
     "declarativeContent"   
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://www.youtube.com/*"
-      ],
-      "js": [
-        "jquery-3.2.1.min.js",
-        "content.js"
-      ]
-    }
   ],
   "background": {
     "scripts": [
