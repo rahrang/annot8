@@ -19,6 +19,7 @@ import Navbar from './Navbar.jsx';
 import Home from './Home.jsx';
 import About from './About.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
+import Footer from './Footer.jsx';
 
 // Data Files
 
@@ -30,20 +31,25 @@ class Routes extends React.Component {
 
     return (
       <div className={css(styles.routerContainer)}>
+        <Navbar history={history} />
         <div className={css(styles.mainContainer)}>
-          <Navbar history={history} />
           <Switch>
             <Route exact path={'/'} component={Home} />
             <Route exact path={'/about'} component={About} />
             <Route path={`/video/:videoId`} component={YouTubePlayer} />
           </Switch>
         </div>
+        <Footer />
       </div>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    minHeight: 'calc(100vh - 95px)',
+  }
+});
 
 const mapStateToProps = state => {
   return { main: state.main };

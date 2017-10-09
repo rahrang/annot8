@@ -2,11 +2,11 @@
 import React from 'react';
 
 // NPM Modules
-import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
-import { fadeIn } from 'react-animations';
-
 import YouTube from 'react-youtube';
+
+// Local Components
+import SideBar from './SideBar.jsx';
 
 export default class YouTubePlayer extends React.Component {
   render() {
@@ -24,7 +24,7 @@ export default class YouTubePlayer extends React.Component {
     };
 
     return (
-      <div className={css(styles.mainContainer, styles.fadeIn)}>
+      <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.playerContainer)}>
           <YouTube
             videoId={videoId}
@@ -32,18 +32,21 @@ export default class YouTubePlayer extends React.Component {
             opts={opts}
           />
         </div>
-        <div className={css(styles.sidebarContainer)} />
+        <div className={css(styles.sideBarContainer)}>
+          <SideBar videoId={videoId} />
+        </div>
       </div>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  pageContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyItems: 'center'
+    justifyItems: 'center',
+    minHeight: '100%',
   },
 
   playerContainer: {
@@ -59,8 +62,9 @@ const styles = StyleSheet.create({
     margin: '20px'
   },
 
-  sidebarContainer: {
+  sideBarContainer: {
     display: 'flex',
-    flex: '0.35'
+    flex: '0.35',
+    height: '100%',
   }
 });

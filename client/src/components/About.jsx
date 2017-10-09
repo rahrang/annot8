@@ -1,24 +1,11 @@
 // React
 import React from 'react';
 
-// Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// React Router
-import { withRouter } from 'react-router';
-
 // NPM Modules
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
-// Actions
-import { MainActions } from '../actions/main-actions';
-
-// Local Components
-import Input from './Input.jsx';
-
-class Home extends React.Component {
+export default class About extends React.Component {
   render() {
     return (
       <div className={css(styles.aboutContainer, styles.fadeIn)}>
@@ -26,30 +13,21 @@ class Home extends React.Component {
         <p className={css(styles.tagline)}>Annot8 is your solution to not attending lecture.</p>
         <div className={css(styles.sectionContainer)}>
           <h3 className={css(styles.sectionHeader)}>What We Do</h3>
-          <p className={css(styles.paragraph)}>Lorem Ipsum</p>
+          <p className={css(styles.paragraph)}>Annot8 makes your life easier. Our web application allows you to live-comment on YouTube videos and discuss material with other people watching the same video. Start a comment thread at a certain timestamp in the video and watch people reply when they hit that point in the video.</p>
         </div>
         <div className={css(styles.sectionContainer)}>
           <h3 className={css(styles.sectionHeader)}>Our Target Audience</h3>
-          <p className={css(styles.paragraph)}>Lorem Ipsum</p>
+          <p className={css(styles.paragraph)}>We created Annot8 with UC Berkeley students in mind. Because so many of us have busy schedules and often resort to watching webcasts rather than attending lectures in person, it's often difficult for us to ask for clarification on concepts presented in lecture if we are not there to ask the professor in person. Annot8 encourages students to ask questions at particular timestamps the material is unclear. We provide a platform for other students and even course staff to respond to these comments, explaining concepts and answering questions with Annot8.</p>
         </div>
         <div className={css(styles.sectionContainer)}>
           <h3 className={css(styles.sectionHeader)}>Why You Should Annot8</h3>
-          <p className={css(styles.paragraph)}>Lorem Ipsum</p>
+          <p className={css(styles.paragraph)}>You may ask, "How is this different from the YouTube comment section?" or "How is this different from Piazza?" Well, UC Berkeley disables YouTube comments on webcasted lectures, and Piazza does not support a seamless video integration. If a student asked for help with a video timestamp on Piazza, few people would see that question because not every student is checking every single Piazza post all the time. </p>
+          <p className={css(styles.paragraph)}>Annot8 offers a new experience to watching webcasts. A significant amount of students do watch webcasts, and we believe that students' questions will be more visible when they pop up as other students are also watching lecture and may even have the same questions, or have the ability to answer those questions. </p>
         </div>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => {
-  return { main: state.main };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return { mainActions: bindActionCreators(MainActions, dispatch) };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
 
 const styles = StyleSheet.create({
   aboutContainer: {
@@ -72,9 +50,9 @@ const styles = StyleSheet.create({
     color: '#666',
     fontFamily: 'Open Sans, sans-serif',
     fontSize: '1.125em',
-    textAlign: 'center',
     margin: '5px 0',
     padding: '0',
+    textAlign: 'center',
   },
 
   sectionContainer: {

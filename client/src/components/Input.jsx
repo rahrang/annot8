@@ -2,9 +2,7 @@
 import React from 'react';
 
 // NPM Modules
-import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
-import { fadeIn } from 'react-animations';
 import * as _ from 'lodash';
 
 export default class Input extends React.Component {
