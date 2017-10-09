@@ -1,1 +1,1 @@
-alert('hello from notes')
+// alert('hello from notes')
