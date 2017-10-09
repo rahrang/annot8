@@ -4,8 +4,24 @@ const request = require('supertest');
 const { app } = require('../server.js');
 const { Post } = require('../models/post.js');
 
+
+const posts = [
+  {
+    videoId: "1IGS0-QF86U",
+    userId: "rahrang",
+    text: "My name is Rahul. I need help with Math."
+  },
+  {
+    videoId: "1IGS0-QF86U",
+    userId: "yaanhsiung",
+    text: "My name is Ya-An. I can help with Math."
+  }
+];
+
 beforeEach(done => {
-  Post.remove({}).then(() => done());
+  Post.remove({}).then(() => {
+    return Post.insertMany(posts);
+  }).then(() => done())
 });
 
 describe('POST /posts', () => {
@@ -32,7 +48,7 @@ describe('POST /posts', () => {
           return done(err);
         }
 
-        Post.find()
+        Post.find({text})
           .then(posts => {
             expect(posts.length).toBe(1);
             expect(posts[0].text).toBe(text);
@@ -55,9 +71,21 @@ describe('POST /posts', () => {
 
     Post.find()
       .then(posts => {
-        expect(posts.length).toBe(0);
+        expect(posts.length).toBe(2);
         done();
       })
       .catch(err => done(err));
   });
 });
+
+describe('GET /posts', () => {
+  it('should get all posts', (done) => {
+    request(app)
+      .get('/posts')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.posts.length).toBe(2);
+      })
+      .end(done);
+  })
+})
