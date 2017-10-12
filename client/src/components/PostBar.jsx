@@ -24,17 +24,23 @@ export default class PostBar extends React.Component {
 
   render() {
 
-    let posts = _.range(0, 10).map((p) => {
+    let posts = _.range(0, 4).map((p) => {
       return (
-        <Post />
+        <Post me={p % 2 === 1} />
       );
     });
 
+    let { changeView } = this.props;
 
     return (
       <div className={css(styles.postBarContainer)}>
         <div className={css(styles.headerContainer)}>
-          Posts
+          <i
+            className={css(styles.icon) + " fa fa-chevron-left"}
+            aria-hidden="true"
+            onClick={() => changeView('status')}
+          />
+          <p className={css(styles.header)}>Posts</p>
         </div>
         <div className={css(styles.bodyContainer)}>
           { posts }
@@ -44,8 +50,8 @@ export default class PostBar extends React.Component {
             <textarea
               className={css(styles.input)}
               placeholder="Ask a question or make a comment!"
-              cols={55}
-              rows={2}
+              cols={50}
+              rows={3}
             />
             <button className={css(styles.button)} type="submit">
               Post
@@ -64,7 +70,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: '100%',
     padding: '10px 0',
   },
 
@@ -72,17 +77,38 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderBottom: '3px solid #3F7BA9',
     color: '#333',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: 'Fjalla One, sans-serif',
     fontSize: '1.25em',
+    padding: '3px 0',
+    position: 'relative',
     textAlign: 'center',
     textTransform: 'uppercase',
     width: '100%',
   },
 
+  icon: {
+    color: '#3F7BA9',
+    cursor: 'pointer',
+    fontSize: '0.9em',
+    position: 'absolute',
+    left: '10px',
+    margin: '0',
+    padding: '0 10px',
+  },
+
+  header: {
+    margin: 0,
+    padding: 0,
+  },
+
   bodyContainer: {
     backgroundColor: '#E6E6E6',
+    borderBottom: '3px solid #3F7BA9',
     width: '100%',
-    // height: '800px',
     overflow: 'scroll',
   },
 
@@ -92,6 +118,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: '5px 10px',
+    height: '200px',
   },
 
   form: {

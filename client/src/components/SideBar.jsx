@@ -5,9 +5,15 @@ import React from 'react';
 import { css, StyleSheet } from 'aphrodite';
 
 import PostBar from './PostBar.jsx';
-import TimeBar from './TimeBar.jsx';
+import StatusBar from './StatusBar.jsx';
 
 export default class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 'status',
+    }
+  }
 
   componentDidMount() {
     // query the database for posts/timestamps
@@ -20,19 +26,19 @@ export default class SideBar extends React.Component {
     }
   }
 
+  changeView = (newView) => {
+    this.setState({view: newView});
+  }
+
   render() {
     let { videoId } = this.props;
+    let { view } = this.state;
     return (
       <div className={css(styles.sideBarContainer)}>
-        <div className={css(styles.postContainer)}>
-          <PostBar videoId={videoId} />
-        </div>
-        {/*
-          <div className={css(styles.timeContainer)}>
-            <TimeBar videoId={videoId} />
-          </div>
-          
-        */}
+        {view === 'posts'
+          ? <PostBar videoId={videoId} changeView={this.changeView} />
+          : <StatusBar videoId={videoId} changeView={this.changeView} />
+        }
       </div>
     );
   }
@@ -40,25 +46,14 @@ export default class SideBar extends React.Component {
 
 const styles = StyleSheet.create({
   sideBarContainer: {
-    // backgroundColor: '#E6E6E6',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyItems: 'center',
-    borderLeft: '3px solid #3F7BA9',
-    height: '100%',
-    width: '100%',
-  },
+    borderRight: '3px solid #3F7BA9',
+    height: 'calc(100vh - 95px)',
+    width: '500px'
 
-  postContainer: {
-    // height: '60%',
-    height: '100%',
-    minHeight: 'calc(100vh - 95px)',
-    width: '100%',
-  },
-
-  timeContainer: {
-    height: '40%',
-    width: '100%',
+    // TODO: add media queries on width
   },
 });

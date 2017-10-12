@@ -25,15 +25,15 @@ export default class YouTubePlayer extends React.Component {
 
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
+        <div className={css(styles.sideBarContainer)}>
+          <SideBar videoId={videoId} />
+        </div>
         <div className={css(styles.playerContainer)}>
           <YouTube
             videoId={videoId}
             className={css(styles.player)}
             opts={opts}
           />
-        </div>
-        <div className={css(styles.sideBarContainer)}>
-          <SideBar videoId={videoId} />
         </div>
       </div>
     );
