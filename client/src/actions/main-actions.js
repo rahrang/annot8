@@ -1,5 +1,17 @@
 import API from './api.js';
 
-export const MainConstants = {};
+const rp = require('request-promise');
 
-export const MainActions = {};
+export const MainConstants = {
+    // GET_POSTS: GET_POSTS, 
+};
+
+export const MainActions = {
+
+    // getPosts: (data) => {
+    //     return dispatch => {
+    //         return rp(API.POSTS)
+    //     }
+    // }
+
+};
