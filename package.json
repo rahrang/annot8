@@ -1,9 +1,14 @@
 {
-  "name": "notes-for-youtube",
+  "name": "server",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "8.4.0",
+    "npm": "5.5.1"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.0",
     "express": "^4.16.1",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
@@ -12,25 +17,19 @@
     "mongoose": "^4.12.1",
     "prettier": "^1.7.4"
   },
-  "lint-staged": {
-    "server/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ],
-    "client/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
   "scripts": {
     "precommit": "lint-staged",
     "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "client": "cd client/ && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
     "test": "mocha server/**/*.test.js"
   },
   "devDependencies": {
     "expect": "^21.2.1",
     "mocha": "^4.0.1",
+    "nodemon": "^1.12.1",
     "supertest": "^3.0.0"
   }
 }

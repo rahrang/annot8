@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,11 +14,9 @@
     "react-scripts": "1.0.14",
     "react-youtube": "^7.5.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "request": "^2.83.0"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

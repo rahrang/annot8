@@ -13,7 +13,7 @@ import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
 // Actions
-import { MainActions } from '../actions/main-actions';
+import { AuthActions } from '../actions/auth-actions';
 
 // Local Components
 import Input from './Input.jsx';
@@ -38,11 +38,11 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { main: state.main };
+  return { auth: state.auth };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return { mainActions: bindActionCreators(MainActions, dispatch) };
+  return { mainActions: bindActionCreators(AuthActions, dispatch) };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

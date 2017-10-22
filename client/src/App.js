@@ -5,7 +5,6 @@ import { css, StyleSheet } from 'aphrodite';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Local Components & Helpers
-import './App.css';
 import Routes from './components/routes.jsx';
 
 class App extends React.Component {
