@@ -3,6 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+// Passport
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 // Local imports
 var { mongoose } = require('./db/mongoose.js');
 var { Post } = require('./models/post.js');
@@ -12,6 +16,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 /*** Middleware ***/
+
+passport.use(new GoogleStrategy());
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../client/build')));
