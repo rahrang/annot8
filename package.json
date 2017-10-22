@@ -20,9 +20,8 @@
     "prettier": "^1.7.4"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "start": "node server/server.js",
-    "server": "nodemon server/server.js",
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js",
     "client": "cd client/ && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
