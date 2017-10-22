@@ -12,7 +12,7 @@ import { withRouter } from 'react-router';
 import { StyleSheet, css } from 'aphrodite';
 
 // Actions
-import { MainActions } from '../actions/main-actions';
+import { AuthActions } from '../actions/auth-actions';
 
 // Containers
 import Navbar from './Navbar.jsx';
@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return { main: state.main };
+  return { auth: state.auth };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return { mainActions: bindActionCreators(MainActions, dispatch) };
+  return { authActions: bindActionCreators(AuthActions, dispatch) };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes));
