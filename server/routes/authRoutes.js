@@ -8,18 +8,10 @@ module.exports = app => {
     })
   );
 
-  app.get(
-    '/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/about',
-      failureRedirect: '/'
-    })
-  );
+  app.get('/auth/google/callback', passport.authenticate('google'));
 
   app.get('/api/logout', (req, res) => {
-    console.log(req.user);
     req.logout();
-    console.log(req.user);
     res.send(req.user);
   });
 
