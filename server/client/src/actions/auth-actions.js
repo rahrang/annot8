@@ -9,7 +9,7 @@ export const AuthActions = {
     const res = await axios.get('/api/current_user');
     dispatch({
       type: AuthConstants.FETCH_USER,
-      payload: res
+      user: res.data
     });
   }
 };

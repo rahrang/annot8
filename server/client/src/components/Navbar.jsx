@@ -2,13 +2,14 @@
 import React from 'react';
 
 // NPM Modules
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
 import Input from './Input.jsx';
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   render() {
     let { history } = this.props;
     return (
@@ -27,6 +28,8 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+export default connect()(Navbar);
 
 const styles = StyleSheet.create({
   headerContainer: {
