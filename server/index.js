@@ -1,21 +1,36 @@
 // NPM Modules
 const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 
 // const bodyParser = require('body-parser');
 // const path = require('path');
 
 // Local imports
-// var { mongoose } = require('./db/mongoose.js');
-// var { Post } = require('./models/post.js');
-// var { User } = require('./models/user.js');
+const keys = require('./config/keys.js');
+require('./models/User.js');
 require('./services/passport.js');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+mongoose.connect(keys.mongoURI, {
+    useMongoClient: true
+});
 require('./routes/authRoutes.js')(app);
 
 /*** Middleware ***/
+
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // // Priority serve any static files.
 // app.use(express.static(path.resolve(__dirname, '../client/build')));
