@@ -1,6 +1,6 @@
 node_modules
 
-config/keys.js
+server/config/dev.js
 
 client/node_modules
 
