@@ -7,4 +7,5 @@ const userSchema = new Schema({
   email: String
 });
 
+
 mongoose.model('users', userSchema);
