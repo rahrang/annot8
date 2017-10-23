@@ -9,9 +9,6 @@ import { fadeIn } from 'react-animations';
 import Input from './Input.jsx';
 
 export default class Navbar extends React.Component {
-
-
-
   render() {
     let { history } = this.props;
     return (
@@ -21,7 +18,7 @@ export default class Navbar extends React.Component {
             <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
           <div className={css(styles.container)}>
-            <Link to="/auth/google" target="blank" className={css(styles.link)}>
+            <Link to="/auth/google" className={css(styles.link)}>
               Login with Google
             </Link>
           </div>

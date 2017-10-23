@@ -21,12 +21,12 @@
     "prettier": "^1.7.4"
   },
   "scripts": {
-    "start": "node server/index.js",
-    "server": "nodemon server/index.js",
-    "client": "cd client/ && npm run start",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
-    "test": "mocha server/**/*.test.js"
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "expect": "^21.2.1",
