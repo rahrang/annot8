@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 // Local imports
 const keys = require('./config/keys.js');
@@ -13,14 +13,14 @@ require('./services/passport.js');
 const app = express();
 require('./routes/authRoutes.js')(app);
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI, {
   useMongoClient: true
 });
 
 /*** Middleware ***/
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 app.use(
   cookieSession({
