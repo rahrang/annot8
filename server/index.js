@@ -3,9 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const path = require('path');
 
 // const bodyParser = require('body-parser');
-// const path = require('path');
 
 // Local imports
 const keys = require('./config/keys.js');
