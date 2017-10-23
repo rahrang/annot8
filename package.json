@@ -9,18 +9,20 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.0",
+    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.1",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
     "prettier": "^1.7.4"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "start": "node server/server.js",
-    "server": "nodemon server/server.js",
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js",
     "client": "cd client/ && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
