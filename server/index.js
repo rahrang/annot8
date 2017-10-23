@@ -32,10 +32,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // Priority serve any static files.
-// app.use(express.static(path.resolve(__dirname, '../client/build')));
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-// // Parse the body of any request into JSON
+// Parse the body of any request into JSON
 // app.use(bodyParser.json());
 
 // /*** Endpoints ***/
@@ -67,9 +67,9 @@ app.use(passport.session());
 // });
 
 // All remaining requests return the React app, so it can handle routing.
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 /*** Start the server ***/
 
