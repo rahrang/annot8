@@ -2,8 +2,17 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/auth/google": {
+      "target": "http://localhost:5000"
+    },
+    "/api/*": {
+      "target": "http://localhost:5000"
+    }
+  },
   "dependencies": {
     "aphrodite": "^1.2.4",
+    "axios": "^0.17.0",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-animations": "^0.1.0",
@@ -14,6 +23,7 @@
     "react-scripts": "1.0.14",
     "react-youtube": "^7.5.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "request": "^2.83.0"
   },
   "scripts": {
@@ -21,6 +31,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }

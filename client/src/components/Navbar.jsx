@@ -9,6 +9,9 @@ import { fadeIn } from 'react-animations';
 import Input from './Input.jsx';
 
 export default class Navbar extends React.Component {
+
+
+
   render() {
     let { history } = this.props;
     return (
@@ -18,7 +21,9 @@ export default class Navbar extends React.Component {
             <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
           <div className={css(styles.container)}>
-            <Input mainInput={false} history={history} />
+            <Link to="/auth/google" target="blank" className={css(styles.link)}>
+              Login with Google
+            </Link>
           </div>
         </div>
       </div>
@@ -58,6 +63,16 @@ const styles = StyleSheet.create({
 
   container: {
     padding: '0 20px 0 0'
+  },
+
+  link: {
+    color: '#F5F5F5',
+    fontSize: '1em',
+    textDecoration: 'none',
+    // textTransform: 'uppercase',
+    ':hover': {
+      color: '#333'
+    }
   },
 
   fadeIn: {
