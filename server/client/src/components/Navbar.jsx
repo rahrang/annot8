@@ -2,15 +2,36 @@
 import React from 'react';
 
 // NPM Modules
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as _ from 'lodash';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
-import Input from './Input.jsx';
+import NavbarProfile from './NavbarProfile.jsx';
+import LoginButton from './LoginButton.jsx';
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false
+    };
+  }
+
+  componentDidMount() {
+    let { auth } = this.props;
+    this.setState({ isLoggedIn: !_.isEmpty(auth.user) });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ isLoggedIn: !_.isEmpty(nextProps.auth.user) });
+  }
+
   render() {
-    let { history } = this.props;
+    let { history, auth } = this.props;
+    let { isLoggedIn } = this.state;
+
     return (
       <div id="navbar-container" className={css(styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
@@ -18,7 +39,7 @@ export default class Navbar extends React.Component {
             <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
           <div className={css(styles.container)}>
-            <Input mainInput={false} history={history} />
+            {isLoggedIn ? <NavbarProfile user={auth.user} /> : <LoginButton />}
           </div>
         </div>
       </div>
@@ -26,9 +47,16 @@ export default class Navbar extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
+export default connect(mapStateToProps)(Navbar);
+
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#3F7BA9',
+    height: '50px',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -49,7 +77,7 @@ const styles = StyleSheet.create({
 
   header: {
     fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1.25em',
+    fontSize: '1.5em',
     letterSpacing: '0.0625em',
     margin: 0,
     padding: '0 0 0 10px',
@@ -58,6 +86,15 @@ const styles = StyleSheet.create({
 
   container: {
     padding: '0 20px 0 0'
+  },
+
+  link: {
+    color: '#F5F5F5',
+    fontSize: '1em',
+    textDecoration: 'none',
+    ':hover': {
+      color: '#333'
+    }
   },
 
   fadeIn: {
