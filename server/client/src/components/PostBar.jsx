@@ -14,20 +14,15 @@ export default class PostBar extends React.Component {
       inputValue: '',
       isPublic: true,
       isQuestion: true
-    }
+    };
   }
 
   // called when user clicks post --> send info to backend
-  handleSubmit = () => {
-
-  }
+  handleSubmit = () => {};
 
   render() {
-
-    let posts = _.range(0, 4).map((p) => {
-      return (
-        <Post me={p % 2 === 1} />
-      );
+    let posts = _.range(0, 4).map(p => {
+      return <Post me={p % 2 === 1} />;
     });
 
     let { changeView } = this.props;
@@ -36,15 +31,13 @@ export default class PostBar extends React.Component {
       <div className={css(styles.postBarContainer)}>
         <div className={css(styles.headerContainer)}>
           <i
-            className={css(styles.icon) + " fa fa-chevron-left"}
+            className={css(styles.icon) + ' fa fa-chevron-left'}
             aria-hidden="true"
             onClick={() => changeView('status')}
           />
           <p className={css(styles.header)}>Posts</p>
         </div>
-        <div className={css(styles.bodyContainer)}>
-          { posts }
-        </div>
+        <div className={css(styles.bodyContainer)}>{posts}</div>
         <div className={css(styles.inputContainer)}>
           <form onSubmit={this.handleSubmit} className={css(styles.form)}>
             <textarea
@@ -70,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    padding: '10px 0',
+    padding: '10px 0'
   },
 
   headerContainer: {
@@ -87,7 +80,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     textAlign: 'center',
     textTransform: 'uppercase',
-    width: '100%',
+    width: '100%'
   },
 
   icon: {
@@ -97,19 +90,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: '10px',
     margin: '0',
-    padding: '0 10px',
+    padding: '0 10px'
   },
 
   header: {
     margin: 0,
-    padding: 0,
+    padding: 0
   },
 
   bodyContainer: {
     backgroundColor: '#E6E6E6',
     borderBottom: '3px solid #3F7BA9',
     width: '100%',
-    overflow: 'scroll',
+    overflow: 'scroll'
   },
 
   inputContainer: {
@@ -118,13 +111,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: '5px 10px',
-    height: '200px',
+    height: '200px'
   },
 
   form: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 
   input: {
@@ -135,7 +128,7 @@ const styles = StyleSheet.create({
     margin: '5px',
     padding: '5px',
     outline: 'none',
-    resize: 'none',
+    resize: 'none'
   },
 
   button: {
@@ -147,5 +140,5 @@ const styles = StyleSheet.create({
     fontSize: '1em',
     outline: 'none',
     padding: '3px 10px'
-  },
+  }
 });

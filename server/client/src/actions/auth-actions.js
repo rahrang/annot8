@@ -12,4 +12,4 @@ export const AuthActions = {
       user: res.data
     });
   }
-};
+}; 

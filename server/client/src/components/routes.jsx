@@ -21,11 +21,7 @@ import About from './About.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 import Footer from './Footer.jsx';
 
-// Data Files
-
 class Routes extends React.Component {
-  componentDidMount() {}
-
   render() {
     let { history } = this.props;
 

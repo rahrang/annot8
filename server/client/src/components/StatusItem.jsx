@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: '3px 0 0',
     ':hover': {
-      backgroundColor: '#E6E6E6',
+      backgroundColor: '#E6E6E6'
     }
   },
 
@@ -38,14 +38,13 @@ const styles = StyleSheet.create({
     color: '#333',
     fontFamily: 'Fjalla One, sans-serif',
     fontSize: '1em',
-    letterSpacing: '0.025em',
+    letterSpacing: '0.025em'
   },
 
   description: {
     color: '#666',
     fontFamily: 'Open Sans, sans-serif',
     fontSize: '0.9em',
-    padding: '0 0 0 10px',
+    padding: '0 0 0 10px'
   }
-
 });

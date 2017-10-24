@@ -11,8 +11,8 @@ export default class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'status',
-    }
+      view: 'status'
+    };
   }
 
   componentDidMount() {
@@ -26,19 +26,20 @@ export default class SideBar extends React.Component {
     }
   }
 
-  changeView = (newView) => {
-    this.setState({view: newView});
-  }
+  changeView = newView => {
+    this.setState({ view: newView });
+  };
 
   render() {
     let { videoId } = this.props;
     let { view } = this.state;
     return (
       <div className={css(styles.sideBarContainer)}>
-        {view === 'posts'
-          ? <PostBar videoId={videoId} changeView={this.changeView} />
-          : <StatusBar videoId={videoId} changeView={this.changeView} />
-        }
+        {view === 'posts' ? (
+          <PostBar videoId={videoId} changeView={this.changeView} />
+        ) : (
+          <StatusBar videoId={videoId} changeView={this.changeView} />
+        )}
       </div>
     );
   }
@@ -55,5 +56,5 @@ const styles = StyleSheet.create({
     width: '500px'
 
     // TODO: add media queries on width
-  },
+  }
 });

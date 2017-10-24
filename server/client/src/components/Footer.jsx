@@ -11,7 +11,9 @@ export default class Navbar extends React.Component {
     return (
       <div className={css(styles.footerContainer, styles.fadeIn)}>
         <div id="link-container">
-          <Link to="/about" className={css(styles.link)}>About</Link>
+          <Link to="/about" className={css(styles.link)}>
+            About
+          </Link>
           |
           <Link
             to="https://github.com/rahrang/annot8"
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     padding: '0 5px',
     textDecoration: 'none',
     ':hover': {
-      color: '#333',
+      color: '#333'
     }
   },
 

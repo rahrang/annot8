@@ -9,8 +9,7 @@ import StatusItem from './StatusItem.jsx';
 
 export default class StatusBar extends React.Component {
   render() {
-
-    let statuses = _.range(0, 5).map((p) => {
+    let statuses = _.range(0, 5).map(p => {
       return (
         <StatusItem
           timeStamp="11:11"
@@ -25,9 +24,7 @@ export default class StatusBar extends React.Component {
         <div className={css(styles.headerContainer)}>
           <p className={css(styles.header)}>Posts</p>
         </div>
-        <div className={css(styles.bodyContainer)}>
-          {statuses}
-        </div>
+        <div className={css(styles.bodyContainer)}>{statuses}</div>
       </div>
     );
   }
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    padding: '10px 0 0',
+    padding: '10px 0 0'
   },
 
   headerContainer: {
@@ -52,17 +49,17 @@ const styles = StyleSheet.create({
     padding: '3px 0',
     textAlign: 'center',
     textTransform: 'uppercase',
-    width: '100%',
+    width: '100%'
   },
 
   header: {
     margin: 0,
-    padding: 0,
+    padding: 0
   },
 
   bodyContainer: {
     width: '100%',
     overflowY: 'scroll',
-    height: '100%',
-  },
+    height: '100%'
+  }
 });

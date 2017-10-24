@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyItems: 'center',
-    minHeight: '100%',
+    minHeight: '100%'
   },
 
   playerContainer: {
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   sideBarContainer: {
     display: 'flex',
     flex: '0.35',
-    height: '100%',
+    height: '100%'
   }
 });
