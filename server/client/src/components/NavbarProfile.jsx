@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
     fontSize: '1em'
   },
 
+  userPhoto: {
+    borderRadius: '50%',
+    margin: '0 7.5px'
+  },
+
   initicon: {
     backgroundColor: '#F5F5F5',
     borderRadius: '50%',

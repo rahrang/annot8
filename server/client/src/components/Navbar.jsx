@@ -9,6 +9,7 @@ import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
 import NavbarProfile from './NavbarProfile.jsx';
+import LoginButton from './LoginButton.jsx';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -38,17 +39,7 @@ class Navbar extends React.Component {
             <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
           <div className={css(styles.container)}>
-            {isLoggedIn ? (
-              <NavbarProfile user={auth.user} />
-            ) : (
-              <Link
-                to="/auth/google"
-                target="blank"
-                className={css(styles.link)}
-              >
-                Login with Google
-              </Link>
-            )}
+            {isLoggedIn ? <NavbarProfile user={auth.user} /> : <LoginButton />}
           </div>
         </div>
       </div>
@@ -86,7 +77,7 @@ const styles = StyleSheet.create({
 
   header: {
     fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1.25em',
+    fontSize: '1.5em',
     letterSpacing: '0.0625em',
     margin: 0,
     padding: '0 0 0 10px',
