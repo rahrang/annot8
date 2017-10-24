@@ -33,7 +33,7 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value
         }).save();
-        done(null, user);
+        return done(null, user); // do we need the return statement?
       }
     }
   )

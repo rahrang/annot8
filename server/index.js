@@ -11,7 +11,6 @@ require('./models/User.js');
 require('./services/passport.js');
 
 const app = express();
-require('./routes/authRoutes.js')(app);
 
 // mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI, {
@@ -32,6 +31,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./routes/authRoutes.js')(app);
 /*** Start the server ***/
 
 if (process.env.NODE_ENV === 'production') {
