@@ -11,28 +11,21 @@
     "concurrently": "^3.5.0",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.2.3",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
     "passport": "^0.4.0",
-    "passport-google-oauth20": "^1.0.0",
-    "prettier": "^1.7.4",
-    "react-initicon": "^0.2.1"
+    "passport-google-oauth20": "^1.0.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js",
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild":
-      "cd client/ && npm install --only=dev && npm install && npm run build"
+      "cd server/client/ && npm install --only=dev && npm install && npm run build"
   },
   "devDependencies": {
-    "expect": "^21.2.1",
-    "mocha": "^4.0.1",
-    "nodemon": "^1.12.1",
-    "supertest": "^3.0.0"
+    "nodemon": "^1.12.1"
   }
 }
