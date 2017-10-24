@@ -10,8 +10,8 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id).then((err, user) => {
-    done(err, user);
+  User.findById(id).then(user => {
+    done(null, user);
   });
 });
 
@@ -33,7 +33,7 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value
         }).save();
-        return done(null, user); // do we need the return statement?
+        done(null, user);
       }
     }
   )

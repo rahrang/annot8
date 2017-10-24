@@ -4,24 +4,24 @@ module.exports = app => {
   app.get(
     '/auth/google',
     passport.authenticate('google', {
-      scope: ['profile', 'email']
+      scope: ['profile', 'email'],
+      prompt: 'select_account'
     })
   );
 
   app.get(
     '/auth/google/callback',
     passport.authenticate('google', {
-      failureRedirect: '/'
+      failureRedirect: '/' // TODO -- create a page for failed authentication
     }),
     (req, res) => {
-      console.log('success');
-      res.redirect('/about');
+      res.redirect('/about'); // TODO -- find a way to redirect user to page signed in from
     }
   );
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.send(req.user);
   });
 
   app.get('/api/current_user', (req, res) => {
