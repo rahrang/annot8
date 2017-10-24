@@ -9,7 +9,6 @@ export default class Input extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: false,
       value: ''
     };
   }
@@ -26,7 +25,6 @@ export default class Input extends React.Component {
       return splitArr[1];
     } else {
       this.setState({
-        error: true,
         value: ''
       });
       return null;
@@ -34,17 +32,17 @@ export default class Input extends React.Component {
   };
 
   handleClick = () => {
-    this.setState({ error: false });
     let videoId = this.sanitizeLink(this.refs.input.value);
     if (_.isNull(videoId)) {
       return;
     }
+    console.log(this.props.history);
     this.props.history.push(`/video/${videoId}`);
   };
 
   render() {
     let { mainInput, placeholder } = this.props;
-    let { error, value } = this.state;
+    let { value } = this.state;
 
     return (
       <div

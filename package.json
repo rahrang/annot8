@@ -20,7 +20,7 @@
   "scripts": {
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
-    "client": "npm run start --prefix client",
+    "client": "cd server/client && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild":
       "cd server/client/ && npm install --only=dev && npm install && npm run build"
