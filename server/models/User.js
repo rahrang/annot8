@@ -13,6 +13,10 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true
+  },
+  photo: {
+    type: String,
+    required: false
   }
 });
 

@@ -18,7 +18,8 @@
     "mongoose": "^4.12.1",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
-    "prettier": "^1.7.4"
+    "prettier": "^1.7.4",
+    "react-initicon": "^0.2.1"
   },
   "scripts": {
     "start": "node index.js",

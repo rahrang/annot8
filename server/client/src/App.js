@@ -12,7 +12,7 @@ import { AuthActions } from './actions/auth-actions.js';
 
 class App extends React.Component {
   componentDidMount() {
-    // this.props.fetchUser();
+    this.props.fetchUser();
   }
 
   render() {
