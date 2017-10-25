@@ -23,7 +23,7 @@
     "client": "cd server/client && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild":
-      "cd server/client/ && npm install --only=dev && npm install && npm run build"
+      "NPM_CONFIG_PRODUCTION=false && npm install --prefix server/client && npm run build --prefix server/client"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
