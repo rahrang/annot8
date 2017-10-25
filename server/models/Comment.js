@@ -1,29 +1,25 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const postSchema = new Schema({
-  // timestamp: {}, // or we can use the built-in ObjectId from Mongo
-  // _video: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Video'
-  // },
+const commentSchema = new Schema({
   _user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
   _response: {
-    type: Schema.Types.Post,
-    ref: 'Post',
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+    default: null,
   },
   videoId: {
     type: String,
-    required: true,
+    required: true
   },
   datePosted: {
     type: Date
   },
   lastResponded: {
-    type: Date,
+    type: Date
   }, 
   text: {
     type: String,
@@ -45,6 +41,4 @@ const postSchema = new Schema({
   }
 });
 
-mongoose.model('posts', postSchema);
-
-module.exports = { Post };
+mongoose.model('comments', commentSchema);

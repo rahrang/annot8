@@ -4,7 +4,7 @@ import React from 'react';
 // NPM Modules
 import { css, StyleSheet } from 'aphrodite';
 
-import PostBar from './PostBar.jsx';
+import CommentBar from './CommentBar.jsx';
 import StatusBar from './StatusBar.jsx';
 
 export default class SideBar extends React.Component {
@@ -16,13 +16,13 @@ export default class SideBar extends React.Component {
   }
 
   componentDidMount() {
-    // query the database for posts/timestamps
+    // query the database for comments/timestamps
   }
 
   componentWillReceiveProps(nextProps) {
     let { videoId } = this.props;
     if (videoId !== nextProps.videoId) {
-      // query the database for posts/timestamps
+      // query the database for comments/timestamps
     }
   }
 
@@ -36,7 +36,7 @@ export default class SideBar extends React.Component {
     return (
       <div className={css(styles.sideBarContainer)}>
         {view === 'posts' ? (
-          <PostBar videoId={videoId} changeView={this.changeView} />
+          <CommentBar videoId={videoId} changeView={this.changeView} />
         ) : (
           <StatusBar videoId={videoId} changeView={this.changeView} />
         )}

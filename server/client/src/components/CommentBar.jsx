@@ -5,9 +5,9 @@ import React from 'react';
 import { css, StyleSheet } from 'aphrodite';
 import * as _ from 'lodash';
 
-import Post from './Post.jsx';
+import Comment from './Comment.jsx';
 
-export default class PostBar extends React.Component {
+export default class CommentBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,23 +21,23 @@ export default class PostBar extends React.Component {
   handleSubmit = () => {};
 
   render() {
-    let posts = _.range(0, 4).map(p => {
-      return <Post me={p % 2 === 1} />;
+    let comments = _.range(0, 4).map(p => {
+      return <Comment me={p % 2 === 1} />;
     });
 
     let { changeView } = this.props;
 
     return (
-      <div className={css(styles.postBarContainer)}>
+      <div className={css(styles.commentBarContainer)}>
         <div className={css(styles.headerContainer)}>
           <i
             className={css(styles.icon) + ' fa fa-chevron-left'}
             aria-hidden="true"
             onClick={() => changeView('status')}
           />
-          <p className={css(styles.header)}>Posts</p>
+          <p className={css(styles.header)}>Comments</p>
         </div>
-        <div className={css(styles.bodyContainer)}>{posts}</div>
+        <div className={css(styles.bodyContainer)}>{comments}</div>
         <div className={css(styles.inputContainer)}>
           <form onSubmit={this.handleSubmit} className={css(styles.form)}>
             <textarea
@@ -47,7 +47,7 @@ export default class PostBar extends React.Component {
               rows={3}
             />
             <button className={css(styles.button)} type="submit">
-              Post
+              Comment
             </button>
           </form>
         </div>
@@ -57,7 +57,7 @@ export default class PostBar extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  postBarContainer: {
+  commentBarContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

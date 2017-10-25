@@ -8,7 +8,7 @@ const passport = require('passport');
 // Local imports
 const keys = require('./config/keys.js');
 require('./models/User.js');
-require('./models/Post.js');
+require('./models/Comment.js');
 require('./services/passport.js');
 
 const app = express();
@@ -33,8 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes.js')(app);
-require('./routes/userRoutes.js')(app);
-require('./routes/videoRoutes.js')(app);
+require('./routes/commentRoutes.js')(app);
 
 /*** Start the server ***/
 
