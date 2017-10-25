@@ -1,15 +1,30 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-var Post = mongoose.model('Post', {
+const postSchema = new Schema({
   // timestamp: {}, // or we can use the built-in ObjectId from Mongo
+  // _video: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Video'
+  // },
+  _user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  _response: {
+    type: Schema.Types.Post,
+    ref: 'Post',
+  },
   videoId: {
     type: String,
-    required: true
+    required: true,
   },
-  userId: {
-    type: String,
-    required: true
+  datePosted: {
+    type: Date
   },
+  lastResponded: {
+    type: Date,
+  }, 
   text: {
     type: String,
     required: true,
@@ -27,28 +42,9 @@ var Post = mongoose.model('Post', {
   isResolved: {
     type: Boolean,
     default: false
-  },
-  responseId: {
-    type: String,
-    default: null
   }
 });
 
+mongoose.model('posts', postSchema);
+
 module.exports = { Post };
-
-/*
-    var newPost = new Post({
-        timestamp: new moment().now(),
-        user: 'Rahul',
-        text: 'This is a post',
-        isPublic: true,
-        isQuestion: false,
-        isResolved: true
-    })
-
-    newPost.save().then((doc) => {
-        console.log('saved post', doc);
-    }, (err) => {
-        console.log('unable to save post', err);
-    });
-*/
