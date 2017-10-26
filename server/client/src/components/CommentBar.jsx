@@ -22,9 +22,12 @@ class CommentBar extends React.Component {
 
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
+    console.log("called handle submit");
     let { videoId } = this.props;
     let { inputValue } = this.state;
-    this.props.makeComment(videoId, inputValue);
+    if (!_.isEmpty(inputValue)) {
+      this.props.makeComment(videoId, inputValue);
+    }
   };
 
   render() {
@@ -47,19 +50,21 @@ class CommentBar extends React.Component {
         </div>
         <div className={css(styles.bodyContainer)}>{comments}</div>
         <div className={css(styles.inputContainer)}>
-          <form onSubmit={this.handleSubmit} className={css(styles.form)}>
-            <textarea
-              value={inputValue}
-              onChange={e => this.setState({ inputValue: e.target.value })}
-              className={css(styles.input)}
-              placeholder="Ask a question or make a comment!"
-              cols={50}
-              rows={3}
-            />
-            <button className={css(styles.button)} type="submit">
-              Comment
-            </button>
-          </form>
+          <textarea
+            value={inputValue}
+            onChange={e => this.setState({ inputValue: e.target.value })}
+            className={css(styles.input)}
+            placeholder="Ask a question or make a comment!"
+            cols={50}
+            rows={3}
+          />
+          <button
+            className={css(styles.button)}
+            type="submit"
+            onClick={this.handleSubmit}
+          >
+            Comment
+          </button>
         </div>
       </div>
     );
@@ -131,12 +136,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: "5px 10px",
     height: "200px"
-  },
-
-  form: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
   },
 
   input: {

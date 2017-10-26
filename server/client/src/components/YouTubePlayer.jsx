@@ -21,7 +21,7 @@ class YouTubePlayer extends React.Component {
   componentDidMount() {
     let videoId = this.props.match.params.videoId;
     this.setState({ videoId });
-
+    console.log("mounted in YouTubePlayer");
     this.props.fetchVideoComments(videoId);
   }
 
