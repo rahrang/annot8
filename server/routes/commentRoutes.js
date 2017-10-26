@@ -1,35 +1,38 @@
-// NPM Modules
-const _ = require('lodash');
-const Path = require('path-parser');
-const URL = require('url');
-const mongoose = require('mongoose');
+const Path = require("path-parser");
+const mongoose = require("mongoose");
 
 // Middlewares
-const requireLogin = require('../middlewares/requireLogin.js');
+const requireLogin = require("../middlewares/requireLogin.js");
 
 // MongoDB Collections
-const Comment = mongoose.model('comments');
+const Comment = mongoose.model("comments");
 
 module.exports = app => {
-
   // GET all comments on a video
-  app.get('/api/comments/video/:videoId', async (req, res) => {
-    const { videoId } = req.body; 
-    const comments = await Comment.find({ videoId });
-    res.send(comments);
+  app.get("/api/video/comments/", async (req, res) => {
+    const p = new Path("/api/video/comments?:videoId");
+    const match = p.test(req.url);
+    console.log(match);
+    const comments = await Comment.find({ videoId: match.videoId });
+    res.status(200).send(comments);
   });
 
-  // GET all posts for User
-  app.get('/api/comments/user', requireLogin, async (req, res) => {
+  // GET all comments for User
+  app.get("/api/user/comments", requireLogin, async (req, res) => {
     const comments = await Comment.find({ _user: req.user.id });
-    res.send(comments);
+    res.status(200).send(comments);
   });
 
-  // GET all posts for User on a video
-  app.get('/api/comments/user/video/:videoId', requireLogin, async (req, res) => {
-    const { videoId } = req.body;
-    const comments = await Comment.find({ _user: req.user.id, videoId });
-    res.send(comments);
+  // GET all comments for User on a video
+  app.get("/api/user/video/comments/", requireLogin, async (req, res) => {
+    const p = new Path("/api/user/video/comments?:videoId");
+    const match = p.test(req.url);
+
+    const comments = await Comment.find({
+      _user: req.user.id,
+      videoId: match.videoId
+    });
+    res.status(200).send(comments);
   });
 
   // GET all timestamps on a video
@@ -41,12 +44,13 @@ module.exports = app => {
   // GET all private comments on a video
 
   // POST a new commment on a video
-  app.post('/api/comments/video/:videoId', requireLogin, (req, res) => {
-    const { text, videoId } = req.body;
+  app.post("/api/video/comments/", requireLogin, (req, res) => {
+    console.log(req.body);
+    const { videoId, text } = req.body;
 
     const comment = new Comment({
+      videoId,
       text,
-      videoId, 
       _user: req.user.id,
       datePosted: Date.now()
     });
@@ -58,5 +62,4 @@ module.exports = app => {
       res.status(422).send(err);
     }
   });
-
 };
