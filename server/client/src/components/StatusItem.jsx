@@ -1,8 +1,8 @@
 // React
-import React from 'react';
+import React from "react";
 
 // NPM Modules
-import { css, StyleSheet } from 'aphrodite';
+import { css, StyleSheet } from "aphrodite";
 
 export default class StatusItem extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class StatusItem extends React.Component {
     return (
       <div
         className={css(styles.statusItemContainer, styles.fadeIn)}
-        onClick={() => changeView('posts')}
+        onClick={() => changeView("comments")}
       >
         <p className={css(styles.timeStamp)}>{timeStamp}</p>
         <p className={css(styles.description)}>{text}</p>
@@ -21,30 +21,30 @@ export default class StatusItem extends React.Component {
 
 const styles = StyleSheet.create({
   statusItemContainer: {
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '40px',
-    width: '100%',
-    padding: '3px 0 0',
-    ':hover': {
-      backgroundColor: '#E6E6E6'
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "40px",
+    width: "100%",
+    padding: "3px 0 0",
+    ":hover": {
+      backgroundColor: "#E6E6E6"
     }
   },
 
   timeStamp: {
-    color: '#333',
-    fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1em',
-    letterSpacing: '0.025em'
+    color: "#333",
+    fontFamily: "Fjalla One, sans-serif",
+    fontSize: "1em",
+    letterSpacing: "0.025em"
   },
 
   description: {
-    color: '#666',
-    fontFamily: 'Open Sans, sans-serif',
-    fontSize: '0.9em',
-    padding: '0 0 0 10px'
+    color: "#666",
+    fontFamily: "Open Sans, sans-serif",
+    fontSize: "0.9em",
+    padding: "0 0 0 10px"
   }
 });

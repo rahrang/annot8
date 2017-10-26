@@ -1,39 +1,47 @@
 // React
-import React from 'react';
+import React from "react";
 
 // NPM Modules
-import { css, StyleSheet } from 'aphrodite';
-import * as _ from 'lodash';
+import { connect } from "react-redux";
+import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
-import Comment from './Comment.jsx';
+// Local Components
+import Comment from "./Comment.jsx";
+import { CommentActions } from "../actions/comment-actions.js";
 
-export default class CommentBar extends React.Component {
+class CommentBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: '',
+      inputValue: "",
       isPublic: true,
       isQuestion: true
     };
   }
 
   // called when user clicks post --> send info to backend
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    let { videoId } = this.props;
+    let { inputValue } = this.state;
+    this.props.makeComment(videoId, inputValue);
+  };
 
   render() {
     let comments = _.range(0, 4).map(p => {
-      return <Comment me={p % 2 === 1} />;
+      return <Comment key={p} me={p % 2 === 1} />;
     });
 
     let { changeView } = this.props;
+    let { inputValue } = this.state;
 
     return (
       <div className={css(styles.commentBarContainer)}>
         <div className={css(styles.headerContainer)}>
           <i
-            className={css(styles.icon) + ' fa fa-chevron-left'}
+            className={css(styles.icon) + " fa fa-chevron-left"}
             aria-hidden="true"
-            onClick={() => changeView('status')}
+            onClick={() => changeView("status")}
           />
           <p className={css(styles.header)}>Comments</p>
         </div>
@@ -41,6 +49,8 @@ export default class CommentBar extends React.Component {
         <div className={css(styles.inputContainer)}>
           <form onSubmit={this.handleSubmit} className={css(styles.form)}>
             <textarea
+              value={inputValue}
+              onChange={e => this.setState({ inputValue: e.target.value })}
               className={css(styles.input)}
               placeholder="Ask a question or make a comment!"
               cols={50}
@@ -56,41 +66,50 @@ export default class CommentBar extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+    comments: state.comments
+  };
+}
+
+export default connect(mapStateToProps, CommentActions)(CommentBar);
+
 const styles = StyleSheet.create({
   commentBarContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    padding: '10px 0'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    padding: "10px 0"
   },
 
   headerContainer: {
-    backgroundColor: '#F5F5F5',
-    borderBottom: '3px solid #3F7BA9',
-    color: '#333',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1.25em',
-    padding: '3px 0',
-    position: 'relative',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    width: '100%'
+    backgroundColor: "#F5F5F5",
+    borderBottom: "3px solid #3F7BA9",
+    color: "#333",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Fjalla One, sans-serif",
+    fontSize: "1.25em",
+    padding: "3px 0",
+    position: "relative",
+    textAlign: "center",
+    textTransform: "uppercase",
+    width: "100%"
   },
 
   icon: {
-    color: '#3F7BA9',
-    cursor: 'pointer',
-    fontSize: '0.9em',
-    position: 'absolute',
-    left: '10px',
-    margin: '0',
-    padding: '0 10px'
+    color: "#3F7BA9",
+    cursor: "pointer",
+    fontSize: "0.9em",
+    position: "absolute",
+    left: "10px",
+    margin: "0",
+    padding: "0 10px"
   },
 
   header: {
@@ -99,46 +118,46 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    backgroundColor: '#E6E6E6',
-    borderBottom: '3px solid #3F7BA9',
-    width: '100%',
-    overflow: 'scroll'
+    backgroundColor: "#E6E6E6",
+    borderBottom: "3px solid #3F7BA9",
+    width: "100%",
+    overflow: "scroll"
   },
 
   inputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '5px 10px',
-    height: '200px'
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "5px 10px",
+    height: "200px"
   },
 
   form: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   input: {
-    border: 'none',
-    color: '#333',
-    fontFamily: 'Open Sans, sans-serif',
-    fontSize: '1em',
-    margin: '5px',
-    padding: '5px',
-    outline: 'none',
-    resize: 'none'
+    border: "none",
+    color: "#333",
+    fontFamily: "Open Sans, sans-serif",
+    fontSize: "1em",
+    margin: "5px",
+    padding: "5px",
+    outline: "none",
+    resize: "none"
   },
 
   button: {
-    border: 'none',
-    backgroundColor: '#3F7BA9',
-    color: '#F5F5F5',
-    cursor: 'pointer',
-    fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1em',
-    outline: 'none',
-    padding: '3px 10px'
+    border: "none",
+    backgroundColor: "#3F7BA9",
+    color: "#F5F5F5",
+    cursor: "pointer",
+    fontFamily: "Fjalla One, sans-serif",
+    fontSize: "1em",
+    outline: "none",
+    padding: "3px 10px"
   }
 });

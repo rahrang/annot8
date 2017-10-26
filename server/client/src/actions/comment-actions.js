@@ -26,5 +26,9 @@ export const CommentActions = {
   makeComment: (videoId, text) => async dispatch => {
     const params = { videoId, text };
     const res = await axios.post("/api/video/comments", { params });
+    dispatch({
+      type: CommentConstants.FETCH_COMMENTS,
+      comments: res.data
+    });
   }
 };
