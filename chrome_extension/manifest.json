@@ -3,16 +3,11 @@
   "name": "Annot8",
   "version": "0.1",
   "page_action": {
-    "default_icon": "test.png",
+    "default_icon": "annot8_logo.png",
     "default_title": "Annot8"
   },
-  "permissions": [
-    "activeTab",
-    "declarativeContent"   
-  ],
+  "permissions": ["activeTab", "declarativeContent"],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   }
 }

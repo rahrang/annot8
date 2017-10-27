@@ -23,8 +23,7 @@
     "react-scripts": "1.0.14",
     "react-youtube": "^7.5.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "request": "^2.83.0"
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
