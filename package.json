@@ -23,7 +23,9 @@
     "server": "nodemon server/index.js",
     "client": "cd server/client && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix server/client && npm run build --prefix server/client"
+    "build": "npm run build --prefix server/client",
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false && npm install --prefix server/client && npm run build --prefix server/client"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
