@@ -1,6 +1,6 @@
 node_modules
 
-server/config/dev.js
+config/dev.js
 
 client/node_modules
 
@@ -9,8 +9,3 @@ client/build
 build
 
 .DS_Store
-
-// remove these later
-server/routes/postRoutes.js
-server/routes/userRoutes.js
-server/routes/videoRoutes.js
