@@ -9,3 +9,8 @@ client/build
 build
 
 .DS_Store
+
+// remove these later
+server/routes/postRoutes.js
+server/routes/userRoutes.js
+server/routes/videoRoutes.js

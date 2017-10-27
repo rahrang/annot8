@@ -4,24 +4,24 @@ import React from 'react';
 // NPM Modules
 import { css, StyleSheet } from 'aphrodite';
 
-export default class Post extends React.Component {
+export default class Comment extends React.Component {
   render() {
     let { me } = this.props;
     return (
       <div
         className={css(
-          styles.postContainer,
+          styles.commentContainer,
           me ? styles.alignRight : styles.alignLeft
         )}
       >
-        <p className={css(styles.post)}>This is the post message</p>
+        <p className={css(styles.comment)}>This is the comment message</p>
       </div>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  postContainer: {
+  commentContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',

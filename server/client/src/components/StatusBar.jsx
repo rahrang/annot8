@@ -22,7 +22,7 @@ export default class StatusBar extends React.Component {
     return (
       <div className={css(styles.statusBarContainer, styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
-          <p className={css(styles.header)}>Posts</p>
+          <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{statuses}</div>
       </div>
