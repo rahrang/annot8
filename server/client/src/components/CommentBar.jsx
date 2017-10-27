@@ -16,27 +16,36 @@ class CommentBar extends React.Component {
     this.state = {
       inputValue: "",
       isPublic: true,
-      isQuestion: true
+      isQuestion: true,
+      timestamp: -1
     };
   }
+
+  onInputFocus = () => {
+    let { getTime } = this.props;
+    let timestamp = getTime();
+    this.setState({ timestamp });
+  };
 
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
     console.log("called handle submit");
     let { videoId } = this.props;
-    let { inputValue } = this.state;
-    if (!_.isEmpty(inputValue)) {
-      this.props.makeComment(videoId, inputValue);
+    let { timestamp, inputValue } = this.state;
+    if (!_.isEmpty(inputValue) && timestamp !== -1) {
+      this.props.makeComment(videoId, timestamp, inputValue);
     }
   };
 
   render() {
-    let comments = _.range(0, 4).map(p => {
-      return <Comment key={p} me={p % 2 === 1} />;
-    });
+    // let comments = _.range(0, 4).map(p => {
+    //   return <Comment key={p} me={p % 2 === 1} />;
+    // });
 
-    let { changeView } = this.props;
+    let { changeView, comments, getTime } = this.props;
     let { inputValue } = this.state;
+
+    comments = null;
 
     return (
       <div className={css(styles.commentBarContainer)}>
@@ -53,6 +62,7 @@ class CommentBar extends React.Component {
           <textarea
             value={inputValue}
             onChange={e => this.setState({ inputValue: e.target.value })}
+            onFocus={this.onInputFocus}
             className={css(styles.input)}
             placeholder="Ask a question or make a comment!"
             cols={50}

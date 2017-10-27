@@ -1,18 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
   _user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _response: {
     type: Schema.Types.ObjectId,
-    ref: 'Comment',
-    default: null,
+    ref: "Comment",
+    default: null
   },
   videoId: {
     type: String,
+    required: true
+  },
+  timestamp: {
+    type: Number,
     required: true
   },
   datePosted: {
@@ -20,7 +24,7 @@ const commentSchema = new Schema({
   },
   lastResponded: {
     type: Date
-  }, 
+  },
   text: {
     type: String,
     required: true,
@@ -41,4 +45,4 @@ const commentSchema = new Schema({
   }
 });
 
-mongoose.model('comments', commentSchema);
+mongoose.model("comments", commentSchema);

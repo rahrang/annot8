@@ -14,29 +14,58 @@ class YouTubePlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoId: ""
+      videoId: "",
+      player: {}
     };
+
+    this.onReady = this.onReady.bind(this);
   }
 
   componentDidMount() {
     let videoId = this.props.match.params.videoId;
     this.setState({ videoId });
-    console.log("mounted in YouTubePlayer");
     this.props.fetchVideoComments(videoId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    let videoId = this.props.match.params.videoId;
+    let nextVideoId = nextProps.match.params.videoId;
+    if (videoId !== nextVideoId) {
+      this.setState({ videoId: nextVideoId });
+      this.props.fetchVideoComments(nextVideoId);
+    }
+  }
+
+  onReady = event => {
+    console.log(
+      `YouTube Player object for videoId:${this.state
+        .videoId}" has been saved to state.`
+    );
+    this.setState({
+      player: event.target
+    });
+  };
+
+  getTime = () => {
+    let { player } = this.state;
+    player.pauseVideo();
+    return Math.round(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
+  };
+
   render() {
-    let { videoId } = this.state;
+    let { videoId, player } = this.state;
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>
-          <SideBar videoId={videoId} />
+          <SideBar videoId={videoId} getTime={this.getTime} />
         </div>
         <div className={css(styles.playerContainer)}>
           <YouTube
+            id="youtube-player"
             videoId={videoId}
             className={css(styles.player)}
             opts={opts}
+            onReady={this.onReady}
           />
         </div>
       </div>
