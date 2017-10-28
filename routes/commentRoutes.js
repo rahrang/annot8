@@ -1,5 +1,6 @@
 const Path = require("path-parser");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 // Middlewares
 const requireLogin = require("../middlewares/requireLogin.js");
@@ -8,19 +9,38 @@ const requireLogin = require("../middlewares/requireLogin.js");
 const Comment = mongoose.model("comments");
 
 module.exports = app => {
-  // GET all comments on a video
-  app.get("/api/video/comments/", async (req, res) => {
-    const p = new Path("/api/video/comments?:videoId");
+  // GET all top-level comments on a video
+  app.get("/api/video/comments/all", async (req, res) => {
+    const p = new Path("/api/video/comments/all?:videoId");
     const match = p.test(req.url);
     if (match) {
-      const comments = await Comment.find({ videoId: match.videoId });
+      // const comments = await Comment.find({ videoId: match.videoId });
+      const comments = await Comment.find({ videoId: match.videoId }).sort({
+        timestamp: 1,
+        _id: 1
+      });
+      let filteredComments = getTopLevelComments(comments);
+      res.status(200).send(filteredComments);
+    }
+  });
+
+  app.get("/api/video/comments/timestamp", async (req, res) => {
+    const p = new Path("/api/video/comments/timestamp?:videoId&:timestamp");
+    const match = p.test(req.url);
+    if (match) {
+      const comments = await Comment.find({
+        videoId: match.videoId,
+        timestamp: match.timestamp
+      }).sort({ _id: 1 });
       res.status(200).send(comments);
     }
   });
 
   // GET all comments for User
   app.get("/api/user/comments/", requireLogin, async (req, res) => {
-    const comments = await Comment.find({ _user: req.user.id });
+    const comments = await Comment.find({ _user: req.user.id }).sort({
+      _id: 1
+    });
     res.status(200).send(comments);
   });
 
@@ -33,6 +53,8 @@ module.exports = app => {
       const comments = await Comment.find({
         _user: req.user.id,
         videoId: match.videoId
+      }).sort({
+        _id: 1
       });
       res.status(200).send(comments);
     }
@@ -61,7 +83,10 @@ module.exports = app => {
 
     try {
       await comment.save();
-      res.send(req.user);
+      const comments = await Comment.find({ videoId, timestamp }).sort({
+        _id: 1
+      });
+      res.status(200).send(comments);
     } catch (err) {
       res.status(422).send(err);
     }
@@ -69,11 +94,27 @@ module.exports = app => {
 
   // DELETE a comment
   app.delete("/api/video/comments/", requireLogin, async (req, res) => {
-    const p = new Path("/api/video/comments?:commentId");
+    const p = new Path("/api/video/comments?:videoId&:commentId&:timestamp");
     const match = p.test(req.url);
     if (match) {
-      const comments = await Comment.remove({ _id: match.commentId });
+      await Comment.remove({ _id: match.commentId });
+      const comments = await Comment.find({
+        videoId: match.videoId,
+        timestamp: match.timestamp
+      }).sort({ _id: 1 });
       res.status(200).send(comments);
     }
   });
+};
+
+const getTopLevelComments = comments => {
+  let timestamps = [];
+  let commentsToReturn = [];
+  comments.forEach(c => {
+    if (!_.includes(timestamps, c.timestamp)) {
+      timestamps.push(c.timestamp);
+      commentsToReturn.push(c);
+    }
+  });
+  return commentsToReturn;
 };

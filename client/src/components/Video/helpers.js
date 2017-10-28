@@ -73,7 +73,7 @@ const convertSecondsToTime = timestamp => {
 };
 
 const formatTime = (timestamp, upperBound) => {
-  let videoContainsHours = upperBound % 3600 > 0;
+  let videoContainsHours = Math.floor(upperBound / 3600) > 0;
   let timeObject = convertSecondsToTime(timestamp);
   let { hoursElapsed, minutesElapsed, secondsElapsed } = timeObject;
 
@@ -89,11 +89,12 @@ const formatTime = (timestamp, upperBound) => {
 };
 
 const truncate = text => {
+  if (text.length < 40) {
+    return text;
+  }
   let textArray = text.split("");
   let truncatedArray = textArray.slice(0, 40);
-  truncatedArray.push(".");
-  truncatedArray.push(".");
-  truncatedArray.push(".");
+  truncatedArray.push("...");
   let newText = truncatedArray.join("");
   return newText;
 };

@@ -10,20 +10,26 @@ import StatusItem from "./StatusItem.jsx";
 const helpers = require("./helpers.js");
 
 export default class StatusBar extends React.Component {
+  changeView = async timestamp => {
+    let { videoId, fetchTimestampComments } = this.props;
+    await fetchTimestampComments(videoId, timestamp);
+    this.props.changeView("comments");
+  };
+
   render() {
     let { comments, getDuration } = this.props;
 
     let statuses = null;
-
     if (!_.isEmpty(comments) && _.isArray(comments)) {
       statuses = comments.map(c => {
         return (
           <StatusItem
             key={c._id}
-            timestamp={helpers.formatTime(c.timestamp, getDuration())}
+            timestamp={c.timestamp}
+            time={helpers.formatTime(c.timestamp, getDuration())}
             text={helpers.truncate(c.text)}
             timeElapsed={helpers.getTimeElapsed(c.datePosted)}
-            changeView={this.props.changeView}
+            changeView={this.changeView}
           />
         );
       });

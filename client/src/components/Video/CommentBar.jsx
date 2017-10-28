@@ -37,7 +37,6 @@ class CommentBar extends React.Component {
 
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
-    console.log("called handle submit");
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
     let { timestamp, inputValue, isAnonymous } = this.state;
@@ -52,8 +51,9 @@ class CommentBar extends React.Component {
     }
   };
 
-  deleteComment = commentId => {
-    this.props.deleteComment(commentId, "video");
+  deleteComment = (commentId, timestamp) => {
+    let { videoId } = this.props;
+    this.props.deleteComment(videoId, commentId, timestamp, "video");
   };
 
   render() {

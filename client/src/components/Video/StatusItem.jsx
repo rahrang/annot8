@@ -6,13 +6,13 @@ import { css, StyleSheet } from "aphrodite";
 
 export default class StatusItem extends React.Component {
   render() {
-    let { timestamp, timeElapsed, text, changeView } = this.props;
+    let { timestamp, time, timeElapsed, text, changeView } = this.props;
     return (
       <div
         className={css(styles.statusItemContainer, styles.fadeIn)}
-        onClick={() => changeView("comments")}
+        onClick={() => changeView(timestamp)}
       >
-        <p className={css(styles.timestamp)}>{timestamp}</p>
+        <p className={css(styles.timestamp)}>{time}</p>
         <p className={css(styles.timeElapsed)}>{timeElapsed}</p>
         <p className={css(styles.description)}>{text}</p>
       </div>

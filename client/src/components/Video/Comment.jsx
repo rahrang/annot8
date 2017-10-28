@@ -30,7 +30,7 @@ export default class Comment extends React.Component {
         {isCurrentUser && (
           <div
             className={css(styles.iconContainer)}
-            onClick={() => deleteComment(id)}
+            onClick={() => deleteComment(id, timestamp)}
           >
             <i
               className={css(styles.icon) + "fa fa-times"}

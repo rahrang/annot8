@@ -9,6 +9,7 @@ import * as _ from "lodash";
 // Local Components
 import CommentBar from "./CommentBar.jsx";
 import StatusBar from "./StatusBar.jsx";
+import { CommentActions } from "../../actions/comment-actions.js";
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class SideBar extends React.Component {
       getTime,
       getDuration,
       commentsReducer,
-      authReducer
+      authReducer,
+      fetchTimestampComments
     } = this.props;
     let { view } = this.state;
     return (
@@ -39,7 +41,7 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getTime={getTime}
             getDuration={getDuration}
-            comments={commentsReducer.video_comments}
+            comments={commentsReducer.timestamp_comments}
             currentUser={authReducer.user}
           />
         ) : (
@@ -48,6 +50,7 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getDuration={getDuration}
             comments={commentsReducer.video_comments}
+            fetchTimestampComments={fetchTimestampComments}
           />
         )}
       </div>
@@ -62,7 +65,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, CommentActions)(SideBar);
 
 const styles = StyleSheet.create({
   sideBarContainer: {

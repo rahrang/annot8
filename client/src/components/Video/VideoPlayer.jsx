@@ -26,6 +26,7 @@ class VideoPlayer extends React.Component {
     let videoId = this.props.match.params.videoId;
     this.setState({ videoId });
     this.props.fetchVideoComments(videoId);
+    // this.props.fetchTimestampComments(videoId, 5); // should execute when a statusItem is clicked
   }
 
   componentWillReceiveProps(nextProps) {
