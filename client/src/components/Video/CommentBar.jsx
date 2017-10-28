@@ -8,6 +8,7 @@ import * as _ from "lodash";
 
 // Local Components
 import Comment from "./Comment.jsx";
+import CommentInput from "./CommentInput.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class CommentBar extends React.Component {
@@ -15,8 +16,7 @@ class CommentBar extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      isPublic: true,
-      isQuestion: true,
+      isAnonymous: false,
       timestamp: -1
     };
   }
@@ -27,25 +27,57 @@ class CommentBar extends React.Component {
     this.setState({ timestamp });
   };
 
+  onInputChange = event => {
+    this.setState({ inputValue: event.target.value });
+  };
+
+  setAnonymous = bool => {
+    this.setState({ isAnonymous: bool });
+  };
+
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
-    console.log("called handle submit");
-    let { videoId } = this.props;
-    let { timestamp, inputValue } = this.state;
+    let { videoId, authReducer } = this.props;
+    let userName = authReducer.user.name;
+    let { timestamp, inputValue, isAnonymous } = this.state;
     if (!_.isEmpty(inputValue) && timestamp !== -1) {
-      this.props.makeComment(videoId, timestamp, inputValue);
+      this.props.makeComment(
+        videoId,
+        timestamp,
+        userName,
+        isAnonymous,
+        inputValue
+      );
     }
   };
 
-  render() {
-    // let comments = _.range(0, 4).map(p => {
-    //   return <Comment key={p} me={p % 2 === 1} />;
-    // });
+  deleteComment = (commentId, timestamp) => {
+    let { videoId } = this.props;
+    this.props.deleteComment(videoId, commentId, timestamp, "video");
+  };
 
-    let { changeView, comments, getTime } = this.props;
+  render() {
+    let { changeView, comments, getTime, authReducer } = this.props;
     let { inputValue } = this.state;
 
-    comments = null;
+    let commentsToRender = null;
+    if (!_.isEmpty(comments) && _.isArray(comments)) {
+      commentsToRender = comments.map(c => {
+        return (
+          <Comment
+            key={c._id}
+            id={c._id}
+            text={c.text}
+            timestamp={c.timestamp}
+            datePosted={c.datePosted}
+            user={c.isAnonymous ? "Anonymous" : c.userName}
+            isResolved={c.isResolved}
+            isCurrentUser={_.isEqual(c._user, authReducer.user._id)}
+            deleteComment={this.deleteComment}
+          />
+        );
+      });
+    }
 
     return (
       <div className={css(styles.commentBarContainer)}>
@@ -57,25 +89,15 @@ class CommentBar extends React.Component {
           />
           <p className={css(styles.header)}>Comments</p>
         </div>
-        <div className={css(styles.bodyContainer)}>{comments}</div>
-        <div className={css(styles.inputContainer)}>
-          <textarea
-            value={inputValue}
-            onChange={e => this.setState({ inputValue: e.target.value })}
-            onFocus={this.onInputFocus}
-            className={css(styles.input)}
-            placeholder="Ask a question or make a comment!"
-            cols={50}
-            rows={3}
-          />
-          <button
-            className={css(styles.button)}
-            type="submit"
-            onClick={this.handleSubmit}
-          >
-            Comment
-          </button>
-        </div>
+        <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
+        <CommentInput
+          value={inputValue}
+          onChange={e => this.onInputChange(e)}
+          onFocus={this.onInputFocus}
+          handleSubmit={this.handleSubmit}
+          user={authReducer.user}
+          setAnonymous={this.setAnonymous}
+        />
       </div>
     );
   }
@@ -83,8 +105,8 @@ class CommentBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 
@@ -137,15 +159,6 @@ const styles = StyleSheet.create({
     borderBottom: "3px solid #3F7BA9",
     width: "100%",
     overflow: "scroll"
-  },
-
-  inputContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "5px 10px",
-    height: "200px"
   },
 
   input: {

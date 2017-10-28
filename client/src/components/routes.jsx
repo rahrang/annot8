@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return { auth: state.auth };
+  return { authReducer: state.authReducer };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -24,8 +24,7 @@
     "client": "cd client && npm run start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm run build --prefix client",
-    "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"

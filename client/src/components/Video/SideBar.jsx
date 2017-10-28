@@ -4,28 +4,34 @@ import React from "react";
 // NPM Modules
 import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
+// Local Components
 import CommentBar from "./CommentBar.jsx";
 import StatusBar from "./StatusBar.jsx";
+import { CommentActions } from "../../actions/comment-actions.js";
 
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "comments"
+      view: "status"
     };
   }
-
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {}
 
   changeView = newView => {
     this.setState({ view: newView });
   };
 
   render() {
-    let { videoId, comments, getTime } = this.props;
+    let {
+      videoId,
+      getTime,
+      getDuration,
+      commentsReducer,
+      authReducer,
+      fetchTimestampComments
+    } = this.props;
     let { view } = this.state;
     return (
       <div className={css(styles.sideBarContainer)}>
@@ -34,13 +40,17 @@ class SideBar extends React.Component {
             videoId={videoId}
             changeView={this.changeView}
             getTime={getTime}
-            comments={comments}
+            getDuration={getDuration}
+            comments={commentsReducer.timestamp_comments}
+            currentUser={authReducer.user}
           />
         ) : (
           <StatusBar
             videoId={videoId}
             changeView={this.changeView}
-            comments={comments}
+            getDuration={getDuration}
+            comments={commentsReducer.video_comments}
+            fetchTimestampComments={fetchTimestampComments}
           />
         )}
       </div>
@@ -50,12 +60,12 @@ class SideBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, CommentActions)(SideBar);
 
 const styles = StyleSheet.create({
   sideBarContainer: {

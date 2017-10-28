@@ -4,6 +4,7 @@ import React from "react";
 // NPM Modules
 import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 import YouTube from "react-youtube";
 
 // Local Components
@@ -25,14 +26,24 @@ class VideoPlayer extends React.Component {
     let videoId = this.props.match.params.videoId;
     this.setState({ videoId });
     this.props.fetchVideoComments(videoId);
+    // this.props.fetchTimestampComments(videoId, 5); // should execute when a statusItem is clicked
   }
 
   componentWillReceiveProps(nextProps) {
     let videoId = this.props.match.params.videoId;
     let nextVideoId = nextProps.match.params.videoId;
-    if (videoId !== nextVideoId) {
+
+    // if the video switches
+    if (!_.isEqual(videoId, nextVideoId)) {
       this.setState({ videoId: nextVideoId });
       this.props.fetchVideoComments(nextVideoId);
+    }
+
+    let commentReducer = this.props;
+    let nextCommentReducer = nextProps;
+    // if a new comment is made
+    if (!_.isEqual(commentReducer, nextCommentReducer)) {
+      this.props.fetchVideoComments(videoId);
     }
   }
 
@@ -48,12 +59,21 @@ class VideoPlayer extends React.Component {
     return Math.round(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
   };
 
+  getDuration = () => {
+    let { player } = this.state;
+    return !_.isEmpty(player) ? player.getDuration() : 0;
+  };
+
   render() {
     let { videoId, player } = this.state;
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>
-          <SideBar videoId={videoId} getTime={this.getTime} />
+          <SideBar
+            videoId={videoId}
+            getTime={this.getTime}
+            getDuration={this.getDuration}
+          />
         </div>
         <div className={css(styles.playerContainer)}>
           <YouTube
@@ -71,8 +91,8 @@ class VideoPlayer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 
@@ -84,7 +104,6 @@ const opts = {
   playerVars: {
     autoplay: 1,
     cc_load_policy: 0,
-    // color: 'white',
     modestbranding: 1, // removes the YouTube icon in the controls bar
     iv_load_policy: 3
   }
