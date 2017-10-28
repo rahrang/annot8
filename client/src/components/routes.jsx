@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
 // Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 // React Router
-import { Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Switch, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 
 // NPM Modules
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from "aphrodite";
 
 // Actions
-import { AuthActions } from '../actions/auth-actions';
+import { AuthActions } from "../actions/auth-actions";
 
 // Containers
-import Navbar from './Navbar.jsx';
-import Home from './Home.jsx';
-import About from './About.jsx';
-import YouTubePlayer from './YouTubePlayer.jsx';
-import Footer from './Footer.jsx';
+import Navbar from "./Navbar/Navbar.jsx";
+import Home from "./Home.jsx";
+import About from "./About.jsx";
+import YouTubePlayer from "./Video/VideoPlayer.jsx";
+import Footer from "./Footer.jsx";
 
 class Routes extends React.Component {
   render() {
@@ -30,8 +30,8 @@ class Routes extends React.Component {
         <Navbar history={history} />
         <div className={css(styles.mainContainer)}>
           <Switch>
-            <Route exact path={'/'} component={Home} />
-            <Route exact path={'/about'} component={About} />
+            <Route exact path={"/"} component={Home} />
+            <Route exact path={"/about"} component={About} />
             <Route path={`/video/:videoId`} component={YouTubePlayer} />
           </Switch>
         </div>
@@ -43,7 +43,7 @@ class Routes extends React.Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    minHeight: 'calc(100vh - 110px)'
+    minHeight: "calc(100vh - 110px)"
   }
 });
 

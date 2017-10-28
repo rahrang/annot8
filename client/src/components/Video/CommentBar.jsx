@@ -8,7 +8,7 @@ import * as _ from "lodash";
 
 // Local Components
 import Comment from "./Comment.jsx";
-import { CommentActions } from "../actions/comment-actions.js";
+import { CommentActions } from "../../actions/comment-actions.js";
 
 class CommentBar extends React.Component {
   constructor(props) {

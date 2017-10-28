@@ -8,9 +8,9 @@ import YouTube from "react-youtube";
 
 // Local Components
 import SideBar from "./SideBar.jsx";
-import { CommentActions } from "../actions/comment-actions.js";
+import { CommentActions } from "../../actions/comment-actions.js";
 
-class YouTubePlayer extends React.Component {
+class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,10 +37,6 @@ class YouTubePlayer extends React.Component {
   }
 
   onReady = event => {
-    console.log(
-      `YouTube Player object for videoId:${this.state
-        .videoId}" has been saved to state.`
-    );
     this.setState({
       player: event.target
     });
@@ -61,7 +57,7 @@ class YouTubePlayer extends React.Component {
         </div>
         <div className={css(styles.playerContainer)}>
           <YouTube
-            id="youtube-player"
+            id="video-player"
             videoId={videoId}
             className={css(styles.player)}
             opts={opts}
@@ -80,7 +76,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, CommentActions)(YouTubePlayer);
+export default connect(mapStateToProps, CommentActions)(VideoPlayer);
 
 const opts = {
   height: "500",
