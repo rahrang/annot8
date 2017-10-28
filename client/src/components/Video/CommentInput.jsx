@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   },
 
   dropdown: {
+    cursor: "pointer",
     fontFamily: "Open Sans, sans-serif",
     fontSize: "0.875em",
     margin: "0 5px",

@@ -15,10 +15,6 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
-  userEmail: {
-    type: String,
-    required: true
-  },
   videoId: {
     type: String,
     required: true

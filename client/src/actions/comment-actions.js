@@ -28,7 +28,6 @@ export const CommentActions = {
     videoId,
     timestamp,
     userName,
-    userEmail,
     isAnonymous,
     text
   ) => async dispatch => {
@@ -36,7 +35,6 @@ export const CommentActions = {
       videoId,
       timestamp,
       userName,
-      userEmail,
       isAnonymous,
       text
     };

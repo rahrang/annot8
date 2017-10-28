@@ -40,14 +40,12 @@ class CommentBar extends React.Component {
     console.log("called handle submit");
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
-    let userEmail = authReducer.user.email;
     let { timestamp, inputValue, isAnonymous } = this.state;
     if (!_.isEmpty(inputValue) && timestamp !== -1) {
       this.props.makeComment(
         videoId,
         timestamp,
         userName,
-        userEmail,
         isAnonymous,
         inputValue
       );
@@ -61,6 +59,7 @@ class CommentBar extends React.Component {
     let commentsToRender = null;
 
     if (!_.isEmpty(comments) && _.isArray(comments)) {
+      console.log(authReducer.user);
       commentsToRender = comments.map(c => {
         return (
           <Comment
@@ -71,7 +70,7 @@ class CommentBar extends React.Component {
             datePosted={c.datePosted}
             user={c.isAnonymous ? "Anonymous" : c.userName}
             isResolved={c.isResolved}
-            isCurrentUser={_.isEqual(c.userEmail, authReducer.user.email)}
+            isCurrentUser={_.isEqual(c._user, authReducer.user._id)}
           />
         );
       });
