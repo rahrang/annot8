@@ -47,24 +47,24 @@ class CommentBar extends React.Component {
     let { changeView, comments, getTime, authReducer } = this.props;
     let { inputValue } = this.state;
 
-    if (_.isEmpty(comments) || !_.isArray(comments)) {
-      return null;
-    }
+    let commentsToRender = null;
 
-    let commentsToRender = comments.map(c => {
-      return (
-        <Comment
-          key={c.id}
-          id={c.id}
-          text={c.text}
-          timestamp={c.timestamp}
-          datePosted={c.datePosted}
-          user={c.isAnonymous ? "Anonymous" : c.userName}
-          isResolved={c.isResolved}
-          isCurrentUser={_.isEqual(c.userEmail, authReducer.user.email)}
-        />
-      );
-    });
+    if (!_.isEmpty(comments) && _.isArray(comments)) {
+      commentsToRender = comments.map(c => {
+        return (
+          <Comment
+            key={c.id}
+            id={c.id}
+            text={c.text}
+            timestamp={c.timestamp}
+            datePosted={c.datePosted}
+            user={c.isAnonymous ? "Anonymous" : c.userName}
+            isResolved={c.isResolved}
+            isCurrentUser={_.isEqual(c.userEmail, authReducer.user.email)}
+          />
+        );
+      });
+    }
 
     return (
       <div className={css(styles.commentBarContainer)}>

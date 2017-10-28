@@ -1,11 +1,11 @@
 // React
-import React from 'react';
+import React from "react";
 
 // NPM Modules
-import { css, StyleSheet } from 'aphrodite';
-import * as _ from 'lodash';
+import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
-import StatusItem from './StatusItem.jsx';
+import StatusItem from "./StatusItem.jsx";
 
 export default class StatusBar extends React.Component {
   render() {
@@ -32,24 +32,24 @@ export default class StatusBar extends React.Component {
 
 const styles = StyleSheet.create({
   statusBarContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    padding: '10px 0 0'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    padding: "10px 0 0"
   },
 
   headerContainer: {
-    backgroundColor: '#F5F5F5',
-    borderBottom: '3px solid #3F7BA9',
-    color: '#333',
-    fontFamily: 'Fjalla One, sans-serif',
-    fontSize: '1.25em',
-    padding: '3px 0',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    width: '100%'
+    backgroundColor: "#F5F5F5",
+    borderBottom: "3px solid #3F7BA9",
+    color: "#333",
+    fontFamily: "Fjalla One, sans-serif",
+    fontSize: "1.25em",
+    padding: "3px 0",
+    textAlign: "center",
+    textTransform: "uppercase",
+    width: "100%"
   },
 
   header: {
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    width: '100%',
-    overflowY: 'scroll',
-    height: '100%'
+    width: "100%",
+    overflowY: "scroll",
+    height: "100%"
   }
 });
