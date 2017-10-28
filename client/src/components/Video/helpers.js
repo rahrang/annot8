@@ -69,11 +69,39 @@ const convertSecondsToTime = timestamp => {
   let secondsRemaining = timestamp % 3600;
   let minutesElapsed = Math.floor(secondsRemaining / 60);
   let secondsElapsed = secondsRemaining % 60;
-  return [hoursElapsed, minutesElapsed, secondsElapsed];
+  return { hoursElapsed, minutesElapsed, secondsElapsed };
+};
+
+const formatTime = (timestamp, upperBound) => {
+  let videoContainsHours = upperBound % 3600 > 0;
+  let timeObject = convertSecondsToTime(timestamp);
+  let { hoursElapsed, minutesElapsed, secondsElapsed } = timeObject;
+
+  let hours = hoursElapsed < 10 ? `0${hoursElapsed}` : `${hoursElapsed}`;
+  let minutes =
+    minutesElapsed < 10 ? `0${minutesElapsed}` : `${minutesElapsed}`;
+  let seconds =
+    secondsElapsed < 10 ? `0${secondsElapsed}` : `${secondsElapsed}`;
+  if (videoContainsHours) {
+    return `${hours}:${minutes}:${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
+};
+
+const truncate = text => {
+  let textArray = text.split("");
+  let truncatedArray = textArray.slice(0, 40);
+  truncatedArray.push(".");
+  truncatedArray.push(".");
+  truncatedArray.push(".");
+  let newText = truncatedArray.join("");
+  return newText;
 };
 
 module.exports = {
   getTimeElapsed,
   getTimeBoundaries,
-  convertSecondsToTime
+  convertSecondsToTime,
+  formatTime,
+  truncate
 };

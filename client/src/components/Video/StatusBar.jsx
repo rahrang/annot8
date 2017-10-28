@@ -5,19 +5,29 @@ import React from "react";
 import { css, StyleSheet } from "aphrodite";
 import * as _ from "lodash";
 
+// Local Components
 import StatusItem from "./StatusItem.jsx";
+const helpers = require("./helpers.js");
 
 export default class StatusBar extends React.Component {
   render() {
-    let statuses = _.range(0, 5).map(p => {
-      return (
-        <StatusItem
-          timeStamp="11:11"
-          text="Lorem Ipsum Dolor Sit Amet Y TextAlign that"
-          changeView={this.props.changeView}
-        />
-      );
-    });
+    let { comments, getDuration } = this.props;
+
+    let statuses = null;
+
+    if (!_.isEmpty(comments) && _.isArray(comments)) {
+      statuses = comments.map(c => {
+        return (
+          <StatusItem
+            key={c._id}
+            timestamp={helpers.formatTime(c.timestamp, getDuration())}
+            text={helpers.truncate(c.text)}
+            timeElapsed={helpers.getTimeElapsed(c.datePosted)}
+            changeView={this.props.changeView}
+          />
+        );
+      });
+    }
 
     return (
       <div className={css(styles.statusBarContainer, styles.fadeIn)}>

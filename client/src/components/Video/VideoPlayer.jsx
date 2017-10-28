@@ -58,12 +58,21 @@ class VideoPlayer extends React.Component {
     return Math.round(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
   };
 
+  getDuration = () => {
+    let { player } = this.state;
+    return !_.isEmpty(player) ? player.getDuration() : 0;
+  };
+
   render() {
     let { videoId, player } = this.state;
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>
-          <SideBar videoId={videoId} getTime={this.getTime} />
+          <SideBar
+            videoId={videoId}
+            getTime={this.getTime}
+            getDuration={this.getDuration}
+          />
         </div>
         <div className={css(styles.playerContainer)}>
           <YouTube

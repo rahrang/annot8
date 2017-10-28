@@ -14,7 +14,7 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "comments"
+      view: "status"
     };
   }
 
@@ -23,7 +23,13 @@ class SideBar extends React.Component {
   };
 
   render() {
-    let { videoId, commentsReducer, authReducer, getTime } = this.props;
+    let {
+      videoId,
+      getTime,
+      getDuration,
+      commentsReducer,
+      authReducer
+    } = this.props;
     let { view } = this.state;
     return (
       <div className={css(styles.sideBarContainer)}>
@@ -32,6 +38,7 @@ class SideBar extends React.Component {
             videoId={videoId}
             changeView={this.changeView}
             getTime={getTime}
+            getDuration={getDuration}
             comments={commentsReducer.video_comments}
             currentUser={authReducer.user}
           />
@@ -39,6 +46,7 @@ class SideBar extends React.Component {
           <StatusBar
             videoId={videoId}
             changeView={this.changeView}
+            getDuration={getDuration}
             comments={commentsReducer.video_comments}
           />
         )}
