@@ -15,8 +15,6 @@ class CommentBar extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      isPublic: true,
-      isQuestion: true,
       timestamp: -1
     };
   }
@@ -30,22 +28,43 @@ class CommentBar extends React.Component {
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
     console.log("called handle submit");
-    let { videoId } = this.props;
+    let { videoId, authReducer } = this.props;
+    let userName = authReducer.user.name;
+    let userEmail = authReducer.user.email;
     let { timestamp, inputValue } = this.state;
     if (!_.isEmpty(inputValue) && timestamp !== -1) {
-      this.props.makeComment(videoId, timestamp, inputValue);
+      this.props.makeComment(
+        videoId,
+        timestamp,
+        userName,
+        userEmail,
+        inputValue
+      );
     }
   };
 
   render() {
-    // let comments = _.range(0, 4).map(p => {
-    //   return <Comment key={p} me={p % 2 === 1} />;
-    // });
-
-    let { changeView, comments, getTime } = this.props;
+    let { changeView, comments, getTime, authReducer } = this.props;
     let { inputValue } = this.state;
 
-    comments = null;
+    if (_.isEmpty(comments) || !_.isArray(comments)) {
+      return null;
+    }
+
+    let commentsToRender = comments.map(c => {
+      return (
+        <Comment
+          key={c.id}
+          id={c.id}
+          text={c.text}
+          timestamp={c.timestamp}
+          datePosted={c.datePosted}
+          user={c.isAnonymous ? "Anonymous" : c.userName}
+          isResolved={c.isResolved}
+          isCurrentUser={_.isEqual(c.userEmail, authReducer.user.email)}
+        />
+      );
+    });
 
     return (
       <div className={css(styles.commentBarContainer)}>
@@ -57,7 +76,7 @@ class CommentBar extends React.Component {
           />
           <p className={css(styles.header)}>Comments</p>
         </div>
-        <div className={css(styles.bodyContainer)}>{comments}</div>
+        <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
         <div className={css(styles.inputContainer)}>
           <textarea
             value={inputValue}
@@ -83,8 +102,8 @@ class CommentBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 

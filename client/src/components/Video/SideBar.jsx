@@ -4,7 +4,9 @@ import React from "react";
 // NPM Modules
 import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
+// Local Components
 import CommentBar from "./CommentBar.jsx";
 import StatusBar from "./StatusBar.jsx";
 
@@ -16,16 +18,12 @@ class SideBar extends React.Component {
     };
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {}
-
   changeView = newView => {
     this.setState({ view: newView });
   };
 
   render() {
-    let { videoId, comments, getTime } = this.props;
+    let { videoId, commentsReducer, authReducer, getTime } = this.props;
     let { view } = this.state;
     return (
       <div className={css(styles.sideBarContainer)}>
@@ -34,13 +32,14 @@ class SideBar extends React.Component {
             videoId={videoId}
             changeView={this.changeView}
             getTime={getTime}
-            comments={comments}
+            comments={commentsReducer.video_comments}
+            currentUser={authReducer.user}
           />
         ) : (
           <StatusBar
             videoId={videoId}
             changeView={this.changeView}
-            comments={comments}
+            comments={commentsReducer.video_comments}
           />
         )}
       </div>
@@ -50,8 +49,8 @@ class SideBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 

@@ -4,6 +4,7 @@ import React from "react";
 // NPM Modules
 import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 import YouTube from "react-youtube";
 
 // Local Components
@@ -30,9 +31,18 @@ class VideoPlayer extends React.Component {
   componentWillReceiveProps(nextProps) {
     let videoId = this.props.match.params.videoId;
     let nextVideoId = nextProps.match.params.videoId;
-    if (videoId !== nextVideoId) {
+
+    // if the video switches
+    if (!_.isEqual(videoId, nextVideoId)) {
       this.setState({ videoId: nextVideoId });
       this.props.fetchVideoComments(nextVideoId);
+    }
+
+    let commentReducer = this.props;
+    let nextCommentReducer = nextProps;
+    // if a new comment is made
+    if (!_.isEqual(commentReducer, nextCommentReducer)) {
+      this.props.fetchVideoComments(videoId);
     }
   }
 
@@ -71,8 +81,8 @@ class VideoPlayer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    comments: state.comments
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
   };
 }
 
@@ -84,7 +94,6 @@ const opts = {
   playerVars: {
     autoplay: 1,
     cc_load_policy: 0,
-    // color: 'white',
     modestbranding: 1, // removes the YouTube icon in the controls bar
     iv_load_policy: 3
   }

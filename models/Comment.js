@@ -11,6 +11,14 @@ const commentSchema = new Schema({
     ref: "Comment",
     default: null
   },
+  userName: {
+    type: String,
+    required: true
+  },
+  userEmail: {
+    type: String,
+    required: true
+  },
   videoId: {
     type: String,
     required: true
@@ -40,6 +48,10 @@ const commentSchema = new Schema({
     default: true
   },
   isResolved: {
+    type: Boolean,
+    default: false
+  },
+  isAnonymous: {
     type: Boolean,
     default: false
   }

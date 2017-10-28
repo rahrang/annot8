@@ -48,10 +48,12 @@ module.exports = app => {
 
   // POST a new commment on a video
   app.post("/api/video/comments/", requireLogin, async (req, res) => {
-    const { videoId, timestamp, text } = req.body;
+    const { videoId, timestamp, userName, userEmail, text } = req.body;
     const comment = new Comment({
       videoId,
       text,
+      userName,
+      userEmail,
       timestamp,
       _user: req.user.id,
       datePosted: Date.now()
