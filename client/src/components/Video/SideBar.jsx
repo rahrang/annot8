@@ -4,6 +4,7 @@ import React from "react";
 // NPM Modules
 import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
 // Local Components
 import CommentBar from "./CommentBar.jsx";
@@ -18,8 +19,42 @@ class SideBar extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.noComments()) {
+      this.setState({ view: "comments" });
+    } else {
+      this.setState({ view: "status" });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { commentsReducer } = this.props;
+    if (
+      !_.isEqual(
+        commentsReducer.video_comments,
+        nextProps.commentsReducer.video_comments
+      )
+    ) {
+      if (_.isEmpty(nextProps.commentsReducer.video_comments)) {
+        this.setState({ view: "comments" });
+      } else {
+        this.setState({ view: "status" });
+      }
+    }
+  }
+
   changeView = newView => {
-    this.setState({ view: newView });
+    let { commentsReducer } = this.props;
+    if (this.noComments()) {
+      this.setState({ view: "comments" });
+    } else {
+      this.setState({ view: newView });
+    }
+  };
+
+  noComments = () => {
+    let { commentsReducer } = this.props;
+    return _.isEmpty(commentsReducer.video_comments);
   };
 
   render() {

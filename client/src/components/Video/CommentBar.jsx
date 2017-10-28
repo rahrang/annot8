@@ -56,6 +56,11 @@ class CommentBar extends React.Component {
     this.props.deleteComment(videoId, commentId, timestamp, "video");
   };
 
+  noComments = () => {
+    let { commentsReducer } = this.props;
+    return _.isEmpty(commentsReducer.video_comments);
+  };
+
   render() {
     let { changeView, comments, authReducer } = this.props;
     let { inputValue } = this.state;
@@ -82,11 +87,13 @@ class CommentBar extends React.Component {
     return (
       <div className={css(styles.commentBarContainer)}>
         <div className={css(styles.headerContainer)}>
-          <i
-            className={css(styles.icon) + " fa fa-chevron-left"}
-            aria-hidden="true"
-            onClick={() => changeView("status")}
-          />
+          {!this.noComments() && (
+            <i
+              className={css(styles.icon) + " fa fa-chevron-left"}
+              aria-hidden="true"
+              onClick={() => changeView("status")}
+            />
+          )}
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
