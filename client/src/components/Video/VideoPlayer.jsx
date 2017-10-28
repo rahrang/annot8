@@ -65,7 +65,7 @@ class VideoPlayer extends React.Component {
   };
 
   render() {
-    let { videoId, player } = this.state;
+    let { videoId } = this.state;
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>

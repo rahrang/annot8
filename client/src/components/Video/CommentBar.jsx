@@ -57,7 +57,7 @@ class CommentBar extends React.Component {
   };
 
   render() {
-    let { changeView, comments, getTime, authReducer } = this.props;
+    let { changeView, comments, authReducer } = this.props;
     let { inputValue } = this.state;
 
     let commentsToRender = null;

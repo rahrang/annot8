@@ -15,7 +15,7 @@ export default class Comment extends React.Component {
       timestamp,
       datePosted,
       user,
-      isResolved,
+      // isResolved,
       isCurrentUser,
       deleteComment
     } = this.props;

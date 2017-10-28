@@ -69,6 +69,8 @@ export const CommentActions = {
           type: CommentConstants.FETCH_TIMESTAMP_COMMENTS,
           timestamp_comments: res.data
         });
+      default:
+        return;
     }
   }
 };
