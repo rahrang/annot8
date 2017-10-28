@@ -8,6 +8,7 @@ import * as _ from "lodash";
 
 // Local Components
 import Comment from "./Comment.jsx";
+import CommentInput from "./CommentInput.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class CommentBar extends React.Component {
@@ -15,6 +16,7 @@ class CommentBar extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
+      isAnonymous: false,
       timestamp: -1
     };
   }
@@ -25,19 +27,28 @@ class CommentBar extends React.Component {
     this.setState({ timestamp });
   };
 
+  onInputChange = event => {
+    this.setState({ inputValue: event.target.value });
+  };
+
+  setAnonymous = bool => {
+    this.setState({ isAnonymous: bool });
+  };
+
   // called when user clicks post --> send info to backend
   handleSubmit = () => {
     console.log("called handle submit");
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
     let userEmail = authReducer.user.email;
-    let { timestamp, inputValue } = this.state;
+    let { timestamp, inputValue, isAnonymous } = this.state;
     if (!_.isEmpty(inputValue) && timestamp !== -1) {
       this.props.makeComment(
         videoId,
         timestamp,
         userName,
         userEmail,
+        isAnonymous,
         inputValue
       );
     }
@@ -77,24 +88,14 @@ class CommentBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
-        <div className={css(styles.inputContainer)}>
-          <textarea
-            value={inputValue}
-            onChange={e => this.setState({ inputValue: e.target.value })}
-            onFocus={this.onInputFocus}
-            className={css(styles.input)}
-            placeholder="Ask a question or make a comment!"
-            cols={50}
-            rows={3}
-          />
-          <button
-            className={css(styles.button)}
-            type="submit"
-            onClick={this.handleSubmit}
-          >
-            Comment
-          </button>
-        </div>
+        <CommentInput
+          value={inputValue}
+          onChange={e => this.onInputChange(e)}
+          onFocus={this.onInputFocus}
+          handleSubmit={this.handleSubmit}
+          user={authReducer.user}
+          setAnonymous={this.setAnonymous}
+        />
       </div>
     );
   }
@@ -156,15 +157,6 @@ const styles = StyleSheet.create({
     borderBottom: "3px solid #3F7BA9",
     width: "100%",
     overflow: "scroll"
-  },
-
-  inputContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "5px 10px",
-    height: "200px"
   },
 
   input: {

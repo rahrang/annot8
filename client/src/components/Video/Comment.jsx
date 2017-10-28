@@ -29,7 +29,7 @@ export default class Comment extends React.Component {
         <div className={css(styles.secondRow)}>
           <p className={css(styles.userName)}>{user}</p>
           <p className={css(styles.time)}>
-            {helpers.calculateTimeElapsed(datePosted)}
+            {helpers.getTimeElapsed(datePosted)}
           </p>
         </div>
       </div>
@@ -76,13 +76,13 @@ const styles = StyleSheet.create({
     color: "#3F7BA9",
     fontSize: "0.5em",
     fontWeight: "bold",
-    margin: "0 1px"
+    margin: "0 2px"
   },
 
   time: {
     color: "#333",
     fontSize: "0.5em",
     fontWeight: "bold",
-    margin: "0 1px"
+    margin: "0 2px"
   }
 });
