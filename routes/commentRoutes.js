@@ -19,7 +19,7 @@ module.exports = app => {
   });
 
   // GET all comments for User
-  app.get("/api/user/comments", requireLogin, async (req, res) => {
+  app.get("/api/user/comments/", requireLogin, async (req, res) => {
     const comments = await Comment.find({ _user: req.user.id });
     res.status(200).send(comments);
   });
@@ -64,6 +64,16 @@ module.exports = app => {
       res.send(req.user);
     } catch (err) {
       res.status(422).send(err);
+    }
+  });
+
+  // DELETE a comment
+  app.delete("/api/video/comments/", requireLogin, async (req, res) => {
+    const p = new Path("/api/video/comments?:commentId");
+    const match = p.test(req.url);
+    if (match) {
+      const comments = await Comment.remove({ _id: match.commentId });
+      res.status(200).send(comments);
     }
   });
 };

@@ -43,5 +43,22 @@ export const CommentActions = {
       type: CommentConstants.FETCH_VIDEO_COMMENTS,
       video_comments: res.data
     });
+  },
+
+  deleteComment: (commentId, type) => async dispatch => {
+    const params = { commentId };
+    const res = await axios.delete("/api/video/comments", { params });
+    switch (type) {
+      case "user":
+        return dispatch({
+          type: CommentConstants.FETCH_USER_COMMENTS,
+          user_comments: res.data
+        });
+      case "video":
+        return dispatch({
+          type: CommentConstants.FETCH_VIDEO_COMMENTS,
+          video_comments: res.data
+        });
+    }
   }
 };

@@ -24,10 +24,18 @@ const getTimeElapsed = dateString => {
 
   let daysElapsed = now.getUTCDate() - date.getUTCDate();
   if (daysElapsed > 0) {
-    if (monthsElapsed === 1) {
+    if (daysElapsed === 1) {
       return "1 day ago";
     }
     return `${daysElapsed} days ago`;
+  }
+
+  let hoursElapsed = now.getUTCHours() - date.getUTCHours();
+  if (hoursElapsed > 0) {
+    if (hoursElapsed === 1) {
+      return "1 hour ago";
+    }
+    return `${hoursElapsed} hours ago`;
   }
 
   let minutesElapsed = now.getUTCMinutes() - date.getUTCMinutes();

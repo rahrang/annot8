@@ -52,25 +52,28 @@ class CommentBar extends React.Component {
     }
   };
 
+  deleteComment = commentId => {
+    this.props.deleteComment(commentId, "video");
+  };
+
   render() {
     let { changeView, comments, getTime, authReducer } = this.props;
     let { inputValue } = this.state;
 
     let commentsToRender = null;
-
     if (!_.isEmpty(comments) && _.isArray(comments)) {
-      console.log(authReducer.user);
       commentsToRender = comments.map(c => {
         return (
           <Comment
-            key={c.id}
-            id={c.id}
+            key={c._id}
+            id={c._id}
             text={c.text}
             timestamp={c.timestamp}
             datePosted={c.datePosted}
             user={c.isAnonymous ? "Anonymous" : c.userName}
             isResolved={c.isResolved}
             isCurrentUser={_.isEqual(c._user, authReducer.user._id)}
+            deleteComment={this.deleteComment}
           />
         );
       });
