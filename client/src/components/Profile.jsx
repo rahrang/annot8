@@ -5,6 +5,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
@@ -22,7 +23,17 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.pullComments();
+    let { authReducer } = this.props;
+    if (_.isEmpty(authReducer.user)) {
+      this.notLoggedIn = setTimeout(
+        function() {
+          this.props.history.replace("/");
+        }.bind(this),
+        2000
+      );
+    } else {
+      this.pullComments();
+    }
   }
 
   pullComments = async () => {
