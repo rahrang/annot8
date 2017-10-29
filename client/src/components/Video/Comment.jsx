@@ -5,7 +5,7 @@ import React from "react";
 import { css, StyleSheet } from "aphrodite";
 
 // Local Components
-const helpers = require("./helpers.js");
+const helpers = require("../../helpers.js");
 
 export default class Comment extends React.Component {
   render() {

@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const CommentConstants = {
   FETCH_USER_COMMENTS: "FETCH_USER_COMMENTS",
+  FETCH_USER_VIDEO_COMMENTS: "FETCH_USER_VIDEO_COMMENTS",
   FETCH_TIMESTAMP_COMMENTS: "FETCH_TIMESTAMP_COMMENTS",
   FETCH_VIDEO_COMMENTS: "FETCH_VIDEO_COMMENTS"
 };
@@ -25,11 +26,19 @@ export const CommentActions = {
     });
   },
 
-  fetchUserComments: videoId => async dispatch => {
+  fetchUserComments: () => async dispatch => {
+    const res = await axios.get("/api/user/comments", {});
+    dispatch({
+      type: CommentConstants.FETCH_USER_COMMENTS,
+      user_comments: res.data
+    });
+  },
+
+  fetchUserVideoComments: videoId => async dispatch => {
     const params = { videoId };
     const res = await axios.get("/api/user/video/comments", { params });
     dispatch({
-      type: CommentConstants.FETCH_USER_COMMENTS,
+      type: CommentConstants.FETCH_USER_VIDEO_COMMENTS,
       user_comments: res.data
     });
   },

@@ -8,8 +8,10 @@ import * as _ from "lodash";
 import { css, StyleSheet } from "aphrodite";
 import { fadeIn } from "react-animations";
 
+// Local Components
 import NavbarProfile from "./NavbarProfile.jsx";
 import LoginButton from "./LoginButton.jsx";
+import { AuthActions } from "../../actions/auth-actions.js";
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -29,7 +31,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    let { history, authReducer } = this.props;
+    let { authReducer } = this.props;
     let { isLoggedIn } = this.state;
 
     return (
@@ -42,7 +44,7 @@ class Navbar extends React.Component {
             {isLoggedIn ? (
               <NavbarProfile user={authReducer.user} />
             ) : (
-              <LoginButton />
+              <LoginButton login={this.props.login} />
             )}
           </div>
         </div>
@@ -55,7 +57,7 @@ function mapStateToProps(state) {
   return { authReducer: state.authReducer };
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, AuthActions)(Navbar);
 
 const styles = StyleSheet.create({
   headerContainer: {

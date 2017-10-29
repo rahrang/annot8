@@ -44,7 +44,6 @@ class SideBar extends React.Component {
   }
 
   changeView = newView => {
-    let { commentsReducer } = this.props;
     if (this.noComments()) {
       this.setState({ view: "comments" });
     } else {

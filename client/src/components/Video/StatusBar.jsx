@@ -7,7 +7,7 @@ import * as _ from "lodash";
 
 // Local Components
 import StatusItem from "./StatusItem.jsx";
-const helpers = require("./helpers.js");
+const helpers = require("../../helpers.js");
 
 export default class StatusBar extends React.Component {
   changeView = async timestamp => {
