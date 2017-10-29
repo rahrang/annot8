@@ -1,31 +1,31 @@
 // React
-import React from 'react';
+import React from "react";
 
 // NPM Modules
-import { css, StyleSheet } from 'aphrodite';
-import * as _ from 'lodash';
+import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 
 export default class Input extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: ""
     };
   }
 
   handleKeyPress = e => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.handleClick();
     }
   };
 
   sanitizeLink = inputVal => {
-    if (_.includes(inputVal, 'youtube.com/watch?v=')) {
-      let splitArr = inputVal.split('watch?v=');
+    if (_.includes(inputVal, "youtube.com/watch?v=")) {
+      let splitArr = inputVal.split("watch?v=");
       return splitArr[1];
     } else {
       this.setState({
-        value: ''
+        value: ""
       });
       return null;
     }
@@ -41,24 +41,18 @@ export default class Input extends React.Component {
   };
 
   render() {
-    let { mainInput, placeholder } = this.props;
+    let { placeholder } = this.props;
     let { value } = this.state;
 
     return (
-      <div
-        className={css(
-          mainInput ? styles.mainInput : styles.cornerInput,
-          styles.inputContainer,
-          styles.fadeIn
-        )}
-      >
+      <div className={css(styles.inputContainer, styles.fadeIn)}>
         <input
           className={css(styles.input)}
           onChange={e => this.setState({ value: e.target.value })}
           placeholder={
             placeholder
               ? placeholder
-              : 'Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+              : "Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           }
           type="text"
           ref="input"
@@ -66,10 +60,7 @@ export default class Input extends React.Component {
           onKeyPress={e => this.handleKeyPress(e)}
         />
         <button
-          className={css(
-            styles.button,
-            mainInput ? styles.mainButton : styles.cornerButton
-          )}
+          className={css(styles.button, styles.mainButton)}
           onClick={this.handleClick}
         >
           Let's Go!
@@ -81,62 +72,42 @@ export default class Input extends React.Component {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '5px 0'
-  },
-
-  mainInput: {
-    fontSize: '1.125em',
-    height: '40px',
-    width: '500px'
-  },
-
-  cornerInput: {
-    fontSize: '0.9em',
-    height: '25px',
-    width: '400px'
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.125em",
+    height: "40px",
+    width: "500px",
+    padding: "5px 0"
   },
 
   input: {
-    color: '#666',
-    border: 'none',
-    fontFamily: 'Open Sans, sans-serif',
-    outline: 'none',
-    padding: '5px 10px',
-    height: '100%',
-    width: '100%'
-  },
-
-  mainButton: {
-    backgroundColor: '#3F7BA9',
-    color: '#F5F5F5',
-    height: '50px',
-    width: '150px',
-    fontSize: '1.125em'
-  },
-
-  cornerButton: {
-    backgroundColor: '#F5F5F5',
-    color: '#3F7BA9',
-    height: '35px',
-    width: '100px',
-    fontSize: '1em'
+    color: "#666",
+    border: "none",
+    fontFamily: "Open Sans, sans-serif",
+    outline: "none",
+    padding: "5px 10px",
+    height: "100%",
+    width: "100%"
   },
 
   button: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: 'none',
-    cursor: 'pointer',
-    fontFamily: 'Fjalla One, sans-serif',
-    outline: 'none',
-    textTransform: 'uppercase',
-    ':hover': {
-      opacity: 0.75
+    backgroundColor: "#3F7BA9",
+    border: "none",
+    color: "#F5F5F5",
+    cursor: "pointer",
+    fontFamily: "Fjalla One, sans-serif",
+    fontSize: "1.125em",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "50px",
+    width: "150px",
+    outline: "none",
+    textTransform: "uppercase",
+    ":hover": {
+      color: "#333"
     }
   }
 });

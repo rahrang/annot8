@@ -3,25 +3,21 @@ import React from "react";
 
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
+import { Link } from "react-router-dom";
 
 export default class LoginButton extends React.Component {
   render() {
-    let { login } = this.props;
     return (
-      <div className={css(styles.loginContainer)}>
-        <button onClick={login} className={css(styles.link)}>
+      <div id="login-container">
+        <a href="/auth/google" className={css(styles.link)}>
           Sign In
-        </button>
+        </a>
       </div>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  loginContainer: {
-    borderRadius: "8px"
-  },
-
   link: {
     backgroundColor: "#F5F5F5",
     border: "none",

@@ -16,7 +16,7 @@ module.exports = app => {
       failureRedirect: "/"
     }),
     (req, res) => {
-      res.send(req.user);
+      res.redirect("/");
     }
   );
 

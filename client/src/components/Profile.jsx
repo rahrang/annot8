@@ -47,9 +47,9 @@ class Profile extends React.Component {
       <div className={css(styles.profileContainer, styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
           <h2 className={css(styles.header)}>Your Profile</h2>
-          <button onClick={authActions.logout} className={css(styles.link)}>
+          <a href="/api/logout" className={css(styles.link)}>
             Sign Out
-          </button>
+          </a>
         </div>
         <div className={css(styles.tableContainer)}>
           <ReactTable
