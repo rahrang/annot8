@@ -2,9 +2,7 @@
 import React from "react";
 
 // NPM Modules
-import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 

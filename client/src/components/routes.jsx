@@ -17,8 +17,10 @@ import { AuthActions } from "../actions/auth-actions";
 // Containers
 import Navbar from "./Navbar/Navbar.jsx";
 import Home from "./Home.jsx";
+import Profile from "./Profile.jsx";
 import About from "./About.jsx";
-import YouTubePlayer from "./Video/VideoPlayer.jsx";
+import VideoPlayer from "./Video/VideoPlayer.jsx";
+import Error404 from "./Error404.jsx";
 import Footer from "./Footer.jsx";
 
 class Routes extends React.Component {
@@ -32,7 +34,13 @@ class Routes extends React.Component {
           <Switch>
             <Route exact path={"/"} component={Home} />
             <Route exact path={"/about"} component={About} />
-            <Route path={`/video/:videoId`} component={YouTubePlayer} />
+            <Route exact path={"/profile"} component={Profile} />
+            <Route exact path={"/video/:videoId"} component={VideoPlayer} />
+            <Route
+              path={"/video/:videoId/:timestamp"}
+              component={VideoPlayer}
+            />
+            <Route component={Error404} />
           </Switch>
         </div>
         <Footer />

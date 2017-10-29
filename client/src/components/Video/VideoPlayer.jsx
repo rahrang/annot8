@@ -18,7 +18,6 @@ class VideoPlayer extends React.Component {
       videoId: "",
       player: {}
     };
-
     this.onReady = this.onReady.bind(this);
   }
 
@@ -26,7 +25,6 @@ class VideoPlayer extends React.Component {
     let videoId = this.props.match.params.videoId;
     this.setState({ videoId });
     this.props.fetchVideoComments(videoId);
-    // this.props.fetchTimestampComments(videoId, 5); // should execute when a statusItem is clicked
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,7 +63,7 @@ class VideoPlayer extends React.Component {
   };
 
   render() {
-    let { videoId, player } = this.state;
+    let { videoId } = this.state;
     return (
       <div className={css(styles.pageContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>
@@ -104,7 +102,7 @@ const opts = {
   playerVars: {
     autoplay: 1,
     cc_load_policy: 0,
-    modestbranding: 1, // removes the YouTube icon in the controls bar
+    modestbranding: 1,
     iv_load_policy: 3
   }
 };

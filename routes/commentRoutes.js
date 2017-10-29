@@ -14,7 +14,6 @@ module.exports = app => {
     const p = new Path("/api/video/comments/all?:videoId");
     const match = p.test(req.url);
     if (match) {
-      // const comments = await Comment.find({ videoId: match.videoId });
       const comments = await Comment.find({ videoId: match.videoId }).sort({
         timestamp: 1,
         _id: 1
@@ -24,6 +23,7 @@ module.exports = app => {
     }
   });
 
+  // GET all comments on a video at a given timestamp
   app.get("/api/video/comments/timestamp", async (req, res) => {
     const p = new Path("/api/video/comments/timestamp?:videoId&:timestamp");
     const match = p.test(req.url);
@@ -39,6 +39,7 @@ module.exports = app => {
   // GET all comments for User
   app.get("/api/user/comments/", requireLogin, async (req, res) => {
     const comments = await Comment.find({ _user: req.user.id }).sort({
+      datePosted: 1,
       _id: 1
     });
     res.status(200).send(comments);
