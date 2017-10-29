@@ -11,7 +11,6 @@ import "react-table/react-table.css";
 
 // Local Components
 import { CommentActions } from "../actions/comment-actions.js";
-import { AuthActions } from "../actions/auth-actions.js";
 const helpers = require("../helpers.js");
 
 class Profile extends React.Component {
@@ -37,12 +36,11 @@ class Profile extends React.Component {
   }
 
   pullComments = async () => {
-    let { commentActions } = this.props;
-    await commentActions.fetchUserComments();
+    await this.props.fetchUserComments();
   };
 
   render() {
-    let { commentsReducer, authActions } = this.props;
+    let { commentsReducer } = this.props;
     return (
       <div className={css(styles.profileContainer, styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
@@ -75,14 +73,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    authActions: bindActionCreators(AuthActions, dispatch),
-    commentActions: bindActionCreators(CommentActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, CommentActions)(Profile);
 
 const styles = StyleSheet.create({
   profileContainer: {

@@ -27,7 +27,11 @@ class Navbar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ isLoggedIn: !_.isEmpty(nextProps.authReducer.user) });
+    let { authReducer } = this.props;
+    if (!_.isEqual(authReducer.user, nextProps.authReducer.user)) {
+      nextProps.fetchUser();
+      this.setState({ isLoggedIn: !_.isEmpty(nextProps.authReducer.user) });
+    }
   }
 
   render() {
@@ -44,7 +48,7 @@ class Navbar extends React.Component {
             {isLoggedIn ? (
               <NavbarProfile user={authReducer.user} />
             ) : (
-              <LoginButton login={this.props.login} />
+              <LoginButton />
             )}
           </div>
         </div>

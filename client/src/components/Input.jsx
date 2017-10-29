@@ -36,7 +36,6 @@ export default class Input extends React.Component {
     if (_.isNull(videoId)) {
       return;
     }
-    console.log(this.props.history);
     this.props.history.push(`/video/${videoId}`);
   };
 
