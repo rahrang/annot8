@@ -4,6 +4,7 @@ import React from "react";
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
 import * as _ from "lodash";
+const queryString = require("query-string");
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -20,15 +21,12 @@ export default class Input extends React.Component {
   };
 
   sanitizeLink = inputVal => {
-    if (_.includes(inputVal, "youtube.com/watch?v=")) {
-      let splitArr = inputVal.split("watch?v=");
-      return splitArr[1];
-    } else {
-      this.setState({
-        value: ""
-      });
+    if (!_.includes(inputVal, "youtube.com/watch?v=")) {
       return null;
     }
+    const extract = queryString.extract(inputVal);
+    const parsed = queryString.parse(extract);
+    return parsed["v"];
   };
 
   handleClick = () => {

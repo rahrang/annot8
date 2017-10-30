@@ -9,6 +9,7 @@ import * as _ from "lodash";
 // Local Components
 import Comment from "./Comment.jsx";
 import CommentInput from "./CommentInput.jsx";
+import LoginButton from "../reusable_components/LoginButton.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class CommentBar extends React.Component {
@@ -65,6 +66,8 @@ class CommentBar extends React.Component {
     let { changeView, comments, authReducer } = this.props;
     let { inputValue } = this.state;
 
+    const isLoggedIn = !_.isEmpty(authReducer.user);
+
     let commentsToRender = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
       commentsToRender = comments.map(c => {
@@ -97,14 +100,23 @@ class CommentBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
-        <CommentInput
-          value={inputValue}
-          onChange={e => this.onInputChange(e)}
-          onFocus={this.onInputFocus}
-          handleSubmit={this.handleSubmit}
-          user={authReducer.user}
-          setAnonymous={this.setAnonymous}
-        />
+        {isLoggedIn ? (
+          <CommentInput
+            value={inputValue}
+            onChange={e => this.onInputChange(e)}
+            onFocus={this.onInputFocus}
+            handleSubmit={this.handleSubmit}
+            user={authReducer.user}
+            setAnonymous={this.setAnonymous}
+          />
+        ) : (
+          <div className={css(styles.loginContainer)}>
+            <p className={css(styles.loginText)}>
+              Please sign in to leave a comment.
+            </p>
+            <LoginButton />
+          </div>
+        )}
       </div>
     );
   }
@@ -168,25 +180,14 @@ const styles = StyleSheet.create({
     overflow: "scroll"
   },
 
-  input: {
-    border: "none",
-    color: "#333",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "1em",
-    margin: "5px",
-    padding: "5px",
-    outline: "none",
-    resize: "none"
+  loginContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
-  button: {
-    border: "none",
-    backgroundColor: "#3F7BA9",
-    color: "#F5F5F5",
-    cursor: "pointer",
-    fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1em",
-    outline: "none",
-    padding: "3px 10px"
+  loginText: {
+    margin: "20px 10px"
   }
 });

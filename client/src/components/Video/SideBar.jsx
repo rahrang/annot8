@@ -62,7 +62,6 @@ class SideBar extends React.Component {
       getTime,
       getDuration,
       commentsReducer,
-      authReducer,
       fetchTimestampComments
     } = this.props;
     let { view } = this.state;
@@ -75,7 +74,6 @@ class SideBar extends React.Component {
             getTime={getTime}
             getDuration={getDuration}
             comments={commentsReducer.timestamp_comments}
-            currentUser={authReducer.user}
           />
         ) : (
           <StatusBar
@@ -93,7 +91,6 @@ class SideBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    authReducer: state.authReducer,
     commentsReducer: state.commentsReducer
   };
 }
