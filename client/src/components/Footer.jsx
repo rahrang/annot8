@@ -1,10 +1,10 @@
 // React
-import React from 'react';
+import React from "react";
 
 // NPM Modules
-import { Link } from 'react-router-dom';
-import { css, StyleSheet } from 'aphrodite';
-import { fadeIn } from 'react-animations';
+import { Link } from "react-router-dom";
+import { css, StyleSheet } from "aphrodite";
+import { fadeIn } from "react-animations";
 
 export default class Navbar extends React.Component {
   render() {
@@ -22,6 +22,14 @@ export default class Navbar extends React.Component {
           >
             Github
           </Link>
+          |
+          <Link
+            to="https://goo.gl/forms/d1XjnotjgKXKvptM2"
+            className={css(styles.link)}
+            target="_blank"
+          >
+            Feedback
+          </Link>
         </div>
         <div className={css(styles.creditContainer)}>
           Rahul Rangnekar & Ya-An Hsiung
@@ -33,28 +41,28 @@ export default class Navbar extends React.Component {
 
 const styles = StyleSheet.create({
   footerContainer: {
-    backgroundColor: '#3F7BA9',
-    color: '#F5F5F5',
-    display: 'flex',
-    alignItems: 'center',
-    fontFamily: 'Open Sans, sans-serif',
-    fontSize: '0.85em',
-    letterSpacing: '0.025em',
-    justifyContent: 'space-between',
-    padding: '10px 20px'
+    backgroundColor: "#3F7BA9",
+    color: "#F5F5F5",
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "Open Sans, sans-serif",
+    fontSize: "0.85em",
+    letterSpacing: "0.025em",
+    justifyContent: "space-between",
+    padding: "10px 20px"
   },
 
   link: {
-    color: '#F5F5F5',
-    padding: '0 5px',
-    textDecoration: 'none',
-    ':hover': {
-      color: '#333'
+    color: "#F5F5F5",
+    padding: "0 5px",
+    textDecoration: "none",
+    ":hover": {
+      color: "#333"
     }
   },
 
   fadeIn: {
     animationName: fadeIn,
-    animationDuration: '1s'
+    animationDuration: "1s"
   }
 });

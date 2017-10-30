@@ -3,7 +3,6 @@ import React from "react";
 
 // NPM Modules
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { css, StyleSheet } from "aphrodite";
 import * as _ from "lodash";
 import ReactTable from "react-table";

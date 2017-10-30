@@ -3,7 +3,6 @@ import React from "react";
 
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
-import { Link } from "react-router-dom";
 
 export default class LoginButton extends React.Component {
   render() {
