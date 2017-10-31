@@ -18,7 +18,14 @@ export default class CommentInput extends React.Component {
   }
 
   render() {
-    let { user, handleSubmit, onFocus, getDuration } = this.props;
+    let {
+      user,
+      handleSubmit,
+      onFocus,
+      getDuration,
+      view,
+      timestamp
+    } = this.props;
 
     return (
       <div className={css(styles.inputContainer)}>
@@ -35,6 +42,8 @@ export default class CommentInput extends React.Component {
             handleSubmit={handleSubmit}
             onFocus={onFocus}
             getDuration={getDuration}
+            view={view}
+            timestamp={timestamp}
           />
         )}
       </div>

@@ -19,13 +19,24 @@ class CommentBar extends React.Component {
     };
   }
 
-  onInputFocus = () => {
-    let { pauseVideo, comments } = this.props;
-    let timestamp = -1;
-    pauseVideo();
-    timestamp = comments[0].timestamp;
-    this.setState({ timestamp });
-  };
+  componentDidMount() {
+    let { comments } = this.props;
+    if (!_.isEmpty(comments)) {
+      let timestamp = comments[0].timestamp;
+      this.setState({ timestamp });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { comments } = this.props;
+    if (
+      !_.isEqual(nextProps.comments, comments) &&
+      !_.isEmpty(nextProps.comments)
+    ) {
+      let timestamp = nextProps.comments[0].timestamp;
+      this.setState({ timestamp });
+    }
+  }
 
   handleSubmit = async (value, isAnonymous) => {
     let { timestamp } = this.state;
@@ -54,7 +65,14 @@ class CommentBar extends React.Component {
   };
 
   render() {
-    let { changeView, comments, authReducer, getDuration } = this.props;
+    let {
+      changeView,
+      comments,
+      authReducer,
+      getDuration,
+      pauseVideo
+    } = this.props;
+    let { timestamp } = this.state;
 
     let commentsToRender = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -92,8 +110,10 @@ class CommentBar extends React.Component {
           <CommentInput
             user={authReducer.user}
             handleSubmit={this.handleSubmit}
-            onFocus={this.onInputFocus}
+            onFocus={pauseVideo}
             getDuration={getDuration}
+            timestamp={timestamp}
+            view="comments"
           />
         </div>
       </div>

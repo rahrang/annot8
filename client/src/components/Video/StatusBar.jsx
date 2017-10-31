@@ -32,8 +32,7 @@ class StatusBar extends React.Component {
     this.setState({ timestamp });
   };
 
-  handleSubmit = async (value, isAnonymous) => {
-    let { timestamp } = this.state;
+  handleSubmit = async (value, isAnonymous, timestamp) => {
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
     if (!_.isEmpty(value) || timestamp !== -1) {
@@ -50,6 +49,7 @@ class StatusBar extends React.Component {
 
   render() {
     let { comments, getDuration, authReducer } = this.props;
+    let { timestamp } = this.state;
 
     let statuses = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -79,6 +79,9 @@ class StatusBar extends React.Component {
             handleSubmit={this.handleSubmit}
             onFocus={this.onInputFocus}
             getDuration={getDuration}
+            view="status"
+            setTimestamp={this.setTimestamp}
+            timestamp={timestamp}
           />
         </div>
       </div>

@@ -3,20 +3,47 @@ import React from "react";
 
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
+import * as _ from "lodash";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 
 // Local Components
 import TimeInput from "./TimeInput.jsx";
+const helpers = require("../../helpers.js");
 
 export default class CommentTextArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: {},
-      value: ""
+      value: "",
+      hours: "",
+      minutes: "",
+      seconds: ""
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    let { timestamp } = this.props;
+    if (!_.isEqual(timestamp, nextProps.timestamp)) {
+      let { hours, minutes, seconds } = helpers.stringifyTime(
+        nextProps.timestamp
+      );
+      this.setState({ hours, minutes, seconds });
+    }
+  }
+
+  setTimes = view => {
+    switch (view) {
+      case "comments":
+        let { timestamp } = this.props;
+        return helpers.stringifyTime(timestamp);
+      default:
+        // covers view === "status"
+        let { hours, minutes, seconds } = this.state;
+        return { hours, minutes, seconds };
+    }
+  };
 
   onSelectChange = newSelected => {
     this.setState({ selected: newSelected });
@@ -26,26 +53,42 @@ export default class CommentTextArea extends React.Component {
     this.setState({ value: event.target.value });
   };
 
-  // not sure how to use this
-  getTimeValues = (hours, minutes, seconds) => {
-    return [hours, minutes, seconds];
+  onHoursChange = event => {
+    this.setState({ hours: event.target.value });
+  };
+
+  onMinutesChange = event => {
+    this.setState({ minutes: event.target.value });
+  };
+
+  onSecondsChange = event => {
+    this.setState({ seconds: event.target.value });
   };
 
   handleSubmit = async () => {
-    let { value, selected } = this.state;
+    let { view } = this.props;
+    let { value, selected, hours, minutes, seconds } = this.state;
     let isAnonymous = selected.value === "anonymous";
-    await this.props.handleSubmit(value, isAnonymous);
-    this.setState({ value: "" });
+    if (view === "status") {
+      let timestamp = helpers.convertTimeToSeconds(hours, minutes, seconds);
+      await this.props.handleSubmit(value, isAnonymous, timestamp);
+    } else {
+      // view === "comments"
+      await this.props.handleSubmit(value, isAnonymous);
+    }
+    this.setState({ value: "", hours: "", minutes: "", seconds: "" });
   };
 
   render() {
-    let { onFocus, user } = this.props;
+    let { onFocus, user, view } = this.props;
     let { selected, value } = this.state;
 
     let options = [
       { value: user.email, label: user.name },
       { value: "anonymous", label: "Anonymous to Everyone" }
     ];
+
+    let { hours, minutes, seconds } = this.setTimes(view);
 
     return (
       <div className={css(styles.commentInput)}>
@@ -63,7 +106,18 @@ export default class CommentTextArea extends React.Component {
             Comment
           </button>
           at
-          <TimeInput getTimeValues={this.getTimeValues} />
+          <TimeInput
+            // for both views
+            hours={hours}
+            minutes={minutes}
+            seconds={seconds}
+            // used for "status" view
+            onHoursChange={this.onHoursChange}
+            onMinutesChange={this.onMinutesChange}
+            onSecondsChange={this.onSecondsChange}
+            // used for "comments" view
+            disabled={view === "comments"}
+          />
           as
           <Select
             className={css(styles.dropdown)}
