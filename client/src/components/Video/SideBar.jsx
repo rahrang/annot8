@@ -61,6 +61,7 @@ class SideBar extends React.Component {
       videoId,
       getTime,
       getDuration,
+      pauseVideo,
       commentsReducer,
       fetchTimestampComments
     } = this.props;
@@ -71,14 +72,15 @@ class SideBar extends React.Component {
           <CommentBar
             videoId={videoId}
             changeView={this.changeView}
-            getTime={getTime}
             getDuration={getDuration}
+            pauseVideo={pauseVideo}
             comments={commentsReducer.timestamp_comments}
           />
         ) : (
           <StatusBar
             videoId={videoId}
             changeView={this.changeView}
+            getTime={getTime}
             getDuration={getDuration}
             comments={commentsReducer.video_comments}
             fetchTimestampComments={fetchTimestampComments}

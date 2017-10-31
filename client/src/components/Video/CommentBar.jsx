@@ -9,47 +9,38 @@ import * as _ from "lodash";
 // Local Components
 import Comment from "./Comment.jsx";
 import CommentInput from "./CommentInput.jsx";
-import LoginButton from "../reusable_components/LoginButton.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class CommentBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: "",
-      isAnonymous: false,
       timestamp: -1
     };
   }
 
   onInputFocus = () => {
-    let { getTime } = this.props;
-    let timestamp = getTime();
+    let { pauseVideo, comments } = this.props;
+    let timestamp = -1;
+    pauseVideo();
+    timestamp = comments[0].timestamp;
     this.setState({ timestamp });
   };
 
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
-  };
-
-  setAnonymous = bool => {
-    this.setState({ isAnonymous: bool });
-  };
-
-  // called when user clicks post --> send info to backend
-  handleSubmit = () => {
+  handleSubmit = async (value, isAnonymous) => {
+    let { timestamp } = this.state;
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
-    let { timestamp, inputValue, isAnonymous } = this.state;
-    if (!_.isEmpty(inputValue) && timestamp !== -1) {
-      this.props.makeComment(
+    if (!_.isEmpty(value) || timestamp !== -1) {
+      await this.props.makeComment(
         videoId,
         timestamp,
         userName,
         isAnonymous,
-        inputValue
+        value
       );
     }
+    this.setState({ timestamp: -1 });
   };
 
   deleteComment = (commentId, timestamp) => {
@@ -65,8 +56,6 @@ class CommentBar extends React.Component {
   render() {
     let { changeView, comments, authReducer } = this.props;
     let { inputValue } = this.state;
-
-    const isLoggedIn = !_.isEmpty(authReducer.user);
 
     let commentsToRender = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -100,23 +89,11 @@ class CommentBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
-        {isLoggedIn ? (
-          <CommentInput
-            value={inputValue}
-            onChange={e => this.onInputChange(e)}
-            onFocus={this.onInputFocus}
-            handleSubmit={this.handleSubmit}
-            user={authReducer.user}
-            setAnonymous={this.setAnonymous}
-          />
-        ) : (
-          <div className={css(styles.loginContainer)}>
-            <p className={css(styles.loginText)}>
-              Please sign in to leave a comment.
-            </p>
-            <LoginButton />
-          </div>
-        )}
+        <CommentInput
+          user={authReducer.user}
+          handleSubmit={this.handleSubmit}
+          onFocus={this.onInputFocus}
+        />
       </div>
     );
   }
@@ -178,6 +155,15 @@ const styles = StyleSheet.create({
     borderBottom: "3px solid #3F7BA9",
     width: "100%",
     overflow: "scroll"
+  },
+
+  commentContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: "25px"
   },
 
   loginContainer: {
