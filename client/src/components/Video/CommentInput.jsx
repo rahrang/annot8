@@ -21,7 +21,7 @@ export default class CommentInput extends React.Component {
     let { user, handleSubmit, onFocus } = this.props;
 
     return (
-      <div id="input-container">
+      <div className={css(styles.inputContainer)}>
         {_.isEmpty(user) ? (
           <div className={css(styles.loginContainer)}>
             <p className={css(styles.loginText)}>
@@ -42,6 +42,10 @@ export default class CommentInput extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    borderTop: "3px solid #3F7BA9"
+  },
+
   loginContainer: {
     display: "flex",
     flexDirection: "row",

@@ -61,6 +61,7 @@ export default class CommentTextArea extends React.Component {
             value={selected.value ? selected.value : options[0].value}
             onChange={this.onSelectChange}
             resetValue={options[0].value}
+            searchable={false}
           />
         </div>
       </div>

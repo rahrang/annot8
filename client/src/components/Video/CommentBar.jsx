@@ -89,11 +89,13 @@ class CommentBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
-        <CommentInput
-          user={authReducer.user}
-          handleSubmit={this.handleSubmit}
-          onFocus={this.onInputFocus}
-        />
+        <div className={css(styles.commentInputContainer)}>
+          <CommentInput
+            user={authReducer.user}
+            handleSubmit={this.handleSubmit}
+            onFocus={this.onInputFocus}
+          />
+        </div>
       </div>
     );
   }
@@ -152,28 +154,16 @@ const styles = StyleSheet.create({
 
   bodyContainer: {
     backgroundColor: "#E6E6E6",
-    borderBottom: "3px solid #3F7BA9",
     width: "100%",
     overflow: "scroll"
   },
 
-  commentContainer: {
+  commentInputContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    bottom: "25px"
-  },
-
-  loginContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  loginText: {
-    margin: "20px 10px"
+    bottom: "75px"
   }
 });

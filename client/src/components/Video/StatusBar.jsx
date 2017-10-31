@@ -73,11 +73,13 @@ class StatusBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{statuses}</div>
-        <CommentInput
-          user={authReducer.user}
-          handleSubmit={this.handleSubmit}
-          onFocus={this.onInputFocus}
-        />
+        <div className={css(styles.commentInputContainer)}>
+          <CommentInput
+            user={authReducer.user}
+            handleSubmit={this.handleSubmit}
+            onFocus={this.onInputFocus}
+          />
+        </div>
       </div>
     );
   }
@@ -125,23 +127,12 @@ const styles = StyleSheet.create({
     height: "100%"
   },
 
-  commentContainer: {
+  commentInputContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    bottom: "25px"
-  },
-
-  loginContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  loginText: {
-    margin: "20px 10px"
+    bottom: "75px"
   }
 });
