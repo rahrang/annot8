@@ -54,8 +54,7 @@ class CommentBar extends React.Component {
   };
 
   render() {
-    let { changeView, comments, authReducer } = this.props;
-    let { inputValue } = this.state;
+    let { changeView, comments, authReducer, getDuration } = this.props;
 
     let commentsToRender = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -94,6 +93,7 @@ class CommentBar extends React.Component {
             user={authReducer.user}
             handleSubmit={this.handleSubmit}
             onFocus={this.onInputFocus}
+            getDuration={getDuration}
           />
         </div>
       </div>

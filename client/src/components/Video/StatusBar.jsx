@@ -78,6 +78,7 @@ class StatusBar extends React.Component {
             user={authReducer.user}
             handleSubmit={this.handleSubmit}
             onFocus={this.onInputFocus}
+            getDuration={getDuration}
           />
         </div>
       </div>

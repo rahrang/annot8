@@ -6,6 +6,9 @@ import { css, StyleSheet } from "aphrodite";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 
+// Local Components
+import TimeInput from "./TimeInput.jsx";
+
 export default class CommentTextArea extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +26,11 @@ export default class CommentTextArea extends React.Component {
     this.setState({ value: event.target.value });
   };
 
+  // not sure how to use this
+  getTimeValues = (hours, minutes, seconds) => {
+    return [hours, minutes, seconds];
+  };
+
   handleSubmit = async () => {
     let { value, selected } = this.state;
     let isAnonymous = selected.value === "anonymous";
@@ -31,7 +39,7 @@ export default class CommentTextArea extends React.Component {
   };
 
   render() {
-    let { onFocus, handleSubmit, user } = this.props;
+    let { onFocus, user } = this.props;
     let { selected, value } = this.state;
 
     let options = [
@@ -42,10 +50,10 @@ export default class CommentTextArea extends React.Component {
     return (
       <div className={css(styles.commentInput)}>
         <textarea
+          className={css(styles.input)}
           value={value}
           onChange={e => this.onValueChange(e)}
           onFocus={onFocus}
-          className={css(styles.input)}
           placeholder="Ask a question or make a comment!"
           cols={50}
           rows={4}
@@ -54,6 +62,8 @@ export default class CommentTextArea extends React.Component {
           <button className={css(styles.button)} onClick={this.handleSubmit}>
             Comment
           </button>
+          at
+          <TimeInput getTimeValues={this.getTimeValues} />
           as
           <Select
             className={css(styles.dropdown)}
@@ -95,6 +105,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
+  },
+
+  timeInput: {
+    fontFamily: "Open Sans, sans-serif",
+    fontSize: "0.9em",
+    outline: "none",
+    width: "60px",
+    margin: "0 5px",
+    padding: "4px 8px"
   },
 
   button: {
