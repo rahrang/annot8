@@ -15,40 +15,43 @@ class CommentBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: "",
-      isAnonymous: false,
       timestamp: -1
     };
   }
 
-  onInputFocus = () => {
-    let { getTime } = this.props;
-    let timestamp = getTime();
-    this.setState({ timestamp });
-  };
+  componentDidMount() {
+    let { comments } = this.props;
+    if (!_.isEmpty(comments)) {
+      let timestamp = comments[0].timestamp;
+      this.setState({ timestamp });
+    }
+  }
 
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
-  };
+  componentWillReceiveProps(nextProps) {
+    let { comments } = this.props;
+    if (
+      !_.isEqual(nextProps.comments, comments) &&
+      !_.isEmpty(nextProps.comments)
+    ) {
+      let timestamp = nextProps.comments[0].timestamp;
+      this.setState({ timestamp });
+    }
+  }
 
-  setAnonymous = bool => {
-    this.setState({ isAnonymous: bool });
-  };
-
-  // called when user clicks post --> send info to backend
-  handleSubmit = () => {
+  handleSubmit = async (value, isAnonymous) => {
+    let { timestamp } = this.state;
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
-    let { timestamp, inputValue, isAnonymous } = this.state;
-    if (!_.isEmpty(inputValue) && timestamp !== -1) {
-      this.props.makeComment(
+    if (!_.isEmpty(value) || timestamp !== -1) {
+      await this.props.makeComment(
         videoId,
         timestamp,
         userName,
         isAnonymous,
-        inputValue
+        value
       );
     }
+    this.setState({ timestamp: -1 });
   };
 
   deleteComment = (commentId, timestamp) => {
@@ -62,8 +65,14 @@ class CommentBar extends React.Component {
   };
 
   render() {
-    let { changeView, comments, authReducer } = this.props;
-    let { inputValue } = this.state;
+    let {
+      changeView,
+      comments,
+      authReducer,
+      getDuration,
+      pauseVideo
+    } = this.props;
+    let { timestamp } = this.state;
 
     let commentsToRender = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -97,14 +106,16 @@ class CommentBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
-        <CommentInput
-          value={inputValue}
-          onChange={e => this.onInputChange(e)}
-          onFocus={this.onInputFocus}
-          handleSubmit={this.handleSubmit}
-          user={authReducer.user}
-          setAnonymous={this.setAnonymous}
-        />
+        <div className={css(styles.commentInputContainer)}>
+          <CommentInput
+            user={authReducer.user}
+            handleSubmit={this.handleSubmit}
+            onFocus={pauseVideo}
+            getDuration={getDuration}
+            timestamp={timestamp}
+            view="comments"
+          />
+        </div>
       </div>
     );
   }
@@ -163,30 +174,16 @@ const styles = StyleSheet.create({
 
   bodyContainer: {
     backgroundColor: "#E6E6E6",
-    borderBottom: "3px solid #3F7BA9",
     width: "100%",
     overflow: "scroll"
   },
 
-  input: {
-    border: "none",
-    color: "#333",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "1em",
-    margin: "5px",
-    padding: "5px",
-    outline: "none",
-    resize: "none"
-  },
-
-  button: {
-    border: "none",
-    backgroundColor: "#3F7BA9",
-    color: "#F5F5F5",
-    cursor: "pointer",
-    fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1em",
-    outline: "none",
-    padding: "3px 10px"
+  commentInputContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: "75px"
   }
 });

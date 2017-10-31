@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 /***
   @param dateString: the date & time at which the comment was made
   @return: the number of years/months/days/minutes passed since the comment was made
@@ -65,27 +67,43 @@ const getTimeBoundaries = (timestamp, duration, upperBound) => {
   @return: the timestamp converted to hours/minutes/seconds 
 */
 const convertSecondsToTime = timestamp => {
-  let hoursElapsed = Math.floor(timestamp / 3600); // 3600 seconds in an hour
+  let hours = Math.floor(timestamp / 3600); // 3600 seconds in an hour
   let secondsRemaining = timestamp % 3600;
-  let minutesElapsed = Math.floor(secondsRemaining / 60);
-  let secondsElapsed = secondsRemaining % 60;
-  return { hoursElapsed, minutesElapsed, secondsElapsed };
+  let minutes = Math.floor(secondsRemaining / 60);
+  let seconds = secondsRemaining % 60;
+  return { hours, minutes, seconds };
+};
+
+const stringifyTime = timestamp => {
+  let { hours, minutes, seconds } = convertSecondsToTime(timestamp);
+  hours = addZeroChar(hours);
+  minutes = addZeroChar(minutes);
+  seconds = addZeroChar(seconds);
+  return { hours, minutes, seconds };
+};
+
+const addZeroChar = num => {
+  return num < 10 ? `0${num}` : _.toString(num);
+};
+
+const convertTimeToSeconds = (hours, minutes, seconds) => {
+  let hoursInSeconds = !_.isNaN(hours) ? hours * 3600 : 0;
+  let minutesInSeconds = !_.isNaN(minutes) ? minutes * 60 : 0;
+  let secondsInSeconds = !_.isNaN(seconds) ? seconds : 0;
+  let timeInSeconds = hoursInSeconds + minutesInSeconds + secondsInSeconds;
+  return timeInSeconds;
 };
 
 const formatTime = (timestamp, upperBound) => {
   let videoContainsHours = Math.floor(upperBound / 3600) > 0;
-  let timeObject = convertSecondsToTime(timestamp);
-  let { hoursElapsed, minutesElapsed, secondsElapsed } = timeObject;
-
-  let hours = hoursElapsed < 10 ? `0${hoursElapsed}` : `${hoursElapsed}`;
-  let minutes =
-    minutesElapsed < 10 ? `0${minutesElapsed}` : `${minutesElapsed}`;
-  let seconds =
-    secondsElapsed < 10 ? `0${secondsElapsed}` : `${secondsElapsed}`;
+  let { hours, minutes, seconds } = convertSecondsToTime(timestamp);
+  let hoursFormatted = addZeroChar(hours);
+  let minutesFormatted = addZeroChar(minutes);
+  let secondsFormatted = addZeroChar(seconds);
   if (videoContainsHours) {
-    return `${hours}:${minutes}:${seconds}`;
+    return `${hoursFormatted}:${minutesFormatted}:${secondsFormatted}`;
   }
-  return `${minutes}:${seconds}`;
+  return `${minutesFormatted}:${secondsFormatted}`;
 };
 
 const truncate = text => {
@@ -102,7 +120,8 @@ const truncate = text => {
 module.exports = {
   getTimeElapsed,
   getTimeBoundaries,
-  convertSecondsToTime,
+  stringifyTime,
+  convertTimeToSeconds,
   formatTime,
   truncate
 };

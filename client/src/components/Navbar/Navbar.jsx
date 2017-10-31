@@ -10,7 +10,7 @@ import { fadeIn } from "react-animations";
 
 // Local Components
 import NavbarProfile from "./NavbarProfile.jsx";
-import LoginButton from "./LoginButton.jsx";
+import LoginButton from "../reusable_components/LoginButton.jsx";
 import { AuthActions } from "../../actions/auth-actions.js";
 
 class Navbar extends React.Component {
@@ -48,7 +48,7 @@ class Navbar extends React.Component {
             {isLoggedIn ? (
               <NavbarProfile user={authReducer.user} />
             ) : (
-              <LoginButton />
+              <LoginButton defStyle />
             )}
           </div>
         </div>

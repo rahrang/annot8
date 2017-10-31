@@ -61,8 +61,8 @@ class SideBar extends React.Component {
       videoId,
       getTime,
       getDuration,
+      pauseVideo,
       commentsReducer,
-      authReducer,
       fetchTimestampComments
     } = this.props;
     let { view } = this.state;
@@ -72,15 +72,15 @@ class SideBar extends React.Component {
           <CommentBar
             videoId={videoId}
             changeView={this.changeView}
-            getTime={getTime}
             getDuration={getDuration}
+            pauseVideo={pauseVideo}
             comments={commentsReducer.timestamp_comments}
-            currentUser={authReducer.user}
           />
         ) : (
           <StatusBar
             videoId={videoId}
             changeView={this.changeView}
+            getTime={getTime}
             getDuration={getDuration}
             comments={commentsReducer.video_comments}
             fetchTimestampComments={fetchTimestampComments}
@@ -93,7 +93,6 @@ class SideBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    authReducer: state.authReducer,
     commentsReducer: state.commentsReducer
   };
 }

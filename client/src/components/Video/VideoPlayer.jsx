@@ -51,10 +51,16 @@ class VideoPlayer extends React.Component {
     });
   };
 
+  // use this when creating new threads
   getTime = () => {
     let { player } = this.state;
+    this.pauseVideo();
+    return Math.floor(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
+  };
+
+  pauseVideo = () => {
+    let { player } = this.state;
     player.pauseVideo();
-    return Math.round(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
   };
 
   getDuration = () => {
@@ -71,6 +77,7 @@ class VideoPlayer extends React.Component {
             videoId={videoId}
             getTime={this.getTime}
             getDuration={this.getDuration}
+            pauseVideo={this.pauseVideo}
           />
         </div>
         <div className={css(styles.playerContainer)}>

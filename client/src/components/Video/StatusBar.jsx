@@ -2,22 +2,54 @@
 import React from "react";
 
 // NPM Modules
+import { connect } from "react-redux";
 import { css, StyleSheet } from "aphrodite";
 import * as _ from "lodash";
 
 // Local Components
 import StatusItem from "./StatusItem.jsx";
+import CommentInput from "./CommentInput.jsx";
+import { CommentActions } from "../../actions/comment-actions.js";
 const helpers = require("../../helpers.js");
 
-export default class StatusBar extends React.Component {
+class StatusBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timestamp: -1
+    };
+  }
+
   changeView = async timestamp => {
     let { videoId, fetchTimestampComments } = this.props;
     await fetchTimestampComments(videoId, timestamp);
     this.props.changeView("comments");
   };
 
+  onInputFocus = () => {
+    let { getTime } = this.props;
+    let timestamp = getTime();
+    this.setState({ timestamp });
+  };
+
+  handleSubmit = async (value, isAnonymous, timestamp) => {
+    let { videoId, authReducer } = this.props;
+    let userName = authReducer.user.name;
+    if (!_.isEmpty(value) || timestamp !== -1) {
+      await this.props.makeComment(
+        videoId,
+        timestamp,
+        userName,
+        isAnonymous,
+        value
+      );
+    }
+    this.setState({ timestamp: -1 });
+  };
+
   render() {
-    let { comments, getDuration } = this.props;
+    let { comments, getDuration, authReducer } = this.props;
+    let { timestamp } = this.state;
 
     let statuses = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
@@ -41,10 +73,30 @@ export default class StatusBar extends React.Component {
           <p className={css(styles.header)}>Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{statuses}</div>
+        <div className={css(styles.commentInputContainer)}>
+          <CommentInput
+            user={authReducer.user}
+            handleSubmit={this.handleSubmit}
+            onFocus={this.onInputFocus}
+            getDuration={getDuration}
+            view="status"
+            setTimestamp={this.setTimestamp}
+            timestamp={timestamp}
+          />
+        </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    authReducer: state.authReducer,
+    commentsReducer: state.commentsReducer
+  };
+}
+
+export default connect(mapStateToProps, CommentActions)(StatusBar);
 
 const styles = StyleSheet.create({
   statusBarContainer: {
@@ -77,5 +129,14 @@ const styles = StyleSheet.create({
     width: "100%",
     overflowY: "scroll",
     height: "100%"
+  },
+
+  commentInputContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: "75px"
   }
 });
