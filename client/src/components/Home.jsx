@@ -23,14 +23,11 @@ class Home extends React.Component {
     let { history } = this.props;
     return (
       <div className={css(styles.homeContainer, styles.fadeIn)}>
-        <h2 className={css(styles.header)}> Welcome!</h2>
-        <p className={css(styles.text)}>
-          Please enter a YouTube link to begin!
-        </p>
+        <h2 className={css(styles.header)}> Welcome to Annot8!</h2>
         <Input
           mainInput={true}
           history={history}
-          placeholder="Enter a YouTube link!"
+          placeholder="Please enter a YouTube link!"
         />
       </div>
     );
@@ -52,13 +49,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    minHeight: "70vh"
   },
 
   header: {
     color: "#333",
     fontFamily: "Open Sans, sans-serif",
-    fontSize: "2em",
+    fontSize: "3em",
     fontWeight: "bold"
   },
 

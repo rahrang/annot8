@@ -19,14 +19,6 @@ class SideBar extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // if (this.noComments()) {
-    //   this.setState({ view: "timestamps" });
-    // } else {
-    //   this.setState({ view: "timestamps" });
-    // }
-  }
-
   componentWillReceiveProps(nextProps) {
     let { commentsReducer } = this.props;
     // a comment was added or deleted
@@ -107,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyItems: "center",
     borderRight: "3px solid #3F7BA9",
-    height: "calc(100vh - 95px)",
+    minHeight: "calc(100vh - 110px)",
     width: "500px"
 
     // TODO: add media queries on width

@@ -68,7 +68,7 @@ class TimestampBar extends React.Component {
     }
 
     return (
-      <div className={css(styles.statusBarContainer, styles.fadeIn)}>
+      <div className={css(styles.timestampBarContainer, styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
           <p className={css(styles.header)}>Comments</p>
         </div>
@@ -99,14 +99,14 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, CommentActions)(TimestampBar);
 
 const styles = StyleSheet.create({
-  statusBarContainer: {
+  timestampBarContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    maxHeight: "480px",
     width: "100%",
-    padding: "10px 0 0"
+    padding: "10px 0 0",
+    height: "100%"
   },
 
   headerContainer: {
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
 
   bodyContainer: {
     width: "100%",
+    height: "375px",
     overflowY: "scroll"
   },
 
@@ -135,8 +136,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: "75px"
+    justifyContent: "center"
   }
 });

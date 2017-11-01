@@ -7,11 +7,8 @@ import * as _ from "lodash";
 const queryString = require("query-string");
 
 export default class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
+  componentDidMount() {
+    this.input.focus();
   }
 
   handleKeyPress = e => {
@@ -30,30 +27,28 @@ export default class Input extends React.Component {
   };
 
   handleClick = () => {
-    let videoId = this.sanitizeLink(this.refs.input.value);
+    let videoId = this.sanitizeLink(this.input.value);
     if (_.isNull(videoId)) {
       return;
     }
     this.props.history.push(`/video/${videoId}`);
+    this.input.value = "";
   };
 
   render() {
     let { placeholder } = this.props;
-    let { value } = this.state;
 
     return (
       <div className={css(styles.inputContainer, styles.fadeIn)}>
         <input
           className={css(styles.input)}
-          onChange={e => this.setState({ value: e.target.value })}
           placeholder={
             placeholder
               ? placeholder
               : "Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           }
           type="text"
-          ref="input"
-          value={value}
+          ref={input => (this.input = input)}
           onKeyPress={e => this.handleKeyPress(e)}
         />
         <button
@@ -73,9 +68,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "1.125em",
-    height: "40px",
-    width: "500px",
+    fontSize: "2em",
+    height: "80px",
+    width: "1000px",
     padding: "5px 0"
   },
 
@@ -83,8 +78,9 @@ const styles = StyleSheet.create({
     color: "#666",
     border: "none",
     fontFamily: "Open Sans, sans-serif",
+    fontSize: "1.125em",
     outline: "none",
-    padding: "5px 10px",
+    padding: "0 10px",
     height: "100%",
     width: "100%"
   },
@@ -95,11 +91,11 @@ const styles = StyleSheet.create({
     color: "#F5F5F5",
     cursor: "pointer",
     fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1.125em",
+    fontSize: "1em",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "50px",
+    height: "80px",
     width: "150px",
     outline: "none",
     textTransform: "uppercase",

@@ -177,17 +177,15 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    backgroundColor: "#E6E6E6",
+    height: "375px",
     width: "100%",
-    overflow: "scroll"
+    overflowY: "scroll"
   },
 
   commentInputContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    bottom: "75px"
+    justifyContent: "center"
   }
 });
