@@ -4,7 +4,7 @@ import React from "react";
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
 
-export default class StatusItem extends React.Component {
+export default class TimestampItem extends React.Component {
   render() {
     let { timestamp, time, timeElapsed, text, changeView } = this.props;
     return (

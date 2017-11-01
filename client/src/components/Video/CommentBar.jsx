@@ -22,8 +22,7 @@ class CommentBar extends React.Component {
   componentDidMount() {
     let { comments } = this.props;
     if (!_.isEmpty(comments)) {
-      let timestamp = comments[0].timestamp;
-      this.setState({ timestamp });
+      this.setDefaultTimestamp(this.props);
     }
   }
 
@@ -33,16 +32,21 @@ class CommentBar extends React.Component {
       !_.isEqual(nextProps.comments, comments) &&
       !_.isEmpty(nextProps.comments)
     ) {
-      let timestamp = nextProps.comments[0].timestamp;
-      this.setState({ timestamp });
+      this.setDefaultTimestamp(nextProps);
     }
   }
+
+  setDefaultTimestamp = props => {
+    let { comments } = props;
+    let timestamp = comments[0].timestamp;
+    this.setState({ timestamp });
+  };
 
   handleSubmit = async (value, isAnonymous) => {
     let { timestamp } = this.state;
     let { videoId, authReducer } = this.props;
     let userName = authReducer.user.name;
-    if (!_.isEmpty(value) || timestamp !== -1) {
+    if (!_.isEmpty(value)) {
       await this.props.makeComment(
         videoId,
         timestamp,
@@ -51,7 +55,7 @@ class CommentBar extends React.Component {
         value
       );
     }
-    this.setState({ timestamp: -1 });
+    this.setDefaultTimestamp(this.props);
   };
 
   deleteComment = (commentId, timestamp) => {
@@ -100,7 +104,7 @@ class CommentBar extends React.Component {
             <i
               className={css(styles.icon) + " fa fa-chevron-left"}
               aria-hidden="true"
-              onClick={() => changeView("status")}
+              onClick={() => changeView("timestamps")}
             />
           )}
           <p className={css(styles.header)}>Comments</p>
@@ -112,7 +116,7 @@ class CommentBar extends React.Component {
             handleSubmit={this.handleSubmit}
             onFocus={pauseVideo}
             getDuration={getDuration}
-            timestamp={timestamp}
+            timestamp={timestamp === -1 ? 0 : timestamp}
             view="comments"
           />
         </div>

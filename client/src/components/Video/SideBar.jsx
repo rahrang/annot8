@@ -8,37 +8,38 @@ import * as _ from "lodash";
 
 // Local Components
 import CommentBar from "./CommentBar.jsx";
-import StatusBar from "./StatusBar.jsx";
+import TimestampBar from "./TimestampBar.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "status"
+      view: "timestamps"
     };
   }
 
   componentDidMount() {
-    if (this.noComments()) {
-      this.setState({ view: "comments" });
-    } else {
-      this.setState({ view: "status" });
-    }
+    // if (this.noComments()) {
+    //   this.setState({ view: "timestamps" });
+    // } else {
+    //   this.setState({ view: "timestamps" });
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
     let { commentsReducer } = this.props;
+    // a comment was added or deleted
     if (
       !_.isEqual(
         commentsReducer.video_comments,
         nextProps.commentsReducer.video_comments
       )
     ) {
-      if (_.isEmpty(nextProps.commentsReducer.video_comments)) {
-        this.setState({ view: "comments" });
+      if (_.isEmpty(nextProps.commentsReducer.timestamp_comments)) {
+        this.setState({ view: "timestamps" });
       } else {
-        this.setState({ view: "status" });
+        this.setState({ view: "comments" });
       }
     }
   }
@@ -74,15 +75,15 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getDuration={getDuration}
             pauseVideo={pauseVideo}
-            comments={commentsReducer.timestamp_comments}
+            comments={commentsReducer.timestamp_comments} // comments made at the timestamp
           />
         ) : (
-          <StatusBar
+          <TimestampBar
             videoId={videoId}
             changeView={this.changeView}
             getTime={getTime}
             getDuration={getDuration}
-            comments={commentsReducer.video_comments}
+            comments={commentsReducer.video_comments} // comments made at distinct timestamps throughout video
             fetchTimestampComments={fetchTimestampComments}
           />
         )}
