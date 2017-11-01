@@ -7,12 +7,12 @@ import { css, StyleSheet } from "aphrodite";
 import * as _ from "lodash";
 
 // Local Components
-import StatusItem from "./StatusItem.jsx";
+import TimestampItem from "./TimestampItem.jsx";
 import CommentInput from "./CommentInput.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 const helpers = require("../../helpers.js");
 
-class StatusBar extends React.Component {
+class TimestampBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,11 +51,11 @@ class StatusBar extends React.Component {
     let { comments, getDuration, authReducer } = this.props;
     let { timestamp } = this.state;
 
-    let statuses = null;
+    let timestampComments = null;
     if (!_.isEmpty(comments) && _.isArray(comments)) {
-      statuses = comments.map(c => {
+      timestampComments = comments.map(c => {
         return (
-          <StatusItem
+          <TimestampItem
             key={c._id}
             timestamp={c.timestamp}
             time={helpers.formatTime(c.timestamp, getDuration())}
@@ -72,7 +72,7 @@ class StatusBar extends React.Component {
         <div className={css(styles.headerContainer)}>
           <p className={css(styles.header)}>Comments</p>
         </div>
-        <div className={css(styles.bodyContainer)}>{statuses}</div>
+        <div className={css(styles.bodyContainer)}>{timestampComments}</div>
         <div className={css(styles.commentInputContainer)}>
           <CommentInput
             user={authReducer.user}
@@ -96,7 +96,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, CommentActions)(StatusBar);
+export default connect(mapStateToProps, CommentActions)(TimestampBar);
 
 const styles = StyleSheet.create({
   statusBarContainer: {

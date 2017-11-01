@@ -4,13 +4,13 @@ import React from "react";
 // NPM Modules
 import { css, StyleSheet } from "aphrodite";
 
-export default class StatusItem extends React.Component {
+export default class TimestampItem extends React.Component {
   render() {
     let { timestamp, time, timeElapsed, text, changeView } = this.props;
     return (
       <div
         className={css(styles.statusItemContainer, styles.fadeIn)}
-        onClick={() => changeView(timestamp)}
+        onClick={() => changeView("comments")}
       >
         <p className={css(styles.timestamp)}>{time}</p>
         <p className={css(styles.timeElapsed)}>{timeElapsed}</p>

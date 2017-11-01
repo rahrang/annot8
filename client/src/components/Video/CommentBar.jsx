@@ -100,7 +100,7 @@ class CommentBar extends React.Component {
             <i
               className={css(styles.icon) + " fa fa-chevron-left"}
               aria-hidden="true"
-              onClick={() => changeView("status")}
+              onClick={() => changeView("timestamps")}
             />
           )}
           <p className={css(styles.header)}>Comments</p>

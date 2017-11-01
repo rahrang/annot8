@@ -8,14 +8,14 @@ import * as _ from "lodash";
 
 // Local Components
 import CommentBar from "./CommentBar.jsx";
-import StatusBar from "./StatusBar.jsx";
+import TimestampBar from "./TimestampBar.jsx";
 import { CommentActions } from "../../actions/comment-actions.js";
 
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "status"
+      view: "timestamps"
     };
   }
 
@@ -23,7 +23,7 @@ class SideBar extends React.Component {
     if (this.noComments()) {
       this.setState({ view: "comments" });
     } else {
-      this.setState({ view: "status" });
+      this.setState({ view: "timestamps" });
     }
   }
 
@@ -38,7 +38,7 @@ class SideBar extends React.Component {
       if (_.isEmpty(nextProps.commentsReducer.video_comments)) {
         this.setState({ view: "comments" });
       } else {
-        this.setState({ view: "status" });
+        this.setState({ view: "timestamps" });
       }
     }
   }
@@ -77,7 +77,7 @@ class SideBar extends React.Component {
             comments={commentsReducer.timestamp_comments}
           />
         ) : (
-          <StatusBar
+          <TimestampBar
             videoId={videoId}
             changeView={this.changeView}
             getTime={getTime}
