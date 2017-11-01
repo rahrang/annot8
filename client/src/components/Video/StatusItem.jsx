@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     height: "40px",
-    width: "100%",
     padding: "3px 10px",
     ":hover": {
       backgroundColor: "#E6E6E6"

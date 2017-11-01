@@ -47,7 +47,6 @@ const getTimeElapsed = dateString => {
     }
     return `${minutesElapsed} minutes ago`;
   }
-
   return "Just Now";
 };
 
@@ -87,9 +86,10 @@ const addZeroChar = num => {
 };
 
 const convertTimeToSeconds = (hours, minutes, seconds) => {
-  let hoursInSeconds = !_.isNaN(hours) ? hours * 3600 : 0;
-  let minutesInSeconds = !_.isNaN(minutes) ? minutes * 60 : 0;
-  let secondsInSeconds = !_.isNaN(seconds) ? seconds : 0;
+  console.log(hours, minutes, seconds);
+  let hoursInSeconds = !_.isNaN(hours) ? _.toInteger(hours) * 3600 : 0;
+  let minutesInSeconds = !_.isNaN(minutes) ? _.toInteger(minutes) * 60 : 0;
+  let secondsInSeconds = !_.isNaN(seconds) ? _.toInteger(seconds) : 0;
   let timeInSeconds = hoursInSeconds + minutesInSeconds + secondsInSeconds;
   return timeInSeconds;
 };

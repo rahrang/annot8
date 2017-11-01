@@ -16,7 +16,6 @@ export default class CommentTextArea extends React.Component {
     super(props);
     this.state = {
       selected: {},
-      value: "",
       hours: "",
       minutes: "",
       seconds: ""
@@ -49,10 +48,6 @@ export default class CommentTextArea extends React.Component {
     this.setState({ selected: newSelected });
   };
 
-  onValueChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
   onHoursChange = event => {
     this.setState({ hours: event.target.value });
   };
@@ -65,9 +60,18 @@ export default class CommentTextArea extends React.Component {
     this.setState({ seconds: event.target.value });
   };
 
+  getTimeRefs = () => {
+    return {
+      hours: this.refs.hoursInput.value,
+      minutes: this.refs.minutesInput.value,
+      seconds: this.refs.secondsInput.value
+    };
+  };
+
   handleSubmit = async () => {
     let { view } = this.props;
-    let { value, selected, hours, minutes, seconds } = this.state;
+    let value = this.textarea.value;
+    let { selected, hours, minutes, seconds } = this.state;
     let isAnonymous = selected.value === "anonymous";
     if (view === "status") {
       let timestamp = helpers.convertTimeToSeconds(hours, minutes, seconds);
@@ -76,12 +80,13 @@ export default class CommentTextArea extends React.Component {
       // view === "comments"
       await this.props.handleSubmit(value, isAnonymous);
     }
-    this.setState({ value: "", hours: "", minutes: "", seconds: "" });
+    this.textarea.value = "";
+    this.setState({ hours: "", minutes: "", seconds: "" });
   };
 
   render() {
     let { onFocus, user, view } = this.props;
-    let { selected, value } = this.state;
+    let { selected } = this.state;
 
     let options = [
       { value: user.email, label: user.name },
@@ -94,8 +99,7 @@ export default class CommentTextArea extends React.Component {
       <div className={css(styles.commentInput)}>
         <textarea
           className={css(styles.input)}
-          value={value}
-          onChange={e => this.onValueChange(e)}
+          ref={textarea => (this.textarea = textarea)}
           onFocus={onFocus}
           placeholder="Ask a question or make a comment!"
           cols={50}

@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    maxHeight: "480px",
     width: "100%",
     padding: "10px 0 0"
   },
@@ -127,8 +128,7 @@ const styles = StyleSheet.create({
 
   bodyContainer: {
     width: "100%",
-    overflowY: "scroll",
-    height: "100%"
+    overflowY: "scroll"
   },
 
   commentInputContainer: {
