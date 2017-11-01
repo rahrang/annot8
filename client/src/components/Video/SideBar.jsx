@@ -20,25 +20,26 @@ class SideBar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.noComments()) {
-      this.setState({ view: "comments" });
-    } else {
-      this.setState({ view: "timestamps" });
-    }
+    // if (this.noComments()) {
+    //   this.setState({ view: "timestamps" });
+    // } else {
+    //   this.setState({ view: "timestamps" });
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
     let { commentsReducer } = this.props;
+    // a comment was added or deleted
     if (
       !_.isEqual(
         commentsReducer.video_comments,
         nextProps.commentsReducer.video_comments
       )
     ) {
-      if (_.isEmpty(nextProps.commentsReducer.video_comments)) {
-        this.setState({ view: "comments" });
-      } else {
+      if (_.isEmpty(nextProps.commentsReducer.timestamp_comments)) {
         this.setState({ view: "timestamps" });
+      } else {
+        this.setState({ view: "comments" });
       }
     }
   }
@@ -74,7 +75,7 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getDuration={getDuration}
             pauseVideo={pauseVideo}
-            comments={commentsReducer.timestamp_comments}
+            comments={commentsReducer.timestamp_comments} // comments made at the timestamp
           />
         ) : (
           <TimestampBar
@@ -82,7 +83,7 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getTime={getTime}
             getDuration={getDuration}
-            comments={commentsReducer.video_comments}
+            comments={commentsReducer.video_comments} // comments made at distinct timestamps throughout video
             fetchTimestampComments={fetchTimestampComments}
           />
         )}

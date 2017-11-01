@@ -10,7 +10,7 @@ export default class TimestampItem extends React.Component {
     return (
       <div
         className={css(styles.statusItemContainer, styles.fadeIn)}
-        onClick={() => changeView("comments")}
+        onClick={() => changeView(timestamp)}
       >
         <p className={css(styles.timestamp)}>{time}</p>
         <p className={css(styles.timeElapsed)}>{timeElapsed}</p>
