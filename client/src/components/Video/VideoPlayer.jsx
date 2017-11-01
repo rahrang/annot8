@@ -122,9 +122,10 @@ const styles = StyleSheet.create({
   },
 
   playerContainer: {
+    display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyItems: "center"
+    justifyContent: "center"
   },
 
   player: {
