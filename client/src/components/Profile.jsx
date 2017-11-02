@@ -13,13 +13,6 @@ import { CommentActions } from "../actions/comment-actions.js";
 const helpers = require("../helpers.js");
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: []
-    };
-  }
-
   componentDidMount() {
     let { authReducer } = this.props;
     if (_.isEmpty(authReducer.user)) {
