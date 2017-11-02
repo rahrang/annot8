@@ -34,8 +34,30 @@ class Profile extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    let { authReducer } = nextProps;
+    if (_.isEmpty(authReducer.user)) {
+      this.notLoggedIn = setTimeout(function() {
+        nextProps.history.replace("/");
+      }, 2000);
+    } else {
+      clearTimeout(this.notLoggedIn);
+      this.pullComments();
+    }
+  }
+
   pullComments = async () => {
     await this.props.fetchUserComments();
+  };
+
+  linkToVideo = (state, rowInfo, column, instance) => {
+    return {
+      onClick: async e => {
+        let { videoId, timestamp } = rowInfo.original;
+        await this.props.fetchTimestampComments(videoId, timestamp);
+        this.props.history.push(`/video/${videoId}/${timestamp}`);
+      }
+    };
   };
 
   render() {
@@ -58,6 +80,9 @@ class Profile extends React.Component {
             resizable={false}
             pageText=""
             ofText="/"
+            loadingText="Loading..."
+            noDataText="No Comments Found"
+            getTdProps={this.linkToVideo}
           />
         </div>
       </div>
@@ -134,6 +159,7 @@ const tableStyles = StyleSheet.create({
   },
 
   cell: {
+    cursor: "pointer",
     fontFamily: "Open Sans, sans-serif",
     fontSize: "0.9em",
     display: "flex",

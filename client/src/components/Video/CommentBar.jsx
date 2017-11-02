@@ -44,8 +44,8 @@ class CommentBar extends React.Component {
 
   handleSubmit = async (value, isAnonymous) => {
     let { timestamp } = this.state;
-    let { videoId, authReducer } = this.props;
-    let userName = authReducer.user.name;
+    let { videoId, user } = this.props;
+    let userName = user.name;
     if (!_.isEmpty(value)) {
       await this.props.makeComment(
         videoId,
@@ -63,19 +63,8 @@ class CommentBar extends React.Component {
     this.props.deleteComment(videoId, commentId, timestamp, "video");
   };
 
-  noComments = () => {
-    let { commentsReducer } = this.props;
-    return _.isEmpty(commentsReducer.video_comments);
-  };
-
   render() {
-    let {
-      changeView,
-      comments,
-      authReducer,
-      getDuration,
-      pauseVideo
-    } = this.props;
+    let { changeView, comments, getDuration, pauseVideo, user } = this.props;
     let { timestamp } = this.state;
 
     let commentsToRender = null;
@@ -90,7 +79,7 @@ class CommentBar extends React.Component {
             datePosted={c.datePosted}
             user={c.isAnonymous ? "Anonymous" : c.userName}
             isResolved={c.isResolved}
-            isCurrentUser={_.isEqual(c._user, authReducer.user._id)}
+            isCurrentUser={_.isEqual(c._user, user._id)}
             deleteComment={this.deleteComment}
           />
         );
@@ -100,7 +89,7 @@ class CommentBar extends React.Component {
     return (
       <div className={css(styles.commentBarContainer)}>
         <div className={css(styles.headerContainer)}>
-          {!this.noComments() && (
+          {!this.props.noComments() && (
             <i
               className={css(styles.icon) + " fa fa-chevron-left"}
               aria-hidden="true"
@@ -112,7 +101,7 @@ class CommentBar extends React.Component {
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
         <div className={css(styles.commentInputContainer)}>
           <CommentInput
-            user={authReducer.user}
+            user={user}
             handleSubmit={this.handleSubmit}
             onFocus={pauseVideo}
             getDuration={getDuration}
@@ -125,14 +114,7 @@ class CommentBar extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authReducer: state.authReducer,
-    commentsReducer: state.commentsReducer
-  };
-}
-
-export default connect(mapStateToProps, CommentActions)(CommentBar);
+export default connect(null, CommentActions)(CommentBar);
 
 const styles = StyleSheet.create({
   commentBarContainer: {

@@ -23,6 +23,7 @@ class VideoPlayer extends React.Component {
 
   componentDidMount() {
     let videoId = this.props.match.params.videoId;
+    this.timestamp = this.props.match.params.timestamp || 0;
     this.setState({ videoId });
     this.props.fetchVideoComments(videoId);
   }
@@ -34,6 +35,7 @@ class VideoPlayer extends React.Component {
     // if the video switches
     if (!_.isEqual(videoId, nextVideoId)) {
       this.setState({ videoId: nextVideoId });
+      this.timestamp = nextProps.match.params.timestamp || 0;
       this.props.fetchVideoComments(nextVideoId);
     }
 
@@ -46,9 +48,7 @@ class VideoPlayer extends React.Component {
   }
 
   onReady = event => {
-    this.setState({
-      player: event.target
-    });
+    this.setState({ player: event.target });
   };
 
   // use this when creating new threads
@@ -70,8 +70,21 @@ class VideoPlayer extends React.Component {
 
   render() {
     let { videoId } = this.state;
+
+    const opts = {
+      height: "500",
+      width: "800",
+      playerVars: {
+        autoplay: 1,
+        cc_load_policy: 0,
+        modestbranding: 1,
+        iv_load_policy: 3,
+        start: this.timestamp
+      }
+    };
+
     return (
-      <div className={css(styles.pageContainer, styles.fadeIn)}>
+      <div className={css(styles.videoPlayerContainer, styles.fadeIn)}>
         <div className={css(styles.sideBarContainer)}>
           <SideBar
             videoId={videoId}
@@ -103,19 +116,8 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, CommentActions)(VideoPlayer);
 
-const opts = {
-  height: "500",
-  width: "800",
-  playerVars: {
-    autoplay: 1,
-    cc_load_policy: 0,
-    modestbranding: 1,
-    iv_load_policy: 3
-  }
-};
-
 const styles = StyleSheet.create({
-  pageContainer: {
+  videoPlayerContainer: {
     display: "flex",
     flexDirection: "row",
     minHeight: "calc(100vh - 110px)"

@@ -22,6 +22,7 @@ class TimestampBar extends React.Component {
 
   changeView = async timestamp => {
     let { videoId, fetchTimestampComments } = this.props;
+    debugger;
     await fetchTimestampComments(videoId, timestamp);
     this.props.changeView("comments");
   };

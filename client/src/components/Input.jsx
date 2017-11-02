@@ -18,7 +18,7 @@ export default class Input extends React.Component {
   };
 
   sanitizeLink = inputVal => {
-    if (!_.includes(inputVal, "youtube.com/watch?v=")) {
+    if (!_.includes(inputVal, "youtube.com/watch?")) {
       return null;
     }
     const extract = queryString.extract(inputVal);

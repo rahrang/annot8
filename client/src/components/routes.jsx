@@ -1,18 +1,11 @@
 import React from "react";
 
-// Redux
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-
 // React Router
 import { Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
 // NPM Modules
 import { StyleSheet, css } from "aphrodite";
-
-// Actions
-import { AuthActions } from "../actions/auth-actions";
 
 // Containers
 import Navbar from "./Navbar/Navbar.jsx";
@@ -25,11 +18,9 @@ import Footer from "./Footer.jsx";
 
 class Routes extends React.Component {
   render() {
-    let { history } = this.props;
-
     return (
       <div className={css(styles.routerContainer)}>
-        <Navbar history={history} />
+        <Navbar />
         <div className={css(styles.mainContainer)}>
           <Switch>
             <Route exact path={"/"} component={Home} />
@@ -37,6 +28,7 @@ class Routes extends React.Component {
             <Route exact path={"/profile"} component={Profile} />
             <Route exact path={"/video/:videoId"} component={VideoPlayer} />
             <Route
+              exact
               path={"/video/:videoId/:timestamp"}
               component={VideoPlayer}
             />
@@ -55,12 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return { authReducer: state.authReducer };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return { authActions: bindActionCreators(AuthActions, dispatch) };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes));
+export default withRouter(Routes);

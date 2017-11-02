@@ -21,7 +21,6 @@ class SideBar extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     let { commentsReducer } = this.props;
-    // a comment was added or deleted
     if (
       !_.isEqual(
         commentsReducer.video_comments,
@@ -51,6 +50,7 @@ class SideBar extends React.Component {
 
   render() {
     let {
+      authReducer,
       videoId,
       getTime,
       getDuration,
@@ -67,7 +67,9 @@ class SideBar extends React.Component {
             changeView={this.changeView}
             getDuration={getDuration}
             pauseVideo={pauseVideo}
+            noComments={this.noComments}
             comments={commentsReducer.timestamp_comments} // comments made at the timestamp
+            user={authReducer.user}
           />
         ) : (
           <TimestampBar
@@ -86,6 +88,7 @@ class SideBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    authReducer: state.authReducer,
     commentsReducer: state.commentsReducer
   };
 }
