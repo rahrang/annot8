@@ -102,8 +102,6 @@ export default class CommentTextArea extends React.Component {
           ref={textarea => (this.textarea = textarea)}
           onFocus={onFocus}
           placeholder="Ask a question or make a comment!"
-          cols={50}
-          rows={4}
         />
         <div className={css(styles.submitRow)}>
           <button className={css(styles.button)} onClick={this.handleSubmit}>
@@ -143,8 +141,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: "5px 10px",
-    height: "150px"
+    // padding: "5px 10px",
+    height: "150px",
+    width: "450px",
+    "@media (min-width: 600px)": {
+      width: "150px"
+    },
+    "@media (min-width: 900px)": {
+      width: "375px"
+    },
+    "@media (min-width: 1200px)": {
+      width: "450px"
+    }
   },
 
   input: {
@@ -155,12 +163,15 @@ const styles = StyleSheet.create({
     margin: "5px",
     padding: "5px",
     outline: "none",
-    resize: "none"
+    resize: "none",
+    height: "75px",
+    width: "100%"
   },
 
   submitRow: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center"
   },

@@ -101,10 +101,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyItems: "center",
-    borderRight: "3px solid #3F7BA9",
+    borderLeft: "3px solid #3F7BA9",
     minHeight: "calc(100vh - 110px)",
-    width: "500px"
-
-    // TODO: add media queries on width
+    width: "500px",
+    "@media (min-width: 600px)": {
+      width: "200px"
+    },
+    "@media (min-width: 900px)": {
+      width: "415px"
+    },
+    "@media (min-width: 1200px)": {
+      width: "500px"
+    }
   }
 });

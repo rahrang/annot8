@@ -60,7 +60,7 @@ class TimestampBar extends React.Component {
             key={c._id}
             timestamp={c.timestamp}
             time={helpers.formatTime(c.timestamp, getDuration())}
-            text={helpers.truncate(c.text)}
+            text={c.text}
             timeElapsed={helpers.getTimeElapsed(c.datePosted)}
             changeView={this.changeView}
           />

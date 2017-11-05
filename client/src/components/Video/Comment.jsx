@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontFamily: "Open Sans, sans-serif",
     maxWidth: "100%",
-    // height: "100%",
     padding: "5px 15px"
   },
 

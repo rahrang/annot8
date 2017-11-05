@@ -68,12 +68,28 @@ class VideoPlayer extends React.Component {
     return !_.isEmpty(player) ? player.getDuration() : 0;
   };
 
+  setPlayerOpts = () => {
+    let playerVars = {
+      autoplay: 1,
+      cc_load_policy: 0,
+      modestbranding: 1,
+      iv_load_policy: 3,
+      start: this.timestamp
+    };
+    let screenWidth = window.screen.width;
+    // let width = screenWidth * 0.5;
+    // let height = screenWidth * 0.33;
+    // let opts = { height, width, playerVars };
+    let opts = { playerVars };
+    return opts;
+  };
+
   render() {
     let { videoId } = this.state;
 
     const opts = {
-      height: "500",
-      width: "800",
+      height: "450",
+      width: "720",
       playerVars: {
         autoplay: 1,
         cc_load_policy: 0,
@@ -85,21 +101,22 @@ class VideoPlayer extends React.Component {
 
     return (
       <div className={css(styles.videoPlayerContainer, styles.fadeIn)}>
+        <div className={css(styles.playerContainer)}>
+          <YouTube
+            id="video-player"
+            videoId={videoId}
+            className={css(styles.player)}
+            // opts={this.setPlayerOpts()}
+            opts={opts}
+            onReady={this.onReady}
+          />
+        </div>
         <div className={css(styles.sideBarContainer)}>
           <SideBar
             videoId={videoId}
             getTime={this.getTime}
             getDuration={this.getDuration}
             pauseVideo={this.pauseVideo}
-          />
-        </div>
-        <div className={css(styles.playerContainer)}>
-          <YouTube
-            id="video-player"
-            videoId={videoId}
-            className={css(styles.player)}
-            opts={opts}
-            onReady={this.onReady}
           />
         </div>
       </div>
@@ -127,7 +144,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    flex: 0.65
   },
 
   player: {
@@ -136,6 +154,8 @@ const styles = StyleSheet.create({
   },
 
   sideBarContainer: {
-    height: "100%"
+    height: "100%",
+    flex: 0.35
+    // width: "150px",
   }
 });

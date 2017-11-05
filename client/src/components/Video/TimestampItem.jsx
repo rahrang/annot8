@@ -45,13 +45,24 @@ const styles = StyleSheet.create({
     color: "#333",
     fontFamily: "Open Sans, sans-serif",
     fontSize: "0.9em",
-    padding: "0 0 0 7.5px"
+    padding: "0 7.5px",
+    width: "90px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    "@media(max-width: 600px)": {
+      display: "none"
+    }
   },
 
   description: {
     color: "#666",
     fontFamily: "Open Sans, sans-serif",
     fontSize: "0.9em",
-    padding: "0 0 0 7.5px"
+    padding: "0 0 0 7.5px",
+    width: "300px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
   }
 });
