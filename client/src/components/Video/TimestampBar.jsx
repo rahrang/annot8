@@ -1,16 +1,16 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { connect } from "react-redux";
-import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
+import { connect } from 'react-redux';
+import { css, StyleSheet } from 'aphrodite';
+import * as _ from 'lodash';
 
 // Local Components
-import TimestampItem from "./TimestampItem.jsx";
-import CommentInput from "./CommentInput.jsx";
-import { CommentActions } from "../../actions/comment-actions.js";
-const helpers = require("../../helpers.js");
+import TimestampItem from './TimestampItem.jsx';
+import CommentInput from './CommentInput.jsx';
+import { CommentActions } from '../../actions/comment-actions.js';
+const helpers = require('../../helpers.js');
 
 class TimestampBar extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class TimestampBar extends React.Component {
     let { videoId, fetchTimestampComments } = this.props;
     debugger;
     await fetchTimestampComments(videoId, timestamp);
-    this.props.changeView("comments");
+    this.props.changeView('comments');
   };
 
   onInputFocus = () => {
@@ -71,7 +71,7 @@ class TimestampBar extends React.Component {
     return (
       <div className={css(styles.timestampBarContainer, styles.fadeIn)}>
         <div className={css(styles.headerContainer)}>
-          <p className={css(styles.header)}>Comments</p>
+          <p className={css(styles.header)}>Timestamp Comments</p>
         </div>
         <div className={css(styles.bodyContainer)}>{timestampComments}</div>
         <div className={css(styles.commentInputContainer)}>
@@ -101,25 +101,24 @@ export default connect(mapStateToProps, CommentActions)(TimestampBar);
 
 const styles = StyleSheet.create({
   timestampBarContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    padding: "10px 0 0",
-    height: "100%"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    padding: '10px 0 0'
   },
 
   headerContainer: {
-    backgroundColor: "#F5F5F5",
-    borderBottom: "3px solid #3F7BA9",
-    color: "#333",
-    fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1.25em",
-    padding: "3px 0",
-    textAlign: "center",
-    textTransform: "uppercase",
-    width: "100%"
+    backgroundColor: '#F5F5F5',
+    borderBottom: '3px solid #3F7BA9',
+    color: '#333',
+    fontFamily: 'Fjalla One, sans-serif',
+    fontSize: '1.25em',
+    padding: '3px 0',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    width: '100%'
   },
 
   header: {
@@ -128,15 +127,15 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    width: "100%",
-    height: "375px",
-    overflowY: "scroll"
+    width: '100%',
+    height: '375px',
+    overflowY: 'scroll'
   },
 
   commentInputContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

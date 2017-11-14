@@ -1,15 +1,15 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { css, StyleSheet } from "aphrodite";
+import { css, StyleSheet } from 'aphrodite';
 
 export default class TimestampItem extends React.Component {
   render() {
     let { timestamp, time, timeElapsed, text, changeView } = this.props;
     return (
       <div
-        className={css(styles.statusItemContainer, styles.fadeIn)}
+        className={css(styles.timestampItemContainer, styles.fadeIn)}
         onClick={() => changeView(timestamp)}
       >
         <p className={css(styles.timestamp)}>{time}</p>
@@ -21,48 +21,47 @@ export default class TimestampItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  statusItemContainer: {
-    cursor: "pointer",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: "40px",
-    padding: "3px 10px",
-    ":hover": {
-      backgroundColor: "#E6E6E6"
+  timestampItemContainer: {
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    height: '40px',
+    padding: '3px 10px',
+    ':hover': {
+      backgroundColor: '#E6E6E6'
     }
   },
 
   timestamp: {
-    color: "#3F7BA9",
-    fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1em",
-    letterSpacing: "0.025em"
+    color: '#3F7BA9',
+    fontFamily: 'Fjalla One, sans-serif',
+    fontSize: '1em',
+    padding: '0 7.5px',
+    letterSpacing: '0.025em'
   },
 
   timeElapsed: {
-    color: "#333",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "0.9em",
-    padding: "0 7.5px",
-    width: "90px",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-    "@media(max-width: 600px)": {
-      display: "none"
+    color: '#333',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '0.9em',
+    padding: '0 7.5px',
+    width: '110px',
+    '@media(max-width: 600px)': {
+      display: 'none'
     }
   },
 
   description: {
-    color: "#666",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "0.9em",
-    padding: "0 0 0 7.5px",
-    width: "300px",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap"
+    color: '#666',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '0.9em',
+    padding: '0 0 0 7.5px',
+    width: '300px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
   }
 });

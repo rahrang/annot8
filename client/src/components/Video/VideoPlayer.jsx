@@ -1,21 +1,21 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { connect } from "react-redux";
-import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
-import YouTube from "react-youtube";
+import { connect } from 'react-redux';
+import { css, StyleSheet } from 'aphrodite';
+import * as _ from 'lodash';
+import YouTube from 'react-youtube';
 
 // Local Components
-import SideBar from "./SideBar.jsx";
-import { CommentActions } from "../../actions/comment-actions.js";
+import SideBar from './SideBar.jsx';
+import { CommentActions } from '../../actions/comment-actions.js';
 
 class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoId: "",
+      videoId: '',
       player: {}
     };
     this.onReady = this.onReady.bind(this);
@@ -88,8 +88,8 @@ class VideoPlayer extends React.Component {
     let { videoId } = this.state;
 
     const opts = {
-      height: "450",
-      width: "720",
+      height: '450',
+      width: '720',
       playerVars: {
         autoplay: 1,
         cc_load_policy: 0,
@@ -111,14 +111,12 @@ class VideoPlayer extends React.Component {
             onReady={this.onReady}
           />
         </div>
-        <div className={css(styles.sideBarContainer)}>
-          <SideBar
-            videoId={videoId}
-            getTime={this.getTime}
-            getDuration={this.getDuration}
-            pauseVideo={this.pauseVideo}
-          />
-        </div>
+        <SideBar
+          videoId={videoId}
+          getTime={this.getTime}
+          getDuration={this.getDuration}
+          pauseVideo={this.pauseVideo}
+        />
       </div>
     );
   }
@@ -135,27 +133,21 @@ export default connect(mapStateToProps, CommentActions)(VideoPlayer);
 
 const styles = StyleSheet.create({
   videoPlayerContainer: {
-    display: "flex",
-    flexDirection: "row",
-    minHeight: "calc(100vh - 110px)"
+    display: 'flex',
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    minHeight: 'calc(100vh - 110px)'
   },
 
   playerContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 0.65
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   player: {
-    border: "3px solid #3F7BA9",
-    margin: "20px"
-  },
-
-  sideBarContainer: {
-    height: "100%",
-    flex: 0.35
-    // width: "150px",
+    border: '3px solid #3F7BA9',
+    margin: '20px 40px'
   }
 });
