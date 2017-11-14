@@ -1,21 +1,21 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { connect } from "react-redux";
-import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
-import YouTube from "react-youtube";
+import { connect } from 'react-redux';
+import { css, StyleSheet } from 'aphrodite';
+import * as _ from 'lodash';
+import YouTube from 'react-youtube';
 
 // Local Components
-import SideBar from "./SideBar.jsx";
-import { CommentActions } from "../../actions/comment-actions.js";
+import SideBar from './SideBar.jsx';
+import { CommentActions } from '../../actions/comment-actions.js';
 
 class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoId: "",
+      videoId: '',
       player: {}
     };
     this.onReady = this.onReady.bind(this);
@@ -68,12 +68,28 @@ class VideoPlayer extends React.Component {
     return !_.isEmpty(player) ? player.getDuration() : 0;
   };
 
+  setPlayerOpts = () => {
+    let playerVars = {
+      autoplay: 1,
+      cc_load_policy: 0,
+      modestbranding: 1,
+      iv_load_policy: 3,
+      start: this.timestamp
+    };
+    let screenWidth = window.screen.width;
+    // let width = screenWidth * 0.5;
+    // let height = screenWidth * 0.33;
+    // let opts = { height, width, playerVars };
+    let opts = { playerVars };
+    return opts;
+  };
+
   render() {
     let { videoId } = this.state;
 
     const opts = {
-      height: "500",
-      width: "800",
+      height: '450',
+      width: '720',
       playerVars: {
         autoplay: 1,
         cc_load_policy: 0,
@@ -85,23 +101,22 @@ class VideoPlayer extends React.Component {
 
     return (
       <div className={css(styles.videoPlayerContainer, styles.fadeIn)}>
-        <div className={css(styles.sideBarContainer)}>
-          <SideBar
-            videoId={videoId}
-            getTime={this.getTime}
-            getDuration={this.getDuration}
-            pauseVideo={this.pauseVideo}
-          />
-        </div>
         <div className={css(styles.playerContainer)}>
           <YouTube
             id="video-player"
             videoId={videoId}
             className={css(styles.player)}
+            // opts={this.setPlayerOpts()}
             opts={opts}
             onReady={this.onReady}
           />
         </div>
+        <SideBar
+          videoId={videoId}
+          getTime={this.getTime}
+          getDuration={this.getDuration}
+          pauseVideo={this.pauseVideo}
+        />
       </div>
     );
   }
@@ -118,24 +133,21 @@ export default connect(mapStateToProps, CommentActions)(VideoPlayer);
 
 const styles = StyleSheet.create({
   videoPlayerContainer: {
-    display: "flex",
-    flexDirection: "row",
-    minHeight: "calc(100vh - 110px)"
+    display: 'flex',
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    minHeight: 'calc(100vh - 110px)'
   },
 
   playerContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   player: {
-    border: "3px solid #3F7BA9",
-    margin: "20px"
-  },
-
-  sideBarContainer: {
-    height: "100%"
+    border: '3px solid #3F7BA9',
+    margin: '20px 40px'
   }
 });

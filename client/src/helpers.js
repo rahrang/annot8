@@ -122,6 +122,5 @@ module.exports = {
   getTimeBoundaries,
   stringifyTime,
   convertTimeToSeconds,
-  formatTime,
-  truncate
+  formatTime
 };

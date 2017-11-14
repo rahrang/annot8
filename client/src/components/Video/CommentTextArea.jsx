@@ -1,24 +1,24 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
-import Select from "react-select";
-import "react-select/dist/react-select.css";
+import { css, StyleSheet } from 'aphrodite';
+import * as _ from 'lodash';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 // Local Components
-import TimeInput from "./TimeInput.jsx";
-const helpers = require("../../helpers.js");
+import TimeInput from './TimeInput.jsx';
+const helpers = require('../../helpers.js');
 
 export default class CommentTextArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: {},
-      hours: "",
-      minutes: "",
-      seconds: ""
+      hours: '',
+      minutes: '',
+      seconds: ''
     };
   }
 
@@ -34,7 +34,7 @@ export default class CommentTextArea extends React.Component {
 
   setTimes = view => {
     switch (view) {
-      case "comments":
+      case 'comments':
         let { timestamp } = this.props;
         return helpers.stringifyTime(timestamp);
       default:
@@ -72,16 +72,16 @@ export default class CommentTextArea extends React.Component {
     let { view } = this.props;
     let value = this.textarea.value;
     let { selected, hours, minutes, seconds } = this.state;
-    let isAnonymous = selected.value === "anonymous";
-    if (view === "status") {
+    let isAnonymous = selected.value === 'anonymous';
+    if (view === 'status') {
       let timestamp = helpers.convertTimeToSeconds(hours, minutes, seconds);
       await this.props.handleSubmit(value, isAnonymous, timestamp);
     } else {
       // view === "comments"
       await this.props.handleSubmit(value, isAnonymous);
     }
-    this.textarea.value = "";
-    this.setState({ hours: "", minutes: "", seconds: "" });
+    this.textarea.value = '';
+    this.setState({ hours: '', minutes: '', seconds: '' });
   };
 
   render() {
@@ -90,7 +90,7 @@ export default class CommentTextArea extends React.Component {
 
     let options = [
       { value: user.email, label: user.name },
-      { value: "anonymous", label: "Anonymous to Everyone" }
+      { value: 'anonymous', label: 'Anonymous to Everyone' }
     ];
 
     let { hours, minutes, seconds } = this.setTimes(view);
@@ -102,8 +102,6 @@ export default class CommentTextArea extends React.Component {
           ref={textarea => (this.textarea = textarea)}
           onFocus={onFocus}
           placeholder="Ask a question or make a comment!"
-          cols={50}
-          rows={4}
         />
         <div className={css(styles.submitRow)}>
           <button className={css(styles.button)} onClick={this.handleSubmit}>
@@ -120,7 +118,7 @@ export default class CommentTextArea extends React.Component {
             onMinutesChange={this.onMinutesChange}
             onSecondsChange={this.onSecondsChange}
             // used for "comments" view
-            disabled={view === "comments"}
+            disabled={view === 'comments'}
           />
           as
           <Select
@@ -139,58 +137,62 @@ export default class CommentTextArea extends React.Component {
 
 const styles = StyleSheet.create({
   commentInput: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "5px 10px",
-    height: "150px"
+    color: '#333',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '150px',
+    width: '450px'
   },
 
   input: {
-    border: "none",
-    color: "#333",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "1em",
-    margin: "5px",
-    padding: "5px",
-    outline: "none",
-    resize: "none"
+    border: 'none',
+    color: '#333',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1em',
+    margin: '5px',
+    padding: '5px',
+    outline: 'none',
+    resize: 'none',
+    height: '75px',
+    width: '100%'
   },
 
   submitRow: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   timeInput: {
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "0.9em",
-    outline: "none",
-    width: "60px",
-    margin: "0 5px",
-    padding: "4px 8px"
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '0.9em',
+    outline: 'none',
+    width: '60px',
+    margin: '0 5px',
+    padding: '4px 8px'
   },
 
   button: {
-    border: "none",
-    backgroundColor: "#3F7BA9",
-    color: "#F5F5F5",
-    cursor: "pointer",
-    fontFamily: "Fjalla One, sans-serif",
-    fontSize: "1em",
-    outline: "none",
-    margin: "0 5px",
-    padding: "3px 10px"
+    border: 'none',
+    backgroundColor: '#3F7BA9',
+    color: '#F5F5F5',
+    cursor: 'pointer',
+    fontFamily: 'Fjalla One, sans-serif',
+    fontSize: '1em',
+    outline: 'none',
+    margin: '0 5px',
+    padding: '3px 10px'
   },
 
   dropdown: {
-    cursor: "pointer",
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "0.875em",
-    margin: "0 5px",
-    width: "225px"
+    cursor: 'pointer',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '0.875em',
+    margin: '0 5px',
+    width: '225px'
   }
 });
