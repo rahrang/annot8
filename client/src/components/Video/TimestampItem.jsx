@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
     height: '40px',
     padding: '3px 10px',
     ':hover': {

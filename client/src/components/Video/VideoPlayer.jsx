@@ -76,7 +76,7 @@ class VideoPlayer extends React.Component {
       iv_load_policy: 3,
       start: this.timestamp
     };
-    let screenWidth = window.screen.width;
+    // let screenWidth = window.screen.width;
     // let width = screenWidth * 0.5;
     // let height = screenWidth * 0.33;
     // let opts = { height, width, playerVars };

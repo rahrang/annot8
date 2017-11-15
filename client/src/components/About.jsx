@@ -92,7 +92,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     textAlign: 'left',
-    padding: '20px 120px'
+    padding: '20px 120px',
+    '@media(max-width:900px)': {
+      padding: '15px 80px'
+    },
+    '@media(max-width:600px)': {
+      padding: '10px 40px'
+    }
   },
 
   sectionHeader: {

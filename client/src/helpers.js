@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const _ = require('lodash');
 
 /***
   @param dateString: the date & time at which the comment was made
@@ -11,7 +11,7 @@ const getTimeElapsed = dateString => {
   let yearsElapsed = now.getYear() - date.getYear();
   if (yearsElapsed > 0) {
     if (yearsElapsed === 1) {
-      return "1 year ago";
+      return '1 year ago';
     }
     return `${yearsElapsed} years ago`;
   }
@@ -19,7 +19,7 @@ const getTimeElapsed = dateString => {
   let monthsElapsed = now.getUTCMonth() - date.getUTCMonth();
   if (monthsElapsed > 0) {
     if (monthsElapsed === 1) {
-      return "1 month ago";
+      return '1 month ago';
     }
     return `${monthsElapsed} months ago`;
   }
@@ -27,7 +27,7 @@ const getTimeElapsed = dateString => {
   let daysElapsed = now.getUTCDate() - date.getUTCDate();
   if (daysElapsed > 0) {
     if (daysElapsed === 1) {
-      return "1 day ago";
+      return '1 day ago';
     }
     return `${daysElapsed} days ago`;
   }
@@ -35,7 +35,7 @@ const getTimeElapsed = dateString => {
   let hoursElapsed = now.getUTCHours() - date.getUTCHours();
   if (hoursElapsed > 0) {
     if (hoursElapsed === 1) {
-      return "1 hour ago";
+      return '1 hour ago';
     }
     return `${hoursElapsed} hours ago`;
   }
@@ -43,11 +43,11 @@ const getTimeElapsed = dateString => {
   let minutesElapsed = now.getUTCMinutes() - date.getUTCMinutes();
   if (minutesElapsed > 0) {
     if (minutesElapsed === 1) {
-      return "1 minute ago";
+      return '1 minute ago';
     }
     return `${minutesElapsed} minutes ago`;
   }
-  return "Just Now";
+  return 'Just Now';
 };
 
 /***
@@ -106,16 +106,16 @@ const formatTime = (timestamp, upperBound) => {
   return `${minutesFormatted}:${secondsFormatted}`;
 };
 
-const truncate = text => {
-  if (text.length < 40) {
-    return text;
-  }
-  let textArray = text.split("");
-  let truncatedArray = textArray.slice(0, 40);
-  truncatedArray.push("...");
-  let newText = truncatedArray.join("");
-  return newText;
-};
+// const truncate = text => {
+//   if (text.length < 40) {
+//     return text;
+//   }
+//   let textArray = text.split("");
+//   let truncatedArray = textArray.slice(0, 40);
+//   truncatedArray.push("...");
+//   let newText = truncatedArray.join("");
+//   return newText;
+// };
 
 module.exports = {
   getTimeElapsed,
