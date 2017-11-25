@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const bodyParser = require('body-parser')crjm;
+const bodyParser = require('body-parser');
 
 // Local imports
 const keys = require('./config/keys.js');

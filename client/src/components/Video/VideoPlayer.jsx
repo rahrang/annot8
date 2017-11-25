@@ -68,22 +68,6 @@ class VideoPlayer extends React.Component {
     return !_.isEmpty(player) ? player.getDuration() : 0;
   };
 
-  setPlayerOpts = () => {
-    let playerVars = {
-      autoplay: 1,
-      cc_load_policy: 0,
-      modestbranding: 1,
-      iv_load_policy: 3,
-      start: this.timestamp
-    };
-    // let screenWidth = window.screen.width;
-    // let width = screenWidth * 0.5;
-    // let height = screenWidth * 0.33;
-    // let opts = { height, width, playerVars };
-    let opts = { playerVars };
-    return opts;
-  };
-
   render() {
     let { videoId } = this.state;
 
@@ -106,10 +90,12 @@ class VideoPlayer extends React.Component {
             id="video-player"
             videoId={videoId}
             className={css(styles.player)}
-            // opts={this.setPlayerOpts()}
             opts={opts}
             onReady={this.onReady}
           />
+        </div>
+        <div className={css(styles.smallScreenContainer)}>
+          Please use a device with a larger screen.
         </div>
         <SideBar
           videoId={videoId}
@@ -143,7 +129,23 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    '@media(max-width: 767px)': {
+      display: 'none'
+    }
+  },
+
+  smallScreenContainer: {
+    color: '#333',
+    display: 'none',
+    fontSize: '1.5em',
+    '@media(max-width: 767px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px'
+    }
   },
 
   player: {
