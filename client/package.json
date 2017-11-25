@@ -17,6 +17,7 @@
     "query-string": "^5.0.1",
     "react": "^16.0.0",
     "react-animations": "^0.1.0",
+    "react-burger-menu": "^2.1.11",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
@@ -30,8 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "build": "react-scripts build"
+  },
+  "devDependencies": {}
 }
