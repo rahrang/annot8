@@ -1,13 +1,13 @@
 // React
-import React from "react";
+import React from 'react';
 
 // NPM Modules
-import { css, StyleSheet } from "aphrodite";
-import * as _ from "lodash";
+import { css, StyleSheet } from 'aphrodite';
+import * as _ from 'lodash';
 
 // Local Components
-import LoginButton from "../reusable_components/LoginButton.jsx";
-import CommentTextArea from "./CommentTextArea.jsx";
+import LoginButton from '../reusable_components/LoginButton.jsx';
+import CommentTextArea from './CommentTextArea.jsx';
 
 export default class CommentInput extends React.Component {
   constructor(props) {
@@ -53,17 +53,18 @@ export default class CommentInput extends React.Component {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    borderTop: "3px solid #3F7BA9"
+    borderTop: '3px solid #3F7BA9'
   },
 
   loginContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   loginText: {
-    margin: "20px 10px"
+    color: '#333',
+    margin: '20px 10px'
   }
 });
