@@ -110,7 +110,9 @@ const styles = StyleSheet.create({
   text: {
     color: '#333',
     fontSize: '1em',
-    margin: '1px 0'
+    margin: '1px 0',
+    padding: '0 5px',
+    wordBreak: 'break-all'
   },
 
   secondRow: {

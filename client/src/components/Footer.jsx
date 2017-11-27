@@ -76,17 +76,17 @@ const styles = StyleSheet.create({
 const LINK_INFO = [
   {
     to: '/about',
-    target: 'self',
+    target: '_self',
     text: 'About'
   },
   {
     to: 'https://github.com/rahrang/annot8',
-    target: 'blank',
+    target: '_blank',
     text: 'GitHub'
   },
   {
     to: 'https://goo.gl/forms/d1XjnotjgKXKvptM2',
-    target: 'blank',
+    target: '_blank',
     text: 'Feedback'
   }
 ];
