@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    width: '100%',
     height: '375px',
+    width: '100%',
     overflowY: 'scroll'
   },
 

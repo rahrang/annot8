@@ -4,7 +4,6 @@ import React from 'react';
 // NPM Modules
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
-import * as _ from 'lodash';
 import { fadeIn } from 'react-animations';
 
 export default class Navbar extends React.Component {
@@ -18,7 +17,7 @@ export default class Navbar extends React.Component {
                 <Link
                   className={css(styles.link)}
                   to={link.to}
-                  target={!_.isUndefined(link.target) && link.target}
+                  target={link.target}
                 >
                   {link.text}
                 </Link>
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
 const LINK_INFO = [
   {
     to: '/about',
-    target: undefined,
+    target: 'self',
     text: 'About'
   },
   {
