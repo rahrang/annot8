@@ -36,6 +36,7 @@ class VideoPlayer extends React.Component {
     if (!_.isEqual(videoId, nextVideoId)) {
       this.setState({ videoId: nextVideoId });
       this.timestamp = nextProps.match.params.timestamp || 0;
+      // fetch youtube statistics here, calling an action
       this.props.fetchVideoComments(nextVideoId);
     }
 

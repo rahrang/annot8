@@ -1,17 +1,17 @@
-const Path = require("path-parser");
-const mongoose = require("mongoose");
-const _ = require("lodash");
+const Path = require('path-parser');
+const mongoose = require('mongoose');
+const _ = require('lodash');
 
 // Middlewares
-const requireLogin = require("../middlewares/requireLogin.js");
+const requireLogin = require('../middlewares/requireLogin.js');
 
 // MongoDB Collections
-const Comment = mongoose.model("comments");
+const Comment = mongoose.model('comments');
 
 module.exports = app => {
   // GET all top-level comments on a video
-  app.get("/api/video/comments/all", async (req, res) => {
-    const p = new Path("/api/video/comments/all?:videoId");
+  app.get('/api/video/comments/all', async (req, res) => {
+    const p = new Path('/api/video/comments/all?:videoId');
     const match = p.test(req.url);
     if (match) {
       const comments = await Comment.find({ videoId: match.videoId }).sort({
@@ -24,8 +24,8 @@ module.exports = app => {
   });
 
   // GET all comments on a video at a given timestamp
-  app.get("/api/video/comments/timestamp", async (req, res) => {
-    const p = new Path("/api/video/comments/timestamp?:videoId&:timestamp");
+  app.get('/api/video/comments/timestamp', async (req, res) => {
+    const p = new Path('/api/video/comments/timestamp?:videoId&:timestamp');
     const match = p.test(req.url);
     if (match) {
       const comments = await Comment.find({
@@ -37,7 +37,7 @@ module.exports = app => {
   });
 
   // GET all comments for User
-  app.get("/api/user/comments/", requireLogin, async (req, res) => {
+  app.get('/api/user/comments/', requireLogin, async (req, res) => {
     const comments = await Comment.find({ _user: req.user.id }).sort({
       datePosted: 1,
       _id: 1
@@ -46,8 +46,8 @@ module.exports = app => {
   });
 
   // GET all comments for User on a video
-  app.get("/api/user/video/comments/", requireLogin, async (req, res) => {
-    const p = new Path("/api/user/video/comments?:videoId");
+  app.get('/api/user/video/comments/', requireLogin, async (req, res) => {
+    const p = new Path('/api/user/video/comments?:videoId');
     const match = p.test(req.url);
 
     if (match) {
@@ -61,16 +61,8 @@ module.exports = app => {
     }
   });
 
-  // GET all timestamps on a video
-
-  // GET all unresolved comments on a video
-
-  // GET all questions on a video
-
-  // GET all private comments on a video
-
   // POST a new commment on a video
-  app.post("/api/video/comments/", requireLogin, async (req, res) => {
+  app.post('/api/video/comments/', requireLogin, async (req, res) => {
     const { videoId, timestamp, userName, isAnonymous, text } = req.body;
     const comment = new Comment({
       videoId,
@@ -94,8 +86,8 @@ module.exports = app => {
   });
 
   // DELETE a comment
-  app.delete("/api/video/comments/", requireLogin, async (req, res) => {
-    const p = new Path("/api/video/comments?:videoId&:commentId&:timestamp");
+  app.delete('/api/video/comments/', requireLogin, async (req, res) => {
+    const p = new Path('/api/video/comments?:videoId&:commentId&:timestamp');
     const match = p.test(req.url);
     if (match) {
       await Comment.remove({ _id: match.commentId });
