@@ -1,39 +1,32 @@
 const keys = require('../config/keys.js');
 const _ = require('lodash');
-const YouTube = require('simple-youtube-api');
-const youtube = new YouTube(keys.googleAPIKey);
 const axios = require('axios');
 
-module.exports = app => {
-  // GET the title and duration for a video with the given id
-  // app.post('/api/video/stats', async (req, res) => {
-  //   const { videoId } = req.body;
-  //   console.log(videoId);
-  //   youtube
-  //     .getVideo(`https://www.youtube.com/watch?v=${videoId}`)
-  //     .then(results => console.log(results))
-  //     .catch(results => console.log(results));
-  //   // const video = await youtube.getVideo(
-  //   //   `https://www.youtube.com/watch?v=${videoId}`
-  //   // );
-  //   // console.log('HERE');
-  //   // if (video) {
-  //   //   const title = video[0].title;
-  //   //   const duration = video[0].duration;
-  //   //   return res.status(200).send({ title, duration });
-  //   // }
-  //   return res.status(422).send({ title: '', duration: '' });
-  // });
+const parse = require('iso8601-duration').parse;
+const toSeconds = require('iso8601-duration').toSeconds;
 
+module.exports = app => {
   app.post('/api/video/stats', async (req, res) => {
     const { videoId } = req.body;
-    console.log(videoId);
     const query = await axios.get(
-      `https://www.googleapis.com/youtube/v3/videos?key=${keys.googleAPIKey}&part=contentDetails,snippet&id=Hp7C5TaHcFw`
+      `https://www.googleapis.com/youtube/v3/videos?key=${keys.googleAPIKey}&part=contentDetails,snippet&id=${videoId}`
     );
-    console.log(query.data);
-    res.status(404).send({ title: 'HERE', duration: '10' });
+    if (_.isEmpty(query.data.items)) {
+      res.status(422).send({ title: '', duration: '-1' });
+    } else {
+      const videoData = query.data.items[0];
+      let title = videoData.snippet.title;
+      let rawDuration = videoData.contentDetails.duration;
+      let cleanedDuration = cleanDuration(rawDuration);
+      res.status(200).send({ title: title, duration: cleanedDuration });
+    }
   });
 };
 
-// TODO
+// YouTube's Data API returns raw durations in ISO 8601 format
+// We need to clean this data --> convert it into seconds
+// "PT2H7M37S" ==> "7657"
+// "PT7M37S" ==> "457"
+const cleanDuration = rawDuration => {
+  return toSeconds(parse(rawDuration));
+};

@@ -22,7 +22,6 @@ class TimestampBar extends React.Component {
 
   changeView = async timestamp => {
     let { videoId, fetchTimestampComments } = this.props;
-    debugger;
     await fetchTimestampComments(videoId, timestamp);
     this.props.changeView('comments');
   };
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    height: '375px',
+    height: '325px',
     width: '100%',
     overflowY: 'scroll'
   },

@@ -94,7 +94,7 @@ const convertTimeToSeconds = (hours, minutes, seconds) => {
   return timeInSeconds;
 };
 
-const formatTime = (timestamp, upperBound) => {
+const formatTime = (timestamp, upperBound = 0) => {
   let videoContainsHours = Math.floor(upperBound / 3600) > 0;
   let { hours, minutes, seconds } = convertSecondsToTime(timestamp);
   let hoursFormatted = addZeroChar(hours);

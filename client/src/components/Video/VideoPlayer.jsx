@@ -24,7 +24,6 @@ class VideoPlayer extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     let videoId = this.props.match.params.videoId;
     this.timestamp = this.props.match.params.timestamp || 0;
     this.setState({ videoId });
@@ -72,11 +71,16 @@ class VideoPlayer extends React.Component {
   // TODO -- USE DURATION GIVEN IN RESPONSE RATHER THAN THIS
   getDuration = () => {
     let { player } = this.state;
+    let { videoReducer } = this.props;
+    if (videoReducer.duration !== '-1') {
+      return videoReducer.duration;
+    }
     return !_.isEmpty(player) ? player.getDuration() : 0;
   };
 
   render() {
     let { videoId } = this.state;
+    let { videoReducer } = this.props;
 
     const opts = {
       height: '450',
@@ -93,6 +97,7 @@ class VideoPlayer extends React.Component {
     return (
       <div className={css(styles.videoPlayerContainer, styles.fadeIn)}>
         <div className={css(styles.playerContainer)}>
+          <h2 className={css(styles.videoTitle)}>{videoReducer.title}</h2>
           <YouTube
             id="video-player"
             videoId={videoId}
@@ -149,6 +154,14 @@ const styles = StyleSheet.create({
     }
   },
 
+  videoTitle: {
+    color: '#333',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1.5em',
+    margin: '5px 0',
+    padding: '0'
+  },
+
   smallScreenContainer: {
     color: '#333',
     display: 'none',
@@ -164,6 +177,6 @@ const styles = StyleSheet.create({
 
   player: {
     border: '3px solid #3F7BA9',
-    margin: '20px 40px'
+    margin: '10px 40px'
   }
 });

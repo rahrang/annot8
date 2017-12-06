@@ -8,8 +8,9 @@ export const VideoActions = {
   fetchVideoStats: videoId => async dispatch => {
     const params = { videoId };
     const res = await axios.post('/api/video/stats', params);
-    dispatch({
-      type: VideoConstants.FETCH_VIDEO_COMMENTS,
+    console.log(res);
+    return dispatch({
+      type: VideoConstants.FETCH_VIDEO_STATS,
       title: res.data.title,
       duration: res.data.duration
     });

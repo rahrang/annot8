@@ -12,13 +12,13 @@
     "concurrently": "^3.5.0",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.1",
+    "iso8601-duration": "^1.1.1",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
-    "path-parser": "^2.0.2",
-    "simple-youtube-api": "^5.0.0"
+    "path-parser": "^2.0.2"
   },
   "scripts": {
     "start": "node index.js",

@@ -7,7 +7,7 @@ const defaultState = {
 
 const VideoReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case VideoConstants.FETCH_USER_COMMENTS:
+    case VideoConstants.FETCH_VIDEO_STATS:
       return { ...state, ...action };
     default:
       return state;
