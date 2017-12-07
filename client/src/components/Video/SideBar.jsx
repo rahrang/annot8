@@ -137,6 +137,7 @@ const menuStyles = {
 
   bmCrossButton: {
     position: 'absolute',
+    top: '10px',
     right: '25px',
     height: '30px',
     width: '30px'

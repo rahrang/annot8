@@ -34,6 +34,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes.js')(app);
 require('./routes/commentRoutes.js')(app);
+require('./routes/videoRoutes.js')(app);
 
 /*** Start the server ***/
 

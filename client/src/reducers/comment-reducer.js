@@ -1,4 +1,4 @@
-import { CommentConstants } from "../actions/comment-actions";
+import { CommentConstants } from '../actions/comment-actions';
 
 const defaultState = {
   user_comments: [], // comments made by the current user
@@ -7,7 +7,6 @@ const defaultState = {
 };
 
 const CommentReducer = (state = defaultState, action) => {
-  // console.log(action);
   switch (action.type) {
     case CommentConstants.FETCH_USER_COMMENTS:
     case CommentConstants.FETCH_USER_VIDEO_COMMENTS:

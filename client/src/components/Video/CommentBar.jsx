@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import Comment from './Comment.jsx';
 import CommentInput from './CommentInput.jsx';
 import { CommentActions } from '../../actions/comment-actions.js';
+import { formatTime } from '../../helpers.js';
 
 class CommentBar extends React.Component {
   constructor(props) {
@@ -90,13 +91,20 @@ class CommentBar extends React.Component {
       <div className={css(styles.commentBarContainer)}>
         <div className={css(styles.headerContainer)}>
           {!this.props.noComments() && (
-            <i
-              className={css(styles.icon) + ' fa fa-chevron-left'}
-              aria-hidden="true"
+            <div
+              className={css(styles.backButton)}
               onClick={() => changeView('timestamps')}
-            />
+            >
+              <i
+                className={css(styles.icon) + ' fa fa-chevron-left'}
+                aria-hidden="true"
+              />
+              All Comments
+            </div>
           )}
-          <p className={css(styles.header)}>Video Comments</p>
+          <p className={css(styles.header)}>
+            Comments at {formatTime(timestamp)}
+          </p>
         </div>
         <div className={css(styles.bodyContainer)}>{commentsToRender}</div>
         <div className={css(styles.commentInputContainer)}>
@@ -143,14 +151,22 @@ const styles = StyleSheet.create({
     width: '100%'
   },
 
-  icon: {
+  backButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    border: 'none',
     color: '#3F7BA9',
     cursor: 'pointer',
-    fontSize: '0.9em',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '0.75em',
     position: 'absolute',
     left: '10px',
     margin: '0',
     padding: '0 10px'
+  },
+
+  icon: {
+    margin: '0 2.5px'
   },
 
   header: {
@@ -159,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   bodyContainer: {
-    height: '375px',
+    height: '325px',
     width: '100%',
     overflowY: 'scroll'
   },

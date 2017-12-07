@@ -77,7 +77,6 @@ export default class CommentTextArea extends React.Component {
       let timestamp = helpers.convertTimeToSeconds(hours, minutes, seconds);
       await this.props.handleSubmit(value, isAnonymous, timestamp);
     } else {
-      // view === "comments"
       await this.props.handleSubmit(value, isAnonymous);
     }
     this.textarea.value = '';
@@ -177,15 +176,19 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    border: 'none',
-    backgroundColor: '#3F7BA9',
-    color: '#F5F5F5',
+    border: '3px solid #3F7BA9',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    color: '#3F7BA9',
     cursor: 'pointer',
     fontFamily: 'Fjalla One, sans-serif',
     fontSize: '1em',
     outline: 'none',
     margin: '0 5px',
-    padding: '3px 10px'
+    padding: '3px 10px',
+    ':hover': {
+      color: '#F5F5F5',
+      backgroundColor: '#3F7BA9'
+    }
   },
 
   dropdown: {

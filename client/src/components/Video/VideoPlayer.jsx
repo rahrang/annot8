@@ -3,6 +3,7 @@ import React from 'react';
 
 // NPM Modules
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { css, StyleSheet } from 'aphrodite';
 import * as _ from 'lodash';
 import YouTube from 'react-youtube';
@@ -10,6 +11,7 @@ import YouTube from 'react-youtube';
 // Local Components
 import SideBar from './SideBar.jsx';
 import { CommentActions } from '../../actions/comment-actions.js';
+import { VideoActions } from '../../actions/video-actions.js';
 
 class VideoPlayer extends React.Component {
   constructor(props) {
@@ -25,7 +27,8 @@ class VideoPlayer extends React.Component {
     let videoId = this.props.match.params.videoId;
     this.timestamp = this.props.match.params.timestamp || 0;
     this.setState({ videoId });
-    this.props.fetchVideoComments(videoId);
+    this.props.videoActions.fetchVideoStats(videoId);
+    this.props.commentActions.fetchVideoComments(videoId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,14 +40,15 @@ class VideoPlayer extends React.Component {
       this.setState({ videoId: nextVideoId });
       this.timestamp = nextProps.match.params.timestamp || 0;
       // fetch youtube statistics here, calling an action
-      this.props.fetchVideoComments(nextVideoId);
+      this.props.videoActions.fetchVideoStats(nextVideoId);
+      this.props.commentActions.fetchVideoComments(nextVideoId);
     }
 
     let commentReducer = this.props;
     let nextCommentReducer = nextProps;
     // if a new comment is made
     if (!_.isEqual(commentReducer, nextCommentReducer)) {
-      this.props.fetchVideoComments(videoId);
+      this.props.commentActions.fetchVideoComments(videoId);
     }
   }
 
@@ -64,13 +68,19 @@ class VideoPlayer extends React.Component {
     player.pauseVideo();
   };
 
+  // TODO -- USE DURATION GIVEN IN RESPONSE RATHER THAN THIS
   getDuration = () => {
     let { player } = this.state;
+    let { videoReducer } = this.props;
+    if (videoReducer.duration !== '-1') {
+      return videoReducer.duration;
+    }
     return !_.isEmpty(player) ? player.getDuration() : 0;
   };
 
   render() {
     let { videoId } = this.state;
+    let { videoReducer } = this.props;
 
     const opts = {
       height: '450',
@@ -87,6 +97,7 @@ class VideoPlayer extends React.Component {
     return (
       <div className={css(styles.videoPlayerContainer, styles.fadeIn)}>
         <div className={css(styles.playerContainer)}>
+          <h2 className={css(styles.videoTitle)}>{videoReducer.title}</h2>
           <YouTube
             id="video-player"
             videoId={videoId}
@@ -109,20 +120,27 @@ class VideoPlayer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     authReducer: state.authReducer,
-    commentsReducer: state.commentsReducer
+    commentsReducer: state.commentsReducer,
+    videoReducer: state.videoReducer
   };
-}
+};
 
-export default connect(mapStateToProps, CommentActions)(VideoPlayer);
+const mapDispatchToProps = dispatch => {
+  return {
+    commentActions: bindActionCreators(CommentActions, dispatch),
+    videoActions: bindActionCreators(VideoActions, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);
 
 const styles = StyleSheet.create({
   videoPlayerContainer: {
     display: 'flex',
     flexDirection: 'row',
-    // justifyContent: 'center',
     minHeight: 'calc(100vh - 110px)'
   },
 
@@ -134,6 +152,14 @@ const styles = StyleSheet.create({
     '@media(max-width: 767px)': {
       display: 'none'
     }
+  },
+
+  videoTitle: {
+    color: '#333',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1.5em',
+    margin: '5px 0',
+    padding: '0'
   },
 
   smallScreenContainer: {
@@ -151,6 +177,6 @@ const styles = StyleSheet.create({
 
   player: {
     border: '3px solid #3F7BA9',
-    margin: '20px 40px'
+    margin: '10px 40px'
   }
 });

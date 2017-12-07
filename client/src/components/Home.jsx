@@ -3,7 +3,6 @@ import React from 'react';
 
 // Redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 // React Router
 import { withRouter } from 'react-router';
@@ -11,9 +10,6 @@ import { withRouter } from 'react-router';
 // NPM Modules
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
-
-// Actions
-import { AuthActions } from '../actions/auth-actions';
 
 // Local Components
 import Input from './Input.jsx';
@@ -38,11 +34,7 @@ const mapStateToProps = state => {
   return { authReducer: state.authReducer };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return { mainActions: bindActionCreators(AuthActions, dispatch) };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default withRouter(connect(mapStateToProps, null)(Home));
 
 const styles = StyleSheet.create({
   homeContainer: {
