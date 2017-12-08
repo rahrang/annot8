@@ -16,6 +16,7 @@ import Input from './Input.jsx';
 
 class Home extends React.Component {
   render() {
+    document.title = 'Annot8';
     let { history } = this.props;
     return (
       <div className={css(styles.homeContainer, styles.fadeIn)}>

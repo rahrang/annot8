@@ -68,7 +68,6 @@ class VideoPlayer extends React.Component {
     player.pauseVideo();
   };
 
-  // TODO -- USE DURATION GIVEN IN RESPONSE RATHER THAN THIS
   getDuration = () => {
     let { player } = this.state;
     let { videoReducer } = this.props;
@@ -79,6 +78,7 @@ class VideoPlayer extends React.Component {
   };
 
   render() {
+    document.title = 'Annot8';
     let { videoId } = this.state;
     let { videoReducer } = this.props;
 
