@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     fontSize: '2em',
     margin: '20px auto',
     textAlign: 'center',
-    textTransform: 'uppercase',
     width: '200px'
   },
 

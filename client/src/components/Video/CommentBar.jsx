@@ -162,7 +162,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: '10px',
     margin: '0',
-    padding: '0 10px'
+    padding: '0 10px',
+    ':hover': {
+      color: '#FFAB40'
+    }
   },
 
   icon: {

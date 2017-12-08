@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     outline: 'none',
     textTransform: 'uppercase',
     ':hover': {
-      color: '#333'
+      color: '#FFAB40'
     }
   }
 });

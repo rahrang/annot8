@@ -149,7 +149,6 @@ const menuStyles = {
 
   bmMenu: {
     background: '#F5F5F5',
-    // fontSize: '1em',
     color: '#FFF',
     width: '500px'
   }

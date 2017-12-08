@@ -6,33 +6,72 @@ import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
 
-export default class Navbar extends React.Component {
-  render() {
+const Footer = props => {
+  const renderExternalLinks = () => {
     return (
-      <div className={css(styles.footerContainer, styles.fadeIn)}>
-        <div className={css(styles.linkContainer)}>
-          {LINK_INFO.map((link, index) => {
-            return (
-              <div key={`link_${index}`}>
-                <Link
-                  className={css(styles.link)}
-                  to={link.to}
-                  target={link.target}
-                >
-                  {link.text}
-                </Link>
-                {index !== 2 && ' |'}
-              </div>
-            );
-          })}
-        </div>
-        <div className={css(styles.creditContainer)}>
-          Rahul Rangnekar & Ya-An Hsiung
-        </div>
+      <div className={css(styles.linkContainer)}>
+        {EXTERNAL_LINK_INFO.map((link, index) => {
+          switch (link.useAnchor) {
+            case true:
+              return (
+                <div key={`link_${index}`}>
+                  <a
+                    className={css(styles.link)}
+                    href={link.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.text}
+                  </a>
+                  {index !== EXTERNAL_LINK_INFO.length - 1 && ' |'}
+                </div>
+              );
+            default:
+              return (
+                <div key={`link_${index}`}>
+                  <Link
+                    className={css(styles.link)}
+                    to={link.to}
+                    target="_self"
+                  >
+                    {link.text}
+                  </Link>
+                  {index !== EXTERNAL_LINK_INFO.length - 1 && ' |'}
+                </div>
+              );
+          }
+        })}
       </div>
     );
-  }
-}
+  };
+
+  return (
+    <div className={css(styles.footerContainer, styles.fadeIn)}>
+      <div className="external-link-container">{renderExternalLinks()}</div>
+      <div className={css(styles.creditContainer)}>
+        <a
+          className={css(styles.link)}
+          href="http://rahrang.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Rahul Rangnekar
+        </a>
+        &
+        <a
+          className={css(styles.link)}
+          href="https://linkedin.com/in/ya-anhsiung/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ya-An Hsiung
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
 
 const styles = StyleSheet.create({
   footerContainer: {
@@ -63,7 +102,7 @@ const styles = StyleSheet.create({
     padding: '0 5px',
     textDecoration: 'none',
     ':hover': {
-      color: '#333'
+      color: '#FFAB40'
     }
   },
 
@@ -73,20 +112,25 @@ const styles = StyleSheet.create({
   }
 });
 
-const LINK_INFO = [
+const EXTERNAL_LINK_INFO = [
   {
     to: '/about',
-    target: '_self',
-    text: 'About'
+    text: 'About',
+    useAnchor: false
+  },
+  {
+    to: 'http://bit.ly/annot8-ext',
+    text: 'Chrome Extension',
+    useAnchor: true
   },
   {
     to: 'https://github.com/rahrang/annot8',
-    target: '_blank',
-    text: 'GitHub'
+    text: 'GitHub',
+    useAnchor: true
   },
   {
     to: 'https://goo.gl/forms/d1XjnotjgKXKvptM2',
-    target: '_blank',
-    text: 'Feedback'
+    text: 'Feedback',
+    useAnchor: true
   }
 ];

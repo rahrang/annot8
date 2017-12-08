@@ -22,7 +22,6 @@ export default class Comment extends React.Component {
       timestamp,
       datePosted,
       user,
-      // isResolved,
       isCurrentUser,
       deleteComment
     } = this.props;
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
   },
 
   iconContainer: {
-    color: '#333',
+    color: '#FFAB40',
     cursor: 'pointer',
     display: 'flex',
     flexDirection: 'column',
