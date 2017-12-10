@@ -49,7 +49,10 @@ const styles = StyleSheet.create({
   userEmail: {
     color: '#F5F5F5',
     fontFamily: 'Open Sans, sans-serif',
-    fontSize: '1em'
+    fontSize: '1em',
+    ':hover': {
+      color: '#FFAB40'
+    }
   },
 
   userPhoto: {
@@ -72,6 +75,9 @@ const styles = StyleSheet.create({
     color: '#3F7BA9',
     fontFamily: 'Fjalla One, sans-serif',
     fontSize: '1.75em',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    ':hover': {
+      color: '#FFAB40'
+    }
   }
 });

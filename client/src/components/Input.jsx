@@ -8,7 +8,10 @@ const queryString = require('query-string');
 
 export default class Input extends React.Component {
   componentDidMount() {
-    this.input.focus();
+    let { altStyle } = this.props;
+    if (_.isUndefined(altStyle)) {
+      this.input.focus();
+    }
   }
 
   handleKeyPress = e => {
@@ -36,12 +39,20 @@ export default class Input extends React.Component {
   };
 
   render() {
-    let { placeholder } = this.props;
+    let { placeholder, altStyle } = this.props;
 
     return (
-      <div className={css(styles.inputContainer, styles.fadeIn)}>
+      <div
+        className={css(
+          styles.inputContainer,
+          altStyle ? styles.altContainerStyle : styles.defContainerStyle
+        )}
+      >
         <input
-          className={css(styles.input)}
+          className={css(
+            styles.input,
+            altStyle ? styles.altInputStyle : styles.defInputStyle
+          )}
           placeholder={
             placeholder
               ? placeholder
@@ -52,7 +63,10 @@ export default class Input extends React.Component {
           onKeyPress={e => this.handleKeyPress(e)}
         />
         <button
-          className={css(styles.button, styles.mainButton)}
+          className={css(
+            styles.button,
+            altStyle ? styles.altButtonStyle : styles.defButtonStyle
+          )}
           onClick={this.handleClick}
         >
           Let's Go!
@@ -68,10 +82,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: ' 5px 10px'
+  },
+
+  defContainerStyle: {
     fontSize: '2em',
     height: '80px',
     width: '1000px',
-    padding: '5px 0',
     '@media(max-width:1200px)': {
       fontSize: '1.5em',
       height: '60px',
@@ -89,21 +106,33 @@ const styles = StyleSheet.create({
     }
   },
 
+  altContainerStyle: {
+    fontSize: '1em',
+    height: '40px',
+    width: '360px'
+  },
+
   input: {
     color: '#666',
     border: 'none',
     fontFamily: 'Open Sans, sans-serif',
-    fontSize: '1.125em',
     outline: 'none',
     padding: '0 10px',
     height: '100%',
     width: '100%'
   },
 
+  defInputStyle: {
+    fontSize: '1.125em'
+  },
+
+  altInputStyle: {
+    fontSize: '1em'
+  },
+
   button: {
-    backgroundColor: '#3F7BA9',
     border: 'none',
-    color: '#F5F5F5',
+    borderRadius: '0',
     cursor: 'pointer',
     fontFamily: 'Fjalla One, sans-serif',
     fontSize: '1em',
@@ -117,5 +146,15 @@ const styles = StyleSheet.create({
     ':hover': {
       color: '#FFAB40'
     }
+  },
+
+  defButtonStyle: {
+    backgroundColor: '#3F7BA9',
+    color: '#F5F5F5'
+  },
+
+  altButtonStyle: {
+    backgroundColor: '#F4F5F5',
+    color: '#3F7BA9'
   }
 });

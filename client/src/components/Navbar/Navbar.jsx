@@ -4,6 +4,7 @@ import React from 'react';
 // NPM Modules
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import * as _ from 'lodash';
 import { css, StyleSheet } from 'aphrodite';
 import { fadeIn } from 'react-animations';
@@ -11,6 +12,7 @@ import { fadeIn } from 'react-animations';
 // Local Components
 import NavbarProfile from './NavbarProfile.jsx';
 import LoginButton from '../reusable_components/LoginButton.jsx';
+import Input from '../Input.jsx';
 import { AuthActions } from '../../actions/auth-actions.js';
 
 class Navbar extends React.Component {
@@ -27,6 +29,7 @@ class Navbar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('called cwrp');
     let { authReducer } = this.props;
     if (!_.isEqual(authReducer.user, nextProps.authReducer.user)) {
       nextProps.fetchUser();
@@ -34,8 +37,16 @@ class Navbar extends React.Component {
     }
   }
 
+  isHomePath = () => {
+    let { pathname } = this.props.history.location;
+    let pathArr = pathname.split('/');
+    console.log(pathArr);
+    let path = pathArr[1];
+    return _.isEmpty(path);
+  };
+
   render() {
-    let { authReducer } = this.props;
+    let { authReducer, history } = this.props;
     let { isLoggedIn } = this.state;
 
     return (
@@ -44,6 +55,13 @@ class Navbar extends React.Component {
           <Link to="/" className={css(styles.headerLink)}>
             <h1 className={css(styles.header)}>Annot8</h1>
           </Link>
+          {!this.isHomePath() && (
+            <Input
+              history={history}
+              placeholder="Enter a YouTube link!"
+              altStyle
+            />
+          )}
           <div className={css(styles.container)}>
             {isLoggedIn ? (
               <NavbarProfile user={authReducer.user} />
@@ -61,17 +79,23 @@ function mapStateToProps(state) {
   return { authReducer: state.authReducer };
 }
 
-export default connect(mapStateToProps, AuthActions)(Navbar);
+export default withRouter(connect(mapStateToProps, AuthActions)(Navbar));
 
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#3F7BA9',
-    height: '50px',
+    minHeight: '50px',
     width: '100%',
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '10px 0'
+    padding: '10px 0',
+    '@media(max-width:768px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
   },
 
   headerLink: {

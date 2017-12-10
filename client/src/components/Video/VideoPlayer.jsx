@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
   smallScreenContainer: {
     color: '#333',
     display: 'none',
-    fontSize: '1.5em',
+    fontSize: '2em',
+    textAlign: 'center',
     '@media(max-width: 767px)': {
       display: 'flex',
       flexDirection: 'column',

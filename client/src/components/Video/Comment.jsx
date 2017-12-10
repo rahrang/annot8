@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: '1em',
     margin: '1px 0',
     padding: '0 5px',
-    wordBreak: 'break-all'
+    wordBreak: 'break-word'
   },
 
   secondRow: {
