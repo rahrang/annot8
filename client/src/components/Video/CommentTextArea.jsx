@@ -137,7 +137,7 @@ export default class CommentTextArea extends React.Component {
             >
               go back
             </span>{' '}
-            to All Comments to make a comment at another timestamp.
+            to All Comments to comment at another timestamp.
           </span>
         )}
       </div>

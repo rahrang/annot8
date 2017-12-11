@@ -86,7 +86,6 @@ const addZeroChar = num => {
 };
 
 const convertTimeToSeconds = (hours, minutes, seconds) => {
-  console.log(hours, minutes, seconds);
   let hoursInSeconds = !_.isNaN(hours) ? _.toInteger(hours) * 3600 : 0;
   let minutesInSeconds = !_.isNaN(minutes) ? _.toInteger(minutes) * 60 : 0;
   let secondsInSeconds = !_.isNaN(seconds) ? _.toInteger(seconds) : 0;
@@ -105,17 +104,6 @@ const formatTime = (timestamp, upperBound = 0) => {
   }
   return `${minutesFormatted}:${secondsFormatted}`;
 };
-
-// const truncate = text => {
-//   if (text.length < 40) {
-//     return text;
-//   }
-//   let textArray = text.split("");
-//   let truncatedArray = textArray.slice(0, 40);
-//   truncatedArray.push("...");
-//   let newText = truncatedArray.join("");
-//   return newText;
-// };
 
 module.exports = {
   getTimeElapsed,
