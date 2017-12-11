@@ -29,7 +29,6 @@ class Navbar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('called cwrp');
     let { authReducer } = this.props;
     if (!_.isEqual(authReducer.user, nextProps.authReducer.user)) {
       nextProps.fetchUser();
@@ -39,9 +38,7 @@ class Navbar extends React.Component {
 
   isHomePath = () => {
     let { pathname } = this.props.history.location;
-    let pathArr = pathname.split('/');
-    console.log(pathArr);
-    let path = pathArr[1];
+    let path = pathname.split('/')[1];
     return _.isEmpty(path);
   };
 
