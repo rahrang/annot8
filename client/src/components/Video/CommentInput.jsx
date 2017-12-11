@@ -23,6 +23,7 @@ export default class CommentInput extends React.Component {
       handleSubmit,
       onFocus,
       getDuration,
+      changeView,
       view,
       timestamp
     } = this.props;
@@ -42,6 +43,7 @@ export default class CommentInput extends React.Component {
             handleSubmit={handleSubmit}
             onFocus={onFocus}
             getDuration={getDuration}
+            changeView={changeView}
             view={view}
             timestamp={timestamp}
           />

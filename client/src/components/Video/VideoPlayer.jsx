@@ -59,13 +59,18 @@ class VideoPlayer extends React.Component {
   // use this when creating new threads
   getTime = () => {
     let { player } = this.state;
+    if (_.isEmpty(player)) {
+      return '0';
+    }
     this.pauseVideo();
-    return Math.floor(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
+    return Math.round(player.getCurrentTime()); // whole seconds (i.e. 76, 12, 104)
   };
 
   pauseVideo = () => {
     let { player } = this.state;
-    player.pauseVideo();
+    if (!_.isEmpty(player)) {
+      player.pauseVideo();
+    }
   };
 
   getDuration = () => {
@@ -149,6 +154,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '0 20px',
     '@media(max-width: 767px)': {
       display: 'none'
     }

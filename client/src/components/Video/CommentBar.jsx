@@ -114,6 +114,7 @@ class CommentBar extends React.Component {
             onFocus={pauseVideo}
             getDuration={getDuration}
             timestamp={timestamp === -1 ? 0 : timestamp}
+            changeView={changeView}
             view="comments"
           />
         </div>

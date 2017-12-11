@@ -84,7 +84,7 @@ export default class CommentTextArea extends React.Component {
   };
 
   render() {
-    let { onFocus, user, view } = this.props;
+    let { onFocus, user, changeView, view } = this.props;
     let { selected } = this.state;
 
     let options = [
@@ -129,6 +129,17 @@ export default class CommentTextArea extends React.Component {
             searchable={false}
           />
         </div>
+        {view === 'comments' && (
+          <span className={css(styles.msgContainer)}>
+            <span
+              className={css(styles.msg)}
+              onClick={() => changeView('status')}
+            >
+              go back
+            </span>{' '}
+            to All Comments to make a comment at another timestamp.
+          </span>
+        )}
       </div>
     );
   }
@@ -141,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '150px',
+    height: '175px',
     width: '450px'
   },
 
@@ -197,5 +208,22 @@ const styles = StyleSheet.create({
     fontSize: '0.875em',
     margin: '0 5px',
     width: '225px'
+  },
+
+  msgContainer: {
+    color: '#666',
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '0.75em',
+    fontWeight: 'bold',
+    margin: '5px 0'
+  },
+
+  msg: {
+    color: '#3F7BA9',
+    cursor: 'pointer',
+    textTransform: 'uppercase',
+    ':hover': {
+      color: '#FFAB40'
+    }
   }
 });

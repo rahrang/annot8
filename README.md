@@ -4,6 +4,7 @@ A Social Good Project for CS 194 at UC Berkeley, taught by [Barath Raghavan](htt
 This project is a web application & Google Chrome extension for Berkeley students to ask and answer questions on lecture videos webcasted to YouTube.
 
 Web Application: http://annot8.net
+
 Chrome Extension: http://bit.ly/annot8-ext
 
 This project was built with React and Redux on the front-end, Node on the back-end, and a MongoDB database.
