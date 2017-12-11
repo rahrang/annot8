@@ -105,10 +105,16 @@ const formatTime = (timestamp, upperBound = 0) => {
   return `${minutesFormatted}:${secondsFormatted}`;
 };
 
+const formatTitle = props => {
+  let { videoId, videoTitle } = props.original;
+  return !_.isUndefined(videoTitle) ? videoTitle : videoId;
+};
+
 module.exports = {
   getTimeElapsed,
   getTimeBoundaries,
   stringifyTime,
   convertTimeToSeconds,
-  formatTime
+  formatTime,
+  formatTitle
 };

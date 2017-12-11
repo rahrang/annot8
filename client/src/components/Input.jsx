@@ -49,10 +49,7 @@ export default class Input extends React.Component {
         )}
       >
         <input
-          className={css(
-            styles.input,
-            altStyle ? styles.altInputStyle : styles.defInputStyle
-          )}
+          className={css(styles.input)}
           placeholder={
             placeholder
               ? placeholder
@@ -109,25 +106,19 @@ const styles = StyleSheet.create({
   altContainerStyle: {
     fontSize: '1em',
     height: '40px',
-    width: '360px'
+    width: '700px',
+    maxWidth: '90%'
   },
 
   input: {
     color: '#666',
     border: 'none',
+    fontSize: '1.125em',
     fontFamily: 'Open Sans, sans-serif',
     outline: 'none',
     padding: '0 10px',
     height: '100%',
     width: '100%'
-  },
-
-  defInputStyle: {
-    fontSize: '1.125em'
-  },
-
-  altInputStyle: {
-    fontSize: '1em'
   },
 
   button: {

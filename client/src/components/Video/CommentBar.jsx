@@ -45,11 +45,12 @@ class CommentBar extends React.Component {
 
   handleSubmit = async (value, isAnonymous) => {
     let { timestamp } = this.state;
-    let { videoId, user } = this.props;
+    let { videoId, videoTitle, user } = this.props;
     let userName = user.name;
     if (!_.isEmpty(value)) {
       await this.props.makeComment(
         videoId,
+        videoTitle,
         timestamp,
         userName,
         isAnonymous,

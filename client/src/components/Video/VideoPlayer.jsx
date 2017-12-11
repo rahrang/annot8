@@ -116,6 +116,7 @@ class VideoPlayer extends React.Component {
         </div>
         <SideBar
           videoId={videoId}
+          videoTitle={videoReducer.title}
           getTime={this.getTime}
           getDuration={this.getDuration}
           pauseVideo={this.pauseVideo}

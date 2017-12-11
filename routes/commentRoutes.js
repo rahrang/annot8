@@ -63,9 +63,17 @@ module.exports = app => {
 
   // POST a new commment on a video
   app.post('/api/video/comments/', requireLogin, async (req, res) => {
-    const { videoId, timestamp, userName, isAnonymous, text } = req.body;
+    const {
+      videoId,
+      videoTitle,
+      timestamp,
+      userName,
+      isAnonymous,
+      text
+    } = req.body;
     const comment = new Comment({
       videoId,
+      videoTitle,
       timestamp,
       userName,
       isAnonymous,

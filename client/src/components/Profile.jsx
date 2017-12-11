@@ -70,6 +70,7 @@ class Profile extends React.Component {
             data={commentsReducer.user_comments}
             columns={columns}
             defaultPageSize={10}
+            defaultSorted={[{ id: 'datePosted', desc: true }]}
             showPageSizeOptions={true}
             resizable={false}
             pageText=""
@@ -186,11 +187,14 @@ const tableStyles = StyleSheet.create({
 
 const columns = [
   {
-    Header: 'Video ID',
-    accessor: 'videoId',
+    Header: 'Video Title/ID',
+    accessor: 'videoTitle',
+    Cell: props => {
+      return helpers.formatTitle(props);
+    },
     className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
     headerClassName: css(tableStyles.columnName),
-    width: 125
+    width: 250
   },
   {
     Header: 'Posted',
@@ -218,11 +222,4 @@ const columns = [
     className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
     headerClassName: css(tableStyles.columnName)
   }
-  // {
-  //   Header: "Resolved",
-  //   accessor: "isResolved",
-  //   className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
-  //   headerClassName: css(tableStyles.columnName),
-  //   width: 100
-  // }
 ];

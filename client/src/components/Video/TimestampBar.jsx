@@ -33,11 +33,12 @@ class TimestampBar extends React.Component {
   };
 
   handleSubmit = async (value, isAnonymous, timestamp) => {
-    let { videoId, authReducer } = this.props;
+    let { videoId, videoTitle, authReducer } = this.props;
     let userName = authReducer.user.name;
     if (!_.isEmpty(value) && timestamp !== -1) {
       await this.props.makeComment(
         videoId,
+        videoTitle,
         timestamp,
         userName,
         isAnonymous,

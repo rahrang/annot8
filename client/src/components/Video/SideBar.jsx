@@ -58,6 +58,7 @@ class SideBar extends React.Component {
     let {
       authReducer,
       videoId,
+      videoTitle,
       getTime,
       getDuration,
       pauseVideo,
@@ -79,6 +80,7 @@ class SideBar extends React.Component {
         {view === 'comments' ? (
           <CommentBar
             videoId={videoId}
+            videoTitle={videoTitle}
             changeView={this.changeView}
             getDuration={getDuration}
             pauseVideo={pauseVideo}
@@ -89,6 +91,7 @@ class SideBar extends React.Component {
         ) : (
           <TimestampBar
             videoId={videoId}
+            videoTitle={videoTitle}
             changeView={this.changeView}
             getTime={getTime}
             getDuration={getDuration}

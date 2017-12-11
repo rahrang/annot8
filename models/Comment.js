@@ -19,6 +19,9 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
+  videoTitle: {
+    type: String
+  },
   timestamp: {
     type: Number,
     required: true
