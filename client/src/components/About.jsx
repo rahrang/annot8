@@ -55,6 +55,26 @@ const About = props => {
           the ability to answer those questions.
         </p>
       </div>
+      <div className={css(styles.sectionContainer)}>
+        <h3 className={css(styles.sectionHeader)}>Resources</h3>
+        {
+          RESOURCES.map((r, index) => {
+            return (
+              <p className={css(styles.paragraph)} key={`r_${index}`}>
+                {`${r.preText}: `}
+                <a
+                  className={css(styles.link)}
+                  href={r.href}
+                  target='_blank'
+                  rel="noopener noreferrer"
+                >
+                  {r.linkText}
+                </a>
+              </p>
+            )
+          })
+        }
+      </div>
     </div>
   );
 };
@@ -119,8 +139,34 @@ const styles = StyleSheet.create({
     padding: '0'
   },
 
+  link: {
+    color: '#3F7BA9',
+    textDecoration: 'none',
+    ':hover': {
+      color: '#FFAB40',
+    }
+  },
+
   fadeIn: {
     animationName: fadeIn,
     animationDuration: '1s'
   }
 });
+
+const RESOURCES = [
+  {
+    preText: 'App Repository',
+    href: 'https://git.io/annot8',
+    linkText: 'git.io/annot8'
+  },
+  {
+    preText: 'Chrome Extension',
+    href: 'http://bit.ly/annot8-ext',
+    linkText: 'bit.ly/annot8-ext'
+  },
+  {
+    preText: 'Extension Repository',
+    href: 'https://git.io/annot8-ext',
+    linkText: 'git.io/annot8-ext'
+  },
+]
