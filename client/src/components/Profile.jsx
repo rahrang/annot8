@@ -7,6 +7,7 @@ import { css, StyleSheet } from 'aphrodite';
 import * as _ from 'lodash';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import '../stylesheets/react-table.css';
 
 // Local Components
 import { CommentActions } from '../actions/comment-actions.js';
@@ -159,13 +160,13 @@ const tableStyles = StyleSheet.create({
     fontSize: '0.9em',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'baseline',
     minHeight: '45px',
     overflowX: 'auto',
     overflowY: 'hidden'
   },
 
   centered: {
-    display: 'flex',
     justifyContent: 'center',
     textAlign: 'center'
   },
@@ -192,9 +193,9 @@ const columns = [
     Cell: props => {
       return helpers.formatTitle(props);
     },
-    className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
+    className: css(tableStyles.table, tableStyles.cell),
     headerClassName: css(tableStyles.columnName),
-    width: 250
+    width: 300
   },
   {
     Header: 'Posted',
@@ -214,12 +215,12 @@ const columns = [
     },
     className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
     headerClassName: css(tableStyles.columnName),
-    width: 100
+    width: 125
   },
   {
     Header: 'Comment',
     accessor: 'text',
-    className: css(tableStyles.table, tableStyles.cell, tableStyles.centered),
+    className: css(tableStyles.table, tableStyles.cell),
     headerClassName: css(tableStyles.columnName)
   }
 ];

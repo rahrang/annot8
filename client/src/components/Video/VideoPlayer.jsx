@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '0 20px',
+    margin: '10px 40px',
     '@media(max-width: 767px)': {
       display: 'none'
     }
@@ -166,7 +166,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans, sans-serif',
     fontSize: '1.5em',
     margin: '5px 0',
-    padding: '0'
+    padding: '0',
+    textAlign: 'center',
+    width: '720px'
   },
 
   smallScreenContainer: {
@@ -179,12 +181,11 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '20px'
+      margin: '10px 40px'
     }
   },
 
   player: {
-    border: '3px solid #3F7BA9',
-    margin: '10px 40px'
+    border: '3px solid #3F7BA9'
   }
 });
